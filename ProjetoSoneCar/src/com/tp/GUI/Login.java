@@ -8,12 +8,12 @@ package com.tp.GUI;
  *
  * @author aluno
  */
-public class Menu extends javax.swing.JPanel {
+public class Login extends javax.swing.JPanel {
 
     /**
      * Creates new form Menu
      */
-    public Menu() {
+    public Login() {
         initComponents();
     }
 
@@ -29,6 +29,11 @@ public class Menu extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JTextField();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -36,7 +41,7 @@ public class Menu extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("MENU");
+        jLabel1.setText("LOGIN");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -54,14 +59,34 @@ public class Menu extends javax.swing.JPanel {
 
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 569, -1));
 
-        jButton1.setText("CADASTRAR VEICULO");
-        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, 32));
+        jButton1.setText("CADASTRAR-SE");
+        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(409, 180, 114, 32));
+
+        jLabel2.setText("USUARIO:");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, -1, 32));
+
+        jTextField2.setText("USUARIO_TESTE");
+        add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 180, 162, 32));
+
+        jButton2.setText("LOGIN");
+        add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 430, 350, 30));
+
+        jLabel3.setText("SENHA:");
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, -1, 32));
+
+        jTextField3.setText("USUARIO_TESTE");
+        add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 220, 162, 32));
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
 }
