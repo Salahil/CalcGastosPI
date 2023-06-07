@@ -11,4 +11,34 @@ package com.tp.modelos;
 public class Marca {
     int id;
     String descricao;
+    
+    // gets e sets bobão:
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+    
+    // construtor bunitim e construtor feinho
+    
+    public Marca(){
+    }
+    
+    public Marca(String desc){
+        // tem que colocar os comandos que criam a id da marca
+        
+        // bota aqui
+        this.descricao = desc;
+    }
 }
