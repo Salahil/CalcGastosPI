@@ -41,4 +41,18 @@ public class Marca {
         // bota aqui
         this.descricao = desc;
     }
+    
+    //ToString sacaninha:
+
+    @Override
+    public String toString() {
+        return "Marca{" + "id=" + id + ", descricao=" + descricao + '}';
+    }
+    public String toStringDescricao(){
+        return ("" + descricao);
+    }
+    
+    public String toStringID(){
+        return ("" + id);
+    }
 }

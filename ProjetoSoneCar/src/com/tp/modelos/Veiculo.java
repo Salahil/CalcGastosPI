@@ -80,4 +80,32 @@ public class Veiculo {
         this.marca = marca;
         this.modelo = modelo;
     }
+    
+    // Bagulheira de toString:
+
+    @Override
+    public String toString() {
+        return "Veiculo{" + "placa=" + placa + ", tipoDeCombustivel=" + tipoDeCombustivel + ", quilometragemAtual=" + quilometragemAtual + ", categoria=" + categoria + ", marca=" + marca + ", modelo=" + modelo + '}';
+    }
+    
+    public String toStringPlaca(){
+        return ("" + placa);
+    }
+    
+    public String toStringTipoDeCombustivel(){
+        return ("" + tipoDeCombustivel);
+    }
+    
+    public String toStringKmAtual(){
+        return ("" + quilometragemAtual);
+    }
+    
+    public String toStringCategoria(){
+        return ("" + categoria);
+    }
+    
+    //Marca e Modelo já tem seus próprios métodos toString, usa o deles:
+    // marca.toStringDescricao()
+    // modelo.toStringDescricao()
 }
+

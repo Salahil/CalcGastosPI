@@ -10,7 +10,7 @@ package com.tp.modelos;
  */
 public class Modelo {
     int id;
-    String descriçao;
+    String descricao;
     
     // gets e sets pra caracas:
 
@@ -22,12 +22,12 @@ public class Modelo {
         this.id = id;
     }
 
-    public String getDescriçao() {
-        return descriçao;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setDescriçao(String descriçao) {
-        this.descriçao = descriçao;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
     
     // Budegagem de construtor:
@@ -39,6 +39,21 @@ public class Modelo {
         // tem que colocar os comandos que criam a id da marca
         
         // bota aqui
-        this.descriçao = desc;
+        this.descricao = desc;
+    }
+    
+    //Marotagem de toString:
+
+    @Override
+    public String toString() {
+        return "Modelo{" + "id=" + id + ", descrição=" + descricao + '}';
+    }
+    
+    public String toStringDescricao(){
+        return ("" + descricao);
+    }
+    
+    public String toStringId(){
+        return ("" + id);
     }
 }

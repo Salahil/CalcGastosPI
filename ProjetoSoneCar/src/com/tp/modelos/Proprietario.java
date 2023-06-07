@@ -91,4 +91,50 @@ public class Proprietario {
         CNH cnh = new CNH(numeroCNH, cat);
         this.DocumentoCNH = cnh;
     }
+    
+    //toString Sapecagens:
+
+    @Override
+    public String toString() {
+        return "Proprietario{" + "CPF=" + CPF + ", nomeCompleto=" + nomeCompleto + ", telefone1=" + telefone1 + ", telefone2=" + telefone2 + ", email_1=" + email_1 + ", email_2=" + email_2 + ", DocumentoCNH=" + DocumentoCNH + '}';
+    }
+    
+    public String toStringCPF(){
+        return ("" + CPF);
+    }
+    
+    public String toStringNomeCompleto(){
+        return ("" + nomeCompleto);
+    }
+    
+    public String toStringTelefone_1(){
+        return (""+telefone1);
+    }
+    
+    public String toStringTelefone_2(){
+        return ("" + telefone2);
+    }
+    
+    public String toStringEmail_1(){
+        return ("" + email_1);
+    }
+    
+    public String toStringEmail_2(){
+        return ("" + email_2);
+    }
+    
+    public String toStringCNHCategoria(){
+        return ("" + DocumentoCNH.getCategoria());
+    }
+    
+    public String toStringCNHNumero(){
+        return ("" + DocumentoCNH.getNumeroDocumentoCNH());
+    }
+    
+    public String toStringCNH(){
+        return ("" + DocumentoCNH);
+    }
+    
+    //Veículo tem os seus toStrings, pode usar... eles não mordem.
+    // Lembra que o Modelo e Marca tem seus proprios, se for usar nessa classe importa e instancia Marca e Modelo.
 }
