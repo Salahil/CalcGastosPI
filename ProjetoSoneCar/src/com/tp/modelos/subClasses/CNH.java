@@ -4,13 +4,15 @@
  */
 package com.tp.modelos.subClasses;
 
+import com.tp.enumeracao.CategoriaDeCNH;
+
 /**
  *
  * @author Julio
  */
 public class CNH {
     private int numeroDocumentoCNH;
-    private char categoria;
+    private CategoriaDeCNH categoria;
     
     // Budegagem de gets e sets que vai quê né?
 
@@ -22,11 +24,11 @@ public class CNH {
         this.numeroDocumentoCNH = numeroDocumentoCNH;
     }
 
-    public char getCategoria() {
+    public CategoriaDeCNH getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(char categoria) {
+    public void setCategoria(CategoriaDeCNH categoria) {
         this.categoria = categoria;
     }
     
@@ -35,7 +37,7 @@ public class CNH {
     public CNH(){
     }; // feinho
     
-    public CNH(int num, char cat){
+    public CNH(int num, CategoriaDeCNH cat){
         this.numeroDocumentoCNH = num;
         this.categoria = cat;
     }
