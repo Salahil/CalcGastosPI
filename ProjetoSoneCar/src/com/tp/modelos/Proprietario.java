@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.tp.modelos;
+import com.tp.enumeracao.CategoriaDeCNH;
 import com.tp.modelos.subClasses.CNH;
 /**
  *
@@ -81,7 +82,7 @@ public class Proprietario {
     public Proprietario(){
     }
     
-    public Proprietario(String cpf, String NomeC, int tel_1, int tel_2, String email_1, String email_2, char cat, int numeroCNH){
+    public Proprietario(String cpf, String NomeC, int tel_1, int tel_2, String email_1, String email_2, CategoriaDeCNH cat, int numeroCNH){
         this.CPF = cpf;
         this.nomeCompleto = NomeC;
         this.telefone1 = tel_1;
