@@ -88,8 +88,8 @@ public class Proprietario {
         this.telefone2 = tel_2;
         this.email_1 = email_1;
         this.email_2 = email_2;
-        CNH cnh = new CNH(numeroCNH, cat);
-        this.DocumentoCNH = cnh;
+     //   CNH cnh = new CNH(numeroCNH, cat);
+     //   this.DocumentoCNH = cnh;
     }
     
     //toString Sapecagens:
