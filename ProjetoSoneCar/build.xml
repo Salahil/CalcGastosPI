@@ -71,3 +71,8 @@
 
     -->
 </project>
+<java classname="com.tp.execucao.MainClass" fork="true">
+    <classpath>
+        <path refid="classpath"/>
+    </classpath>
+</java>
