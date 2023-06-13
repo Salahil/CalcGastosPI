@@ -4,19 +4,16 @@
  */
 package com.tp.persistencia;
 
+import com.tp.modelos.Marca;
 import java.util.ArrayList;
 
 /**
  *
  * @author sergy
  */
-public interface IMarcaDao<ObjetoMarca> {
-    
-    public void inserir(ObjetoMarca objt);
-    
-    public void alterar(ObjetoMarca objt);
-    
-    public void excluir();
-    
-    public ArrayList<ObjetoMarca> consultar();
+public interface IMarcaDao{
+     void createMarca(Marca isMarca)throws Exception;
+    ArrayList<Marca>listaDeMarca()throws Exception;
+    ArrayList<Marca>deleteMarca()throws Exception;
+    ArrayList<Marca>alterarMarca()throws Exception;
 }
