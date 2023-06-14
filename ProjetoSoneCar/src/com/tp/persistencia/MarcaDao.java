@@ -11,7 +11,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
+import java.lang.String;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author sergy
@@ -57,31 +59,54 @@ public MarcaDao() throws Exception{
     }
 
     @Override
-    public ArrayList<Marca> deleteMarca() throws Exception {
-        ArrayList<Marca>deleteMarca = new ArrayList<Marca>();
-       String sql = "delete from marca where(id = ?)";
-       try{
-           Statement statement = conexao.createStatement();
-       ResultSet rs = statement.executeQuery(sql);
-       }catch(SQLException e){
-           e.printStackTrace();
-       }
-      
-      return deleteMarca;
+    public ArrayList<Marca> deleteMarca(int id) throws Exception {
+    ArrayList<Marca> listaDeMarcas = new ArrayList<>();
+    String sql = "DELETE FROM marca WHERE id = ?";
+    try (PreparedStatement preparedStatement = conexao.prepareStatement(sql)) {
+        preparedStatement.setInt(1, id);
+        preparedStatement.executeUpdate();
+    } catch (SQLException e) {
+        throw new Exception("Erro ao excluir a marca: " + e.getMessage());
+    }
+    listaDeMarcas = listaDeMarca(); // Atualiza a lista de marcas após a exclusão
+    return listaDeMarcas;
+}
+
+    @Override
+    public ArrayList<Marca> alterarMarca(Marca marca) throws Exception {
+        ArrayList<Marca>alterarMarca = new ArrayList<Marca>();
+       String sql = "UPDATE marca SET descricao = ? WHERE id = ?";
+    try (PreparedStatement preparedStatement = conexao.prepareStatement(sql)) {
+        preparedStatement.setString(1, marca.getDescricao());
+        preparedStatement.setInt(2, marca.getId());
+        preparedStatement.executeUpdate();
+    } catch (SQLException e) {
+        throw new Exception("Erro ao alterar a marca: " + e.getMessage());
+    }
+       return alterarMarca;
     }
 
     @Override
-    public ArrayList<Marca> alterarMarca() throws Exception {
-        ArrayList<Marca>alterarMarca = new ArrayList<Marca>();
-        String sql = "update consultor set nome ='?', email = '?' where(idconsultor = )";
-    try{
-           Statement statement = conexao.createStatement();
-       ResultSet rs = statement.executeQuery(sql);
-       }catch(SQLException p){
-           p.printStackTrace();
-       }
-       return alterarMarca;
+public boolean descricaoJaExiste(String descricao) {
+        String query = "SELECT COUNT(*) FROM marcas WHERE descricao = ?";
+        try (Connection conn = ConexaoBanco.getConexao();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setString(1, descricao);
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
+            int count = rs.getInt(1);
+            return count > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao verificar se a descrição existe: " + e.getMessage());
+        } catch (Exception ex) {
+        Logger.getLogger(MarcaDao.class.getName()).log(Level.SEVERE, null, ex);
     }
+    return false;
+    
+}
+
+    
 }
     
 

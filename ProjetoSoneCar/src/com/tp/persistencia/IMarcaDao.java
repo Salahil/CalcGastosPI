@@ -14,6 +14,8 @@ import java.util.ArrayList;
 public interface IMarcaDao{
      void createMarca(Marca isMarca)throws Exception;
     ArrayList<Marca>listaDeMarca()throws Exception;
-    ArrayList<Marca>deleteMarca()throws Exception;
-    ArrayList<Marca>alterarMarca()throws Exception;
+    ArrayList<Marca>deleteMarca(int id)throws Exception;
+    ArrayList<Marca>alterarMarca(Marca marca)throws Exception;
+    boolean descricaoJaExiste(String descricao);
+
 }

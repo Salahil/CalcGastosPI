@@ -8,6 +8,8 @@ import com.tp.modelos.Marca;
 import com.tp.persistencia.IMarcaDao;
 import com.tp.persistencia.MarcaDao;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -18,11 +20,13 @@ import javax.swing.table.DefaultTableModel;
 public class marca extends javax.swing.JFrame {
 
     /**
-     * Creates new form marca
+     * 
      */
-    public marca() {
+    public marca() throws Exception {
        initComponents();
-        jTextFieldId.setEnabled(false);
+       // jTextFieldId.setEnabled(false);
+       atualizarGrid(new MarcaDao().listaDeMarca());
+       
     }
 
     /**
@@ -200,50 +204,130 @@ public class marca extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+   
     private void jButtonIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIncluirActionPerformed
         // TODO add your handling code here:
         try {
-            Marca pessoa = null;
-            pessoa = new Marca( jTextFieldDescricao.getText());
+    String descricao = jTextFieldDescricao.getText();
 
-            IMarcaDao marcaBD = null;
-            marcaBD = new MarcaDao();
-            marcaBD.createMarca(pessoa);
-            limparTela();
-            atualizarGrid(marcaBD.listaDeMarca());
-        } catch (Exception erro) {
-            JOptionPane.showMessageDialog(this, erro.getMessage());
-        }
+    IMarcaDao marcaBD = new MarcaDao();
+atualizarGrid(marcaBD.listaDeMarca());
+    // Verifica se a descrição já existe no banco de dados
+    if (marcaBD.descricaoJaExiste(descricao)) {
+        JOptionPane.showMessageDialog(this, "A descrição já existe. Não é possível cadastrar novamente.");
+        return;
+    }
+
+    Marca marca = new Marca(descricao);
+
+    marcaBD.createMarca(marca);
+    limparTela();
+    
+} catch (Exception erro) {
+    JOptionPane.showMessageDialog(this,"A descrição já existe. Não é possível cadastrar novamente.");
+}
+
     }//GEN-LAST:event_jButtonIncluirActionPerformed
 
     private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
-        // TODO add your handling code here:
+
+    try {
+        int id = Integer.parseInt(jTextFieldId.getText()); // Obtém o ID do JTextField
+        String descricao = jTextFieldDescricao.getText(); // Obtém a descrição do JTextField
+
+        // Cria um objeto Marca com os dados atualizados
+        Marca marca = new Marca();
+        marca.setId(id);
+        marca.setDescricao(descricao);
+
+        IMarcaDao marcaBD = new MarcaDao();
+        marcaBD.alterarMarca(marca);
+
+        // Exibição de mensagem de sucesso
+        JOptionPane.showMessageDialog(this, "Marca alterada com sucesso.");
+
+        // Atualiza o grid de marcas
+        atualizarGrid(marcaBD.listaDeMarca());
+
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "ID inválido. Insira um valor numérico.");
+    } catch (Exception erro) {
+        JOptionPane.showMessageDialog(this, erro.getMessage());
+    }
+
     }//GEN-LAST:event_jButtonAlterarActionPerformed
 
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
         // TODO add your handling code here:
+        try {
+    int id = Integer.parseInt(jTextFieldId.getText()); // Obtém o ID do JTextField
+    IMarcaDao marcaBD = new MarcaDao();
+    marcaBD.deleteMarca(id);
+    
+    // Exibição de mensagem de sucesso ou atualização do grid, se necessário
+    JOptionPane.showMessageDialog(this, "Marca excluída com sucesso.");
+    
+     atualizarGrid(marcaBD.listaDeMarca());
+    
+} catch (NumberFormatException e) {
+    JOptionPane.showMessageDialog(this, "ID inválido. Insira um valor numérico.");
+} catch (Exception erro) {
+    JOptionPane.showMessageDialog(this, erro.getMessage());
+}
+
+
     }//GEN-LAST:event_jButtonExcluirActionPerformed
 
     private void jButtonConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConsultarActionPerformed
-        // TODO add your handling code here:
+
+   try {
+    String idText = jTextFieldId.getText();
+    
+    // Verifica se o campo de ID está vazio
+    if (idText.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Insira um ID válido.");
+        return;
+    }
+    
+    int id = Integer.parseInt(idText); // Obtém o ID do JTextField
+    IMarcaDao marcaBD = new MarcaDao();
+    ArrayList<Marca> listaDeConsultores = marcaBD.listaDeMarca();
+    ArrayList<Marca> listaDeMarcasEncontradas = new ArrayList<>();
+    
+    // Verifica se a marca com o ID especificado está na lista
+    for (Marca marca : listaDeConsultores) {
+        if (marca.getId() == id) {
+            listaDeMarcasEncontradas.add(marca);
+        }
+    }
+    
+    // Verifica se foram encontradas marcas com o ID especificado
+    if (!listaDeMarcasEncontradas.isEmpty()) {
+        atualizarGrid(listaDeMarcasEncontradas);
+    } else {
+        JOptionPane.showMessageDialog(this, "Marca não encontrada.");
+    }
+} catch (NumberFormatException e) {
+    JOptionPane.showMessageDialog(this, "ID inválido. Insira um valor numérico.");
+} catch (Exception erro) {
+    JOptionPane.showMessageDialog(this, erro.getMessage());
+}     
     }//GEN-LAST:event_jButtonConsultarActionPerformed
 private  void limparTela(){
     jTextFieldId.setText("");
     jTextFieldDescricao.setText("");
 }
-private void atualizarGrid(ArrayList<Marca>listaDeConsultores){
+ private void atualizarGrid(ArrayList<Marca>listaDeConsultores){
    try {
     DefaultTableModel model =  (DefaultTableModel) jTableDadosProjeto.getModel();
     model.setNumRows(0);
     for(int pos = 0; pos < listaDeConsultores.size(); pos++){
       Marca pessoa = listaDeConsultores.get(pos);
-                String[] linha = new String[4];
+                String[] linha = new String[2];
                 linha[0]= pessoa.getId()+ "";
                 linha[1]= pessoa.getDescricao();
                 model.addRow(linha);
-            }
-            //JOptionPane.showMessageDialog(rootPane, dadosDosProfessores.toString());
-            
+            }  
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(rootPane, erro.getMessage());
              System.out.println("isProblem in atualizarGrid()_Menu");
@@ -280,7 +364,11 @@ private void atualizarGrid(ArrayList<Marca>listaDeConsultores){
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new marca().setVisible(true);
+                try {
+                    new marca().setVisible(true);
+                } catch (Exception ex) {
+                    Logger.getLogger(marca.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
