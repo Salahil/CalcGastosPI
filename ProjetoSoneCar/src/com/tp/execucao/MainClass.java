@@ -3,7 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package com.tp.execucao;
-import 
+
+import com.tp.ferramentas.graficas.GraficoBarras;
+import org.jfree.data.category.DefaultCategoryDataset;
+
 /**
  *
  * @author Julio
@@ -15,7 +18,21 @@ public class MainClass {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        final String tituloGrafico = "Maconha!";
+        final String descricaoX = "CUECÃO DE COURO";//nome de um dos textos da bagaceira
+        final String descricaoY = "Erva que esses trouxa usa";//nome de outro trem da bagaceira
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();//Instanciando a data do gerador de grafico
+        //aqui vem os bobão que 
+        dataset.addValue(10000, "B2", "Bloodbourne");
+        dataset.addValue(1300, "Sergio", "minecraft");
+        dataset.addValue(9420, "Julio", "makaikinho");
+        dataset.addValue(5481, "Luidy", "armas");
+        dataset.addValue(8000, "Ujeverson", "massa!");
         
+        GraficoBarras graf = new GraficoBarras(tituloGrafico, descricaoX, descricaoY, dataset);
+        graf.exibirGraficoNaTela(800, 640);
+        
+        graf.criarArquivoJPEG("C:\\Users\\Julio\\Desktop\\CalcGastosPI\\ProjetoSoneCar\\arquives", 0, 0);
     }
     
 }
