@@ -22,7 +22,8 @@ public class ConexaoBanco {
         }
         catch(ClassNotFoundException erro){
             
-            throw new Exception("Drive: "+erro.getMessage());
+            throw new Exception("Drive: " + erro.getMessage());
+//            throw new Exception("Drive: "+erro.getMessage());
         } 
         catch(SQLException erro){
             //Erro no banco de dados: usuario, senha ou banco de dados 

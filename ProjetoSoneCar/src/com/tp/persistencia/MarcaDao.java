@@ -22,6 +22,7 @@ public class MarcaDao implements IMarcaDao {
 private Connection conexao = null;
 public MarcaDao() throws Exception{
     conexao = ConexaoBanco.getConexao();
+//    conexao = ConexaoBanco.getConexao();
 }
     @Override
     public void createMarca(Marca isMarca) throws Exception {
