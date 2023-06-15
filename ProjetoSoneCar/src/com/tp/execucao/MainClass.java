@@ -6,7 +6,7 @@ package com.tp.execucao;
 
 import com.tp.ferramentas.graficas.GraficoBarras;
 import org.jfree.data.category.DefaultCategoryDataset;
-
+import com.tp.ferramentas.fileArranger.FileArranger;
 /**
  *
  * @author Julio
@@ -30,9 +30,11 @@ public class MainClass {
         dataset.addValue(8000, "Ujeverson", "massa!");
         
         GraficoBarras graf = new GraficoBarras(tituloGrafico, descricaoX, descricaoY, dataset);
-        graf.exibirGraficoNaTela(800, 640);
+        graf.exibirGraficoNaTela(800, 600);
         
-        graf.criarArquivoJPEG("C:\\Users\\Julio\\Desktop\\CalcGastosPI\\ProjetoSoneCar\\arquives", 0, 0);
+       /* FileArranger cuecaoDeCouro = new FileArranger();
+        cuecaoDeCouro.chooseImageFile();
+        */
     }
     
 }
