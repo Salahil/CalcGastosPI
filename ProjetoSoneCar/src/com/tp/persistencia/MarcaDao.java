@@ -27,9 +27,10 @@ public MarcaDao() throws Exception{
     @Override
     public void createMarca(Marca isMarca) throws Exception {
         try{
-        String sql = "insert into marca(descricao) values(?)";
+        String sql = "insert into marca(descricao, url) values(?,?)";
         PreparedStatement preparedStatement = conexao.prepareStatement(sql);
         preparedStatement.setString(1, isMarca.getDescricao());
+        preparedStatement.setString(2, isMarca.getUrl());
         preparedStatement.executeUpdate(); // Executa a atualização no banco de dados
     }catch(SQLException erro){
         throw new Exception("SQL ERRO:" + erro.getMessage());
@@ -50,6 +51,7 @@ public MarcaDao() throws Exception{
         Marca isMarca = new Marca();
         isMarca.setId(rs.getInt("id"));
         isMarca.setDescricao(rs.getString("descricao"));
+        isMarca.setUrl(rs.getString("url"));
         listaDeMarca.add(isMarca);
     }
      }catch(SQLException e){

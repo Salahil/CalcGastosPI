@@ -6,23 +6,33 @@ package com.tp.GUI;
 import com.tp.modelos.Marca;
 import com.tp.persistencia.IMarcaDao;
 import com.tp.persistencia.MarcaDao;
+import java.awt.Component;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static javax.swing.GroupLayout.Alignment.CENTER;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author sergy
  */
 public class marca extends javax.swing.JFrame {
-
+    String urlArquivo = "";
+    String imagePath = "";
+    
     /**
      * Creates new form marca
      */
     public marca() throws Exception {
        initComponents();
-       // jTextFieldId.setEnabled(false);
+       jTextFieldUrl.setEnabled(false);
        atualizarGrid(new MarcaDao().listaDeMarca());
        
     }
@@ -48,6 +58,10 @@ public class marca extends javax.swing.JFrame {
         jTableDadosProjeto = new javax.swing.JTable();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        jButtonImagem = new javax.swing.JButton();
+        jTextFieldUrl = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jLabelImagem = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -105,13 +119,13 @@ public class marca extends javax.swing.JFrame {
 
         jTableDadosProjeto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "ID", "DESCRICAO"
+                "ID", "DESCRICAO", "Logo"
             }
         ));
         jScrollPane1.setViewportView(jTableDadosProjeto);
@@ -124,6 +138,18 @@ public class marca extends javax.swing.JFrame {
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("Descriçao:");
 
+        jButtonImagem.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButtonImagem.setText("Inserir imagem");
+        jButtonImagem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonImagemActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("URL:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -131,25 +157,33 @@ public class marca extends javax.swing.JFrame {
             .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jScrollPane1)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTextFieldId, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextFieldUrl)
+                                    .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 421, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButtonIncluir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButtonAlterar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButtonExcluir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButtonConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(71, 71, 71)
+                        .addComponent(jLabelImagem, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButtonConsultar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonImagem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -157,9 +191,9 @@ public class marca extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
                             .addComponent(jTextFieldId))
@@ -169,9 +203,14 @@ public class marca extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(2, 2, 2)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextFieldUrl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabelImagem, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                        .addGap(0, 3, Short.MAX_VALUE)
                         .addComponent(jButtonIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -179,7 +218,9 @@ public class marca extends javax.swing.JFrame {
                         .addComponent(jButtonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(128, 128, 128)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButtonImagem, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(71, 71, 71)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -190,6 +231,7 @@ public class marca extends javax.swing.JFrame {
         // TODO add your handling code here:
        try {
     String descricao = jTextFieldDescricao.getText();
+    String url = jTextFieldUrl.getText();
 
     IMarcaDao marcaBD = new MarcaDao();
 atualizarGrid(marcaBD.listaDeMarca());
@@ -287,27 +329,85 @@ try {
     JOptionPane.showMessageDialog(this, erro.getMessage());
 }        // TODO add your handling code here:
     }//GEN-LAST:event_jButtonConsultarActionPerformed
+
+    private void jButtonImagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImagemActionPerformed
+        // TODO add your handling code here:
+        JFileChooser fc = new JFileChooser(".\\src\\com\\tp\\ferramentas\\imagens");
+        fc.setDialogTitle("Buscar Imagem");
+        fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Imagem", "jpg", "png", "jpeg");
+
+        fc.setFileFilter(filter);
+        int retorno = fc.showOpenDialog(this);
+
+        if (retorno == JFileChooser.APPROVE_OPTION) {
+            File selectedImageFile = fc.getSelectedFile();
+            urlArquivo = selectedImageFile.getPath();
+            jTextFieldUrl.setText(urlArquivo);
+            imagePath = selectedImageFile.getAbsolutePath();
+
+            ImageIcon imagemCarro = new ImageIcon(urlArquivo);
+            imagemCarro.setImage(imagemCarro.getImage().getScaledInstance(jLabelImagem.getWidth(), jLabelImagem.getHeight(), 1));
+            jLabelImagem.setIcon(imagemCarro);
+        }
+    }//GEN-LAST:event_jButtonImagemActionPerformed
 private  void limparTela(){
     jTextFieldId.setText("");
     jTextFieldDescricao.setText("");
+    jTextFieldUrl.setText("");
 }
-    private void atualizarGrid(ArrayList<Marca>listaDeConsultores){
+private void atualizarGrid(ArrayList<Marca>listaDeConsultores){
    try {
     DefaultTableModel model =  (DefaultTableModel) jTableDadosProjeto.getModel();
+    CellRenderer cellRenderer = new CellRenderer();
+    jTableDadosProjeto.getColumnModel().getColumn(2).setCellRenderer(cellRenderer);
     model.setNumRows(0);
     for(int pos = 0; pos < listaDeConsultores.size(); pos++){
       Marca pessoa = listaDeConsultores.get(pos);
-                String[] linha = new String[2];
+                String[] linha = new String[3];
                 linha[0]= pessoa.getId()+ "";
                 linha[1]= pessoa.getDescricao();
-                model.addRow(linha);
-            }  
+                linha[2]= pessoa.getUrl();
+                ImageIcon iconlogo = new ImageIcon((imagePath));
+                Object[] dados = {linha[0], linha[1], linha[2],iconlogo};
+                model.addRow(dados);
+            }
+            //JOptionPane.showMessageDialog(rootPane, dadosDosProfessores.toString());
+            
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(rootPane, erro.getMessage());
              System.out.println("isProblem in atualizarGrid()_Menu");
         }
    
 }
+
+     public class CellRenderer extends DefaultTableCellRenderer{
+    //o
+    
+    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row,
+int column){
+            
+            if(isSelected){
+            this.setBackground(table.getBackground());
+            this.setForeground(table.getForeground());
+            
+            }else{
+            this.setBackground(table.getBackground());
+            this.setForeground(table.getForeground());
+            }
+            ImageIcon logo = new ImageIcon(table.getValueAt(row, column -1).toString());
+            jLabelImagem.setText("");
+            logo.setImage(logo.getImage().getScaledInstance(table.getRowHeight(), table.getRowHeight(), 1));
+            jLabelImagem.setIcon(logo);
+            jLabelImagem.setHorizontalAlignment(CENTER);
+            return jLabelImagem;
+        
+        }
+}
+
+
+   
     /**
      * @param args the command line arguments
      */
@@ -351,26 +451,18 @@ private  void limparTela(){
     private javax.swing.JButton jButtonAlterar;
     private javax.swing.JButton jButtonConsultar;
     private javax.swing.JButton jButtonExcluir;
+    private javax.swing.JButton jButtonImagem;
     private javax.swing.JButton jButtonIncluir;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
+    private javax.swing.JLabel jLabelImagem;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableDadosProjeto;
     private javax.swing.JTextField jTextFieldDescricao;
     private javax.swing.JTextField jTextFieldId;
+    private javax.swing.JTextField jTextFieldUrl;
     // End of variables declaration//GEN-END:variables
 }
