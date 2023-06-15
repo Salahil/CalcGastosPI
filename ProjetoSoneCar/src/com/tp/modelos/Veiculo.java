@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.tp.modelos;
+import com.tp.enumeracao.CategoriaDeCarro;
+import com.tp.enumeracao.TipoDeCombustivel;
 import com.tp.modelos.Marca;
 import com.tp.modelos.Modelo;
 /**
@@ -11,13 +13,21 @@ import com.tp.modelos.Modelo;
  */
 public class Veiculo {
     String placa;
-    String tipoDeCombustivel;
+    TipoDeCombustivel tipoDeCombustivel;
     float quilometragemAtual;
-    String categoria;
+    CategoriaDeCarro categoria;
     Marca marca = new Marca();
     Modelo modelo = new Modelo();
+    String url;
     
+    public String getUrl() {
+        return url;
+    }
+
     // Gets e Sets... pq a gente precisa né!
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     public String getPlaca() {
         return placa;
@@ -27,11 +37,11 @@ public class Veiculo {
         this.placa = placa;
     }
 
-    public String getTipoDeCombustivel() {
+    public TipoDeCombustivel getTipoDeCombustivel() {
         return tipoDeCombustivel;
     }
 
-    public void setTipoDeCombustivel(String tipoDeCombustivel) {
+    public void setTipoDeCombustivel(TipoDeCombustivel tipoDeCombustivel) {
         this.tipoDeCombustivel = tipoDeCombustivel;
     }
 
@@ -43,11 +53,11 @@ public class Veiculo {
         this.quilometragemAtual = quilometragemAtual;
     }
 
-    public String getCategoria() {
+    public CategoriaDeCarro getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(String categoria) {
+    public void setCategoria(CategoriaDeCarro categoria) {
         this.categoria = categoria;
     }
 
@@ -72,21 +82,24 @@ public class Veiculo {
     public Veiculo(){
     }
     
-    public Veiculo(String placa, String combust, float kms, String cat, Marca marca, Modelo modelo){
+    public Veiculo(String placa, TipoDeCombustivel combust, float kms, CategoriaDeCarro cat, Marca marca, Modelo modelo,String url){
         this.placa = placa;
         this.tipoDeCombustivel = combust;
         this.quilometragemAtual = kms;
         this.categoria = cat;
         this.marca = marca;
         this.modelo = modelo;
+        this.url = url;
     }
     
     // Bagulheira de toString:
 
     @Override
     public String toString() {
-        return "Veiculo{" + "placa=" + placa + ", tipoDeCombustivel=" + tipoDeCombustivel + ", quilometragemAtual=" + quilometragemAtual + ", categoria=" + categoria + ", marca=" + marca + ", modelo=" + modelo + '}';
+        return "Veiculo{" + "placa=" + placa + ", tipoDeCombustivel=" + tipoDeCombustivel + ", quilometragemAtual=" + quilometragemAtual + ", categoria=" + categoria + ", marca=" + marca + ", modelo=" + modelo + ", url=" + url + '}';
     }
+
+   
     
     public String toStringPlaca(){
         return ("" + placa);
@@ -103,7 +116,17 @@ public class Veiculo {
     public String toStringCategoria(){
         return ("" + categoria);
     }
-    
+    public String toStringUrl(){
+        return (url);
+    }
+    public String toStringModeloDoVeiculo(){
+        Modelo descricaoModelo = new Modelo();
+        return descricaoModelo.toStringDescricao();
+    }
+    public String toStringMarcaDoVeiculo(){
+        Marca descricaoMarca = new Marca();
+        return descricaoMarca.toStringDescricao();
+    }
     //Marca e Modelo já tem seus próprios métodos toString, usa o deles:
     // marca.toStringDescricao()
     // modelo.toStringDescricao()
