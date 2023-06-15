@@ -5,158 +5,109 @@
 package com.tp.persistencia;
 
 import com.tp.modelos.Marca;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
-
+import java.lang.String;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author sergy
  */
-public class MarcaDao implements IMarcaDao<Marca>{
-
-    private ConexaoBanco conexao;
-    
-    public MarcaDao()
-    {
-        this.conexao = new ConexaoBanco();
-    }
-    
-    @Override
-    public void inserir(Marca marca) {
-        //string com a consulta que será executada no banco
-        String sql = "INSERT INTO MARCA (DESCRICAO) VALUES (?)";
-        
-        try
-        {
-            //tenta realizar a conexão, se retornar verdadeiro entra no IF
-            if(this.conexao.conectar())
-            {
-                //prepara a sentença com a consulta da string
-                PreparedStatement sentenca = this.conexao.getConnection().prepareStatement(sql);
-                
-                //subtitui as interrograções da consulta, pelo valor específico
-                sentenca.setString(1,marca.getDescricao()); //subsitui a primeira ocorrência da interrogação pelo atributo nome
-                
-                
-                sentenca.execute(); //executa o comando no banco
-                sentenca.close(); //fecha a sentença
-                this.conexao.getConnection().close(); //fecha a conexão com o banco
-            }
-        }
-        catch(SQLException ex)
-        {
-           throw new RuntimeException(ex);
-        }
-    }
-
-    @Override
-    public void alterar(Marca marca) {
-        String sql = "UPDATE ESCOLA SET DESCRICAO = ? WHERE IDMARCA = ?";
-        
-        try
-        {
-            if(this.conexao.conectar())
-            {
-                PreparedStatement sentenca = this.conexao.getConnection().prepareStatement(sql);
-                
-                sentenca.setString(1,marca.getDescricao());
-               
-                
-                sentenca.execute();
-                sentenca.close();
-                this.conexao.getConnection().close();
-            }
-        }
-        catch(SQLException ex)
-        {
-           throw new RuntimeException(ex);
-        }
-    }
-
-    @Override
-    public void excluir() {
-        String sql = "DELETE FROM MARCA";
-        
-        try
-        {
-            if(this.conexao.conectar())
-            {
-                PreparedStatement sentenca = this.conexao.getConnection().prepareStatement(sql);
-   
-                sentenca.execute();
-                sentenca.close();
-                this.conexao.getConnection().close();
-            }
-        }
-        catch(SQLException ex)
-        {
-           throw new RuntimeException(ex);
-        }
-    }
-    
-    public void excluirID(int id) {
-        String sql = "DELETE FROM MARCA WHERE IDMARCA = ?";
-        
-        try
-        {
-            if(this.conexao.conectar())
-            {
-                PreparedStatement sentenca = this.conexao.getConnection().prepareStatement(sql);
-                
-                sentenca.setInt(1, id);
-                
-                sentenca.execute();
-                sentenca.close();
-                this.conexao.getConnection().close();
-            }
-        }
-        catch(SQLException ex)
-        {
-           throw new RuntimeException(ex);
-        }
-    }
-
-    @Override
-    public ArrayList<Marca> consultar() {
-        
-        ArrayList<Marca> listaMarca = new ArrayList<Marca>();
-        String sql = "SELECT * FROM MARCA ORDER BY IDMARCA";
-        
-        try
-        {
-            if(this.conexao.conectar())
-            {
-                PreparedStatement sentenca = this.conexao.getConnection().prepareStatement(sql);
-                
-                //recebe o resultado da consulta
-                ResultSet resultadoSentenca = sentenca.executeQuery();
-
-                //percorrer cada linha do resultado
-                while(resultadoSentenca.next()) 
-                {
-                    //resgata o valor de cada linha, selecionando pelo nome de cada coluna da tabela MARCA
-                    Marca marca = new Marca();
-                    marca.setId(resultadoSentenca.getInt("IDMARCA"));
-                    marca.setDescricao(resultadoSentenca.getString("DESCRICAO"));
-                    
-                   
-                    //adiciona cada tupla na listaMarca que será retornada para a janela Marca
-                    listaMarca.add(marca);
-                }
-
-                sentenca.close();
-                this.conexao.getConnection().close();
-            }
-            
-            return listaMarca;
-        }
-        catch(SQLException ex)
-        {
-           throw new RuntimeException(ex);
-        }
-    }
-
+public class MarcaDao implements IMarcaDao {
+private Connection conexao = null;
+public MarcaDao() throws Exception{
+    conexao = ConexaoBanco.getConexao();
+//    conexao = ConexaoBanco.getConexao();
 }
+    @Override
+    public void createMarca(Marca isMarca) throws Exception {
+        try{
+        String sql = "insert into marca(descricao) values(?)";
+        PreparedStatement preparedStatement = conexao.prepareStatement(sql);
+        preparedStatement.setString(1, isMarca.getDescricao());
+        preparedStatement.executeUpdate(); // Executa a atualização no banco de dados
+    }catch(SQLException erro){
+        throw new Exception("SQL ERRO:" + erro.getMessage());
+    }catch(Exception erro){
+        throw erro;
+    }
+    
+    }
+
+    @Override
+    public ArrayList<Marca> listaDeMarca() throws Exception {
+        ArrayList<Marca>listaDeMarca = new ArrayList<Marca>();
+        String sql = "Select * From marca";
+     try{
+       Statement statement = conexao.createStatement();
+       ResultSet rs = statement.executeQuery(sql);
+       while (rs.next()){
+        Marca isMarca = new Marca();
+        isMarca.setId(rs.getInt("id"));
+        isMarca.setDescricao(rs.getString("descricao"));
+        listaDeMarca.add(isMarca);
+    }
+     }catch(SQLException e){
+         e.printStackTrace();
+         System.out.println("isProblem in listaDeMarca()_MarcaDao");
+     }
+       return listaDeMarca;
+    }
+
+    @Override
+    public ArrayList<Marca> deleteMarca(int id) throws Exception {
+    ArrayList<Marca> listaDeMarcas = new ArrayList<>();
+    String sql = "DELETE FROM marca WHERE id = ?";
+    try (PreparedStatement preparedStatement = conexao.prepareStatement(sql)) {
+        preparedStatement.setInt(1, id);
+        preparedStatement.executeUpdate();
+    } catch (SQLException e) {
+        throw new Exception("Erro ao excluir a marca: " + e.getMessage());
+    }
+    listaDeMarcas = listaDeMarca(); // Atualiza a lista de marcas após a exclusão
+    return listaDeMarcas;
+}
+
+    @Override
+    public ArrayList<Marca> alterarMarca(Marca marca) throws Exception {
+        ArrayList<Marca>alterarMarca = new ArrayList<Marca>();
+       String sql = "UPDATE marca SET descricao = ? WHERE id = ?";
+    try (PreparedStatement preparedStatement = conexao.prepareStatement(sql)) {
+        preparedStatement.setString(1, marca.getDescricao());
+        preparedStatement.setInt(2, marca.getId());
+        preparedStatement.executeUpdate();
+    } catch (SQLException e) {
+        throw new Exception("Erro ao alterar a marca: " + e.getMessage());
+    }
+       return alterarMarca;
+    }
+
+    @Override
+public boolean descricaoJaExiste(String descricao) {
+        String query = "SELECT COUNT(*) FROM marcas WHERE descricao = ?";
+        try (Connection conn = ConexaoBanco.getConexao();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setString(1, descricao);
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
+            int count = rs.getInt(1);
+            return count > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao verificar se a descrição existe: " + e.getMessage());
+        } catch (Exception ex) {
+        Logger.getLogger(MarcaDao.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return false;
+    
+}
+
+    
+}
+    
 
