@@ -12,8 +12,16 @@ package com.tp.modelos;
 public class Marca {
     int id;
     String descricao;
+    String url;
     
+    public String getUrl() {
+        return url;
+    }
+
     // gets e sets bobão:
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     public int getId() {
         return id;
@@ -47,13 +55,19 @@ public class Marca {
 
     @Override
     public String toString() {
-        return "Marca{" + "id=" + id + ", descricao=" + descricao + '}';
+        return "Marca{" + "id=" + id + ", descricao=" + descricao + ", url=" + url + '}';
     }
+
+    
     public String toStringDescricao(){
-        return ("" + descricao);
+        return (descricao);
     }
     
     public String toStringID(){
         return ("" + id);
+    }
+    
+    public String toStringURL(){
+        return (url);
     }
 }
