@@ -26,181 +26,17 @@ public class CadModelo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTableCadastroDeModelo = new javax.swing.JTable();
-        UI_1 = new javax.swing.JLabel();
-        jPanel8 = new javax.swing.JPanel();
-        jButtonIncluir = new javax.swing.JButton();
-        jButtonAlterar = new javax.swing.JButton();
-        jButtonExcluir = new javax.swing.JButton();
-        jButtonBuscar = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
-        jButtonBuscarModelo = new javax.swing.JButton();
-        jButtonReturn = new javax.swing.JButton();
-        Background = new javax.swing.JLabel();
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jTableCadastroDeModelo.setBackground(new java.awt.Color(40, 40, 40));
-        jTableCadastroDeModelo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jTableCadastroDeModelo.setForeground(new java.awt.Color(255, 255, 255));
-        jTableCadastroDeModelo.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "ID", "DESCRIÇAO", "URL"
-            }
-        ));
-        jScrollPane1.setViewportView(jTableCadastroDeModelo);
-
-        UI_1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
-        UI_1.setForeground(new java.awt.Color(254, 173, 0));
-        UI_1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        UI_1.setText("CADASTRO DE MODELO");
-
-        jPanel8.setBackground(new java.awt.Color(40, 40, 40));
-
-        jButtonIncluir.setBackground(new java.awt.Color(254, 173, 0));
-        jButtonIncluir.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jButtonIncluir.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonIncluir.setText("INCLUIR");
-
-        jButtonAlterar.setBackground(new java.awt.Color(254, 173, 0));
-        jButtonAlterar.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jButtonAlterar.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonAlterar.setText("ALTERAR");
-
-        jButtonExcluir.setBackground(new java.awt.Color(254, 173, 0));
-        jButtonExcluir.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jButtonExcluir.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonExcluir.setText("EXCLUIR");
-
-        jButtonBuscar.setBackground(new java.awt.Color(254, 173, 0));
-        jButtonBuscar.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jButtonBuscar.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonBuscar.setText("BUSCAR");
-
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButtonIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(jButtonAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(jButtonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16))
-        );
-
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 3, 48)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("MODELO");
-
-        jPanel4.setBackground(new java.awt.Color(153, 153, 153));
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 330, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 220, Short.MAX_VALUE)
-        );
-
-        jButtonBuscarModelo.setBackground(new java.awt.Color(254, 173, 0));
-        jButtonBuscarModelo.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jButtonBuscarModelo.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonBuscarModelo.setText("BUSCAR");
-
-        jButtonReturn.setBackground(new java.awt.Color(254, 173, 0));
-        jButtonReturn.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jButtonReturn.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonReturn.setText("X");
-
-        Background.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        Background.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tp/icones/LogoSoneCar3.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 1920, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(1140, 1140, 1140)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(10, 10, 10)
-                            .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(10, 10, 10)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1900, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(UI_1, javax.swing.GroupLayout.PREFERRED_SIZE, 1920, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(1140, 1140, 1140)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(1840, 1840, 1840)
-                            .addComponent(jButtonReturn, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(1230, 1230, 1230)
-                            .addComponent(jButtonBuscarModelo))
-                        .addComponent(Background))
-                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 1080, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(150, 150, 150)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(10, 10, 10)
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(10, 10, 10)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(UI_1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(210, 210, 210)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(10, 10, 10)
-                            .addComponent(jButtonReturn))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(440, 440, 440)
-                            .addComponent(jButtonBuscarModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(Background))
-                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         pack();
@@ -242,18 +78,5 @@ public class CadModelo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel Background;
-    private javax.swing.JLabel UI_1;
-    private javax.swing.JButton jButtonAlterar;
-    private javax.swing.JButton jButtonBuscar;
-    private javax.swing.JButton jButtonBuscarModelo;
-    private javax.swing.JButton jButtonExcluir;
-    private javax.swing.JButton jButtonIncluir;
-    private javax.swing.JButton jButtonReturn;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTableCadastroDeModelo;
     // End of variables declaration//GEN-END:variables
 }
