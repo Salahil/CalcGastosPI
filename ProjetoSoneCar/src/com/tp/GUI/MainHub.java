@@ -1,22 +1,20 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.tp.GUI;
 
-
 /**
  *
- * @author aluno
+ * @author sergy
  */
-public class Menu extends javax.swing.JPanel {
+public class MainHub extends javax.swing.JFrame {
 
     /**
-     * Creates new form Menu
+     * Creates new form MainHub
      */
-    public Menu() {
+    public MainHub() {
         initComponents();
-        
     }
 
     /**
@@ -28,7 +26,6 @@ public class Menu extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        UI_1 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jButtonCadastrarVeiculo = new javax.swing.JButton();
         jButtonCadastrarModelo = new javax.swing.JButton();
@@ -38,13 +35,7 @@ public class Menu extends javax.swing.JPanel {
         jButtonCadastrarProprietario = new javax.swing.JButton();
         Background = new javax.swing.JLabel();
 
-        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        UI_1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
-        UI_1.setForeground(new java.awt.Color(254, 173, 0));
-        UI_1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        UI_1.setText("MENU PRINCIPAL");
-        add(UI_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1920, 80));
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel7.setBackground(new java.awt.Color(40, 40, 40));
 
@@ -121,12 +112,40 @@ public class Menu extends javax.swing.JPanel {
                 .addGap(18, 18, 18))
         );
 
-        add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 100, 520, 540));
-
         Background.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         Background.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tp/icones/LogoSoneCar3.png"))); // NOI18N
-        add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 1080));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1920, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(710, 710, 710)
+                            .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(Background))
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1080, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(100, 100, 100)
+                            .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(Background))
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonCadastrarModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarModeloActionPerformed
@@ -137,10 +156,43 @@ public class Menu extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonCadastrarProprietarioActionPerformed
 
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(MainHub.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(MainHub.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(MainHub.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(MainHub.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new MainHub().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Background;
-    private javax.swing.JLabel UI_1;
     private javax.swing.JButton jButtonCadastrarGastos;
     private javax.swing.JButton jButtonCadastrarMarca;
     private javax.swing.JButton jButtonCadastrarModelo;
