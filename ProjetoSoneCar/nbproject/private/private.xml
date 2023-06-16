@@ -3,17 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Julio/Desktop/CalcGastosPI/ProjetoSoneCar/src/com/tp/persistencia/IProprietarioDao.java</file>
-            <file>file:/C:/Users/Julio/Desktop/CalcGastosPI/ProjetoSoneCar/src/com/tp/persistencia/TipoDeGastosDao.java</file>
-            <file>file:/C:/Users/Julio/Desktop/CalcGastosPI/ProjetoSoneCar/src/com/tp/persistencia/IGastosDao.java</file>
-            <file>file:/C:/Users/Julio/Desktop/CalcGastosPI/ProjetoSoneCar/src/com/tp/persistencia/MarcaDao.java</file>
-            <file>file:/C:/Users/Julio/Desktop/CalcGastosPI/ProjetoSoneCar/src/com/tp/persistencia/ModeloDao.java</file>
-            <file>file:/C:/Users/Julio/Desktop/CalcGastosPI/ProjetoSoneCar/src/com/tp/persistencia/ProprietarioDao.java</file>
-            <file>file:/C:/Users/Julio/Desktop/CalcGastosPI/ProjetoSoneCar/src/com/tp/persistencia/GastosDao.java</file>
-            <file>file:/C:/Users/Julio/Desktop/CalcGastosPI/ProjetoSoneCar/src/com/tp/persistencia/ConexaoBanco.java</file>
-            <file>file:/C:/Users/Julio/Desktop/CalcGastosPI/ProjetoSoneCar/src/com/tp/persistencia/IMarcaDao.java</file>
-            <file>file:/C:/Users/Julio/Desktop/CalcGastosPI/ProjetoSoneCar/src/com/tp/persistencia/ITipoDeGastosDao.java</file>
-            <file>file:/C:/Users/Julio/Desktop/CalcGastosPI/ProjetoSoneCar/src/com/tp/modelos/subClasses/Gastos.java</file>
+            <file>file:/C:/Users/Julio/Desktop/CalcGastosPI/ProjetoSoneCar/src/com/tp/persistencia/VeiculoDao.java</file>
         </group>
     </open-files>
 </project-private>
