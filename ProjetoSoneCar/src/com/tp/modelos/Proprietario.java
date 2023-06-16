@@ -133,7 +133,7 @@ public class Proprietario {
     }
     
     public String toStringCNH(){
-        return ("" + DocumentoCNH);
+        return DocumentoCNH.toString();
     }
     
     //Veículo tem os seus toStrings, pode usar... eles não mordem.

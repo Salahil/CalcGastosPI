@@ -13,6 +13,7 @@ public class Gastos {
     private Date dateDataDeRegistroDeGasto;
     private String descricao;
     private int id;
+    private int idT;
     
     // paranaue dos get e set:
 
@@ -47,6 +48,15 @@ public class Gastos {
     public void setId(int id) {
         this.id = id;
     }
+
+    public int getIdT() {
+        return idT;
+    }
+
+    public void setIdT(int idT) {
+        this.idT = idT;
+    }
+    
     
     // parafernalha de tranqueiras de construtor
     
