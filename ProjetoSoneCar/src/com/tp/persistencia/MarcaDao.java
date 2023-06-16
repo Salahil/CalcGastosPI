@@ -22,7 +22,6 @@ public class MarcaDao implements IMarcaDao {
 private Connection conexao = null;
 public MarcaDao() throws Exception{
     conexao = ConexaoBanco.getConexao();
-//    conexao = ConexaoBanco.getConexao();
 }
     @Override
     public void createMarca(Marca isMarca) throws Exception {
@@ -90,24 +89,25 @@ public MarcaDao() throws Exception{
     }
 
     @Override
-public boolean descricaoJaExiste(String descricao) {
-        String query = "SELECT COUNT(*) FROM marcas WHERE descricao = ?";
-        try (Connection conn = ConexaoBanco.getConexao();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+public boolean descricaoJaExiste(String descricao, String url) {
+    String query = "SELECT COUNT(*) FROM marca WHERE descricao = ? OR url = ?";
+    try (Connection conn = ConexaoBanco.getConexao();
+         PreparedStatement stmt = conn.prepareStatement(query)) {
 
-            stmt.setString(1, descricao);
-            ResultSet rs = stmt.executeQuery();
-            rs.next();
-            int count = rs.getInt(1);
-            return count > 0;
-        } catch (SQLException e) {
-            throw new RuntimeException("Erro ao verificar se a descrição existe: " + e.getMessage());
-        } catch (Exception ex) {
+        stmt.setString(1, descricao);
+        stmt.setString(2, url);
+        ResultSet rs = stmt.executeQuery();
+        rs.next();
+        int count = rs.getInt(1);
+        return count > 0;
+    } catch (SQLException e) {
+        throw new RuntimeException("Erro ao verificar se a descrição ou a URL existem: " + e.getMessage());
+    } catch (Exception ex) {
         Logger.getLogger(MarcaDao.class.getName()).log(Level.SEVERE, null, ex);
     }
     return false;
-    
 }
+
 
     
 }
