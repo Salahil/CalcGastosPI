@@ -4,18 +4,17 @@
  */
 package com.tp.persistencia;
 
-import com.tp.modelos.Marca;
+import com.tp.modelos.Modelo;
 import java.util.ArrayList;
 
 /**
  *
  * @author sergy
  */
-public interface IMarcaDao{
-    void createMarca(Marca isMarca)throws Exception;
-    ArrayList<Marca>listaDeMarca()throws Exception;
-    ArrayList<Marca>deleteMarca(int id)throws Exception;
-    ArrayList<Marca>alterarMarca(Marca marca)throws Exception;
+public interface IModeloDao {
+    void createModelo(Modelo isModelo)throws Exception;
+    ArrayList<Modelo>listaDeModelo()throws Exception;
+    ArrayList<Modelo>deleteModelo(int id)throws Exception;
+    ArrayList<Modelo>alterarModelo(Modelo modelo)throws Exception;
     boolean descricaoJaExiste(String descricao,String url);
-
 }

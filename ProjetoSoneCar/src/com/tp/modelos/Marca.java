@@ -42,20 +42,25 @@ public class Marca {
     // construtor bunitim e construtor feinho
     
     public Marca(){
+        
+    }
+    public Marca(String desc){
+        this.descricao = desc;
     }
     
-    public Marca(String desc){
+    public Marca(String desc, String url){
         // tem que colocar os comandos que criam a id da marca
         
         // bota aqui
         this.descricao = desc;
+        this.url = url;
     }
     
     //ToString sacaninha:
 
     @Override
     public String toString() {
-        return "Marca{" + "id=" + id + ", descricao=" + descricao + ", url=" + url + '}';
+        return "" + descricao + ";" + id + ";" + url;
     }
 
     

@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import static javax.swing.GroupLayout.Alignment.CENTER;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -234,15 +235,15 @@ public class marca extends javax.swing.JFrame {
     String url = jTextFieldUrl.getText();
 
     IMarcaDao marcaBD = new MarcaDao();
-atualizarGrid(marcaBD.listaDeMarca());
-    // Verifica se a descrição já existe no banco de dados
-    if (marcaBD.descricaoJaExiste(descricao)) {
+   
+     
+    /*if (marcaBD.descricaoJaExiste(descricao, url)) {
         JOptionPane.showMessageDialog(this, "A descrição já existe. Não é possível cadastrar novamente.");
         return;
-    }
-
-    Marca marca = new Marca(descricao);
-
+    }*/
+    
+    atualizarGrid(marcaBD.listaDeMarca());
+    Marca marca = new Marca(descricao, url);
     marcaBD.createMarca(marca);
     limparTela();
     
@@ -332,11 +333,12 @@ try {
 
     private void jButtonImagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImagemActionPerformed
         // TODO add your handling code here:
+        try{
         JFileChooser fc = new JFileChooser(".\\src\\com\\tp\\ferramentas\\imagens");
         fc.setDialogTitle("Buscar Imagem");
         fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
-
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("Imagem", "jpg", "png", "jpeg");
+        IMarcaDao marcaBD = new MarcaDao();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Imagem", "jpg", "png", "jpeg", "jfif");
 
         fc.setFileFilter(filter);
         int retorno = fc.showOpenDialog(this);
@@ -346,11 +348,14 @@ try {
             urlArquivo = selectedImageFile.getPath();
             jTextFieldUrl.setText(urlArquivo);
             imagePath = selectedImageFile.getAbsolutePath();
-
+            
             ImageIcon imagemCarro = new ImageIcon(urlArquivo);
             imagemCarro.setImage(imagemCarro.getImage().getScaledInstance(jLabelImagem.getWidth(), jLabelImagem.getHeight(), 1));
             jLabelImagem.setIcon(imagemCarro);
-        }
+             atualizarGrid(marcaBD.listaDeMarca());
+        }}catch (Exception erro) {
+    JOptionPane.showMessageDialog(this, erro.getMessage());
+}  
     }//GEN-LAST:event_jButtonImagemActionPerformed
 private  void limparTela(){
     jTextFieldId.setText("");
@@ -360,8 +365,6 @@ private  void limparTela(){
 private void atualizarGrid(ArrayList<Marca>listaDeConsultores){
    try {
     DefaultTableModel model =  (DefaultTableModel) jTableDadosProjeto.getModel();
-    CellRenderer cellRenderer = new CellRenderer();
-    jTableDadosProjeto.getColumnModel().getColumn(2).setCellRenderer(cellRenderer);
     model.setNumRows(0);
     for(int pos = 0; pos < listaDeConsultores.size(); pos++){
       Marca pessoa = listaDeConsultores.get(pos);
@@ -369,8 +372,7 @@ private void atualizarGrid(ArrayList<Marca>listaDeConsultores){
                 linha[0]= pessoa.getId()+ "";
                 linha[1]= pessoa.getDescricao();
                 linha[2]= pessoa.getUrl();
-                ImageIcon iconlogo = new ImageIcon((imagePath));
-                Object[] dados = {linha[0], linha[1], linha[2],iconlogo};
+                Object[] dados = {linha[0], linha[1],linha[2]};
                 model.addRow(dados);
             }
             //JOptionPane.showMessageDialog(rootPane, dadosDosProfessores.toString());
@@ -384,7 +386,7 @@ private void atualizarGrid(ArrayList<Marca>listaDeConsultores){
 
      public class CellRenderer extends DefaultTableCellRenderer{
     //o
-    
+    JLabel jLabelImagem = new JLabel();
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row,
 int column){
             
