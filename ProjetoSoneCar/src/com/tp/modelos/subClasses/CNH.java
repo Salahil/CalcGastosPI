@@ -5,6 +5,7 @@
 package com.tp.modelos.subClasses;
 
 import com.tp.enumeracao.CategoriaDeCNH;
+import com.tp.ferramentas.auxiliar.BuscarEnumFromString;
 
 /**
  *
@@ -37,9 +38,21 @@ public class CNH {
     public CNH(){
     }; // feinho
     
+    public CNH(String num, String cat) {
+    this.numeroDocumentoCNH = Integer.parseInt(num);
+    this.categoria = BuscarEnumFromString.fromString(CategoriaDeCNH.class, cat);
+}
+
+    
     public CNH(int num, CategoriaDeCNH cat){
         this.numeroDocumentoCNH = num;
         this.categoria = cat;
     }
+
+    @Override
+    public String toString() {
+        return ("" + categoria + ";" + numeroDocumentoCNH);
+    }
+    
     
 }

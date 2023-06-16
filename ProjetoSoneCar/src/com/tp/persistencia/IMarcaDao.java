@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * @author sergy
  */
 public interface IMarcaDao{
-     void createMarca(Marca isMarca)throws Exception;
+    void createMarca(Marca isMarca)throws Exception;
     ArrayList<Marca>listaDeMarca()throws Exception;
     ArrayList<Marca>deleteMarca(int id)throws Exception;
     ArrayList<Marca>alterarMarca(Marca marca)throws Exception;
