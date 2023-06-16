@@ -41,24 +41,29 @@ public class Modelo {
     // Budegagem de construtor:
     
     public Modelo(){
+        
     }
     
     public Modelo(String desc){
+        this.descricao = desc;
+        
+    }
+    
+    public Modelo(String desc, String url){
         // tem que colocar os comandos que criam a id da marca
         
         // bota aqui
         this.descricao = desc;
+        this.url = url;
     }
     
     //Marotagem de toString:
 
     @Override
     public String toString() {
-        return "Modelo{" + "id=" + id + ", descricao=" + descricao + ", url=" + url + '}';
+        return "" + descricao + ";" + id + ";" + url;
     }
 
-    
-    
     public String toStringDescricao(){
         return (descricao);
     }

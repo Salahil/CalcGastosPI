@@ -92,14 +92,17 @@ public class Veiculo {
         this.url = url;
     }
     
+    // Objetos das classes
+    
+    Modelo Mo = new Modelo();
+    Marca Ma = new Marca();
+    
     // Bagulheira de toString:
-
+    
     @Override
     public String toString() {
-        return "Veiculo{" + "placa=" + placa + ", tipoDeCombustivel=" + tipoDeCombustivel + ", quilometragemAtual=" + quilometragemAtual + ", categoria=" + categoria + ", marca=" + marca + ", modelo=" + modelo + ", url=" + url + '}';
+        return "" + placa + ";" + tipoDeCombustivel + ";" + quilometragemAtual + ";" + categoria + ";" + url + ";" + Mo.toStringDescricao() + ";" + Ma.toStringDescricao();
     }
-
-   
     
     public String toStringPlaca(){
         return ("" + placa);
@@ -120,12 +123,10 @@ public class Veiculo {
         return (url);
     }
     public String toStringModeloDoVeiculo(){
-        Modelo descricaoModelo = new Modelo();
-        return descricaoModelo.toStringDescricao();
+        return Mo.toStringDescricao();
     }
     public String toStringMarcaDoVeiculo(){
-        Marca descricaoMarca = new Marca();
-        return descricaoMarca.toStringDescricao();
+        return Ma.toStringDescricao();
     }
     //Marca e Modelo já tem seus próprios métodos toString, usa o deles:
     // marca.toStringDescricao()
