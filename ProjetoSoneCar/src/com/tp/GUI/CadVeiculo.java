@@ -4,19 +4,81 @@
  */
 package com.tp.GUI;
 
+import com.tp.enumeracao.CategoriaDeCarro;
+import com.tp.enumeracao.TipoDeCombustivel;
+import com.tp.modelos.Marca;
+import com.tp.modelos.Modelo;
+import com.tp.modelos.Proprietario;
+import com.tp.modelos.Veiculo;
+import com.tp.persistencia.IMarcaDao;
+import com.tp.persistencia.IModeloDao;
+import com.tp.persistencia.IProprietarioDao;
+import com.tp.persistencia.IVeiculoDao;
+import com.tp.persistencia.MarcaDao;
+import com.tp.persistencia.ModeloDao;
+import com.tp.persistencia.ProprietarioDao;
+import com.tp.persistencia.VeiculoDao;
+import java.awt.Component;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author sergy
  */
 public class CadVeiculo extends javax.swing.JFrame {
-
+      String urlArquivo = "";
+      String imagePath = "";
     /**
      * Creates new form CadVeiculo
-     */
-    public CadVeiculo() {
+     */    public CadVeiculo() throws Exception {
         initComponents();
+        jTextFieldUrl.setVisible(false);
+        atualizarGrid(new VeiculoDao().listaDeVeiculo());
+        try {
+        IVeiculoDao veiculoBD = new VeiculoDao();
+        
+        TipoDeCombustivel[] tiposCombustivel = TipoDeCombustivel.values();
+        for (TipoDeCombustivel tipo : tiposCombustivel) {
+        jComboBoxTipoDeCombustivel.addItem(tipo.name());
+        }
+        
+        CategoriaDeCarro[] categorias = CategoriaDeCarro.values();
+        for (CategoriaDeCarro categoria : categorias) {
+        jComboBoxCategoria.addItem(categoria.name());
+        }
+         
+        // Preencher combobox de Marcas
+        ArrayList<Marca> listaDeMarcas = veiculoBD.listarMarcas();
+        for (Marca marca : listaDeMarcas) {
+            jComboBoxMarca.addItem(marca.getDescricao());
+        }
+        
+        // Preencher combobox de Modelos
+        ArrayList<Modelo> listaDeModelos = veiculoBD.listarModelos();
+        for (Modelo modelo : listaDeModelos) {
+            jComboBoxModelo.addItem(modelo.getDescricao());
+        }
+        
+        // Preencher combobox de Proprietários
+        ArrayList<Proprietario> listaDeProprietarios = veiculoBD.listarProprietarios();
+        for (Proprietario proprietario : listaDeProprietarios) {
+            jComboBoxProprietario.addItem(proprietario.getCPF());
+        }
+    } catch (Exception erro) {
+        JOptionPane.showMessageDialog(this, erro.getMessage());
     }
-
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,19 +88,19 @@ public class CadVeiculo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabelImagem1 = new javax.swing.JLabel();
+        jButtonBuscarVeiculo = new javax.swing.JButton();
         UI_1 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        jComboBoxProprietario = new javax.swing.JComboBox<>();
         jPanel8 = new javax.swing.JPanel();
         jButtonIncluir = new javax.swing.JButton();
         jButtonAlterar = new javax.swing.JButton();
         jButtonExcluir = new javax.swing.JButton();
         jButtonBuscar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableVeiculo = new javax.swing.JTable();
         jPanel9 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jTextFieldPlaca = new javax.swing.JTextField();
@@ -48,43 +110,49 @@ public class CadVeiculo extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jComboBoxTipoDeCombustivel = new javax.swing.JComboBox<>();
         jComboBoxCategoria = new javax.swing.JComboBox<>();
-        jLabel9 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jLabel12 = new javax.swing.JLabel();
+        jComboBoxMarca = new javax.swing.JComboBox<>();
+        jTextFieldUrl = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jComboBoxModelo = new javax.swing.JComboBox<>();
         jButtonReturn = new javax.swing.JButton();
         Background = new javax.swing.JLabel();
+        jLabelImagem = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jButtonBuscarMarca = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(jLabelImagem1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 170, 240, 160));
+
+        jButtonBuscarVeiculo.setBackground(new java.awt.Color(254, 173, 0));
+        jButtonBuscarVeiculo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jButtonBuscarVeiculo.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonBuscarVeiculo.setText("BUSCAR");
+        jButtonBuscarVeiculo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBuscarVeiculoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonBuscarVeiculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 360, 120, 40));
 
         UI_1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         UI_1.setForeground(new java.awt.Color(254, 173, 0));
         UI_1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         UI_1.setText("CADASTRO DE VEICULO");
-        getContentPane().add(UI_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1920, 80));
+        getContentPane().add(UI_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-440, 0, 1920, 80));
 
         jPanel7.setBackground(new java.awt.Color(40, 40, 40));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("TELEFONE:");
+        jLabel1.setText("Proprietario:");
 
-        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTextField1.setText("487654546546");
-
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("EMAIL:");
-
-        jTextField3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTextField3.setText("AlgumEmail@SeuEmail.com.br");
+        jComboBoxProprietario.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -92,58 +160,64 @@ public class CadVeiculo extends javax.swing.JFrame {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 533, Short.MAX_VALUE))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1)))
-                .addContainerGap())
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBoxProprietario, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel4)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(17, 17, 17))))
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jComboBoxProprietario, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(94, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 360, 710, 130));
+        getContentPane().add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 310, 260, 140));
 
         jPanel8.setBackground(new java.awt.Color(40, 40, 40));
 
         jButtonIncluir.setBackground(new java.awt.Color(254, 173, 0));
-        jButtonIncluir.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jButtonIncluir.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButtonIncluir.setForeground(new java.awt.Color(255, 255, 255));
         jButtonIncluir.setText("INCLUIR");
+        jButtonIncluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonIncluirActionPerformed(evt);
+            }
+        });
 
         jButtonAlterar.setBackground(new java.awt.Color(254, 173, 0));
-        jButtonAlterar.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jButtonAlterar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButtonAlterar.setForeground(new java.awt.Color(255, 255, 255));
         jButtonAlterar.setText("ALTERAR");
+        jButtonAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAlterarActionPerformed(evt);
+            }
+        });
 
         jButtonExcluir.setBackground(new java.awt.Color(254, 173, 0));
-        jButtonExcluir.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jButtonExcluir.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButtonExcluir.setForeground(new java.awt.Color(255, 255, 255));
         jButtonExcluir.setText("EXCLUIR");
+        jButtonExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonExcluirActionPerformed(evt);
+            }
+        });
 
         jButtonBuscar.setBackground(new java.awt.Color(254, 173, 0));
-        jButtonBuscar.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jButtonBuscar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButtonBuscar.setForeground(new java.awt.Color(255, 255, 255));
         jButtonBuscar.setText("BUSCAR");
+        jButtonBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBuscarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -151,12 +225,12 @@ public class CadVeiculo extends javax.swing.JFrame {
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jButtonAlterar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonExcluir, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonBuscar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(94, 94, 94))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,58 +246,59 @@ public class CadVeiculo extends javax.swing.JFrame {
                 .addGap(16, 16, 16))
         );
 
-        getContentPane().add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1480, 150, 420, 350));
+        getContentPane().add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 120, 210, 350));
 
-        jTable1.setBackground(new java.awt.Color(40, 40, 40));
-        jTable1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jTable1.setForeground(new java.awt.Color(255, 255, 255));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableVeiculo.setBackground(new java.awt.Color(40, 40, 40));
+        jTableVeiculo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jTableVeiculo.setForeground(new java.awt.Color(255, 255, 255));
+        jTableVeiculo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "CPF", "NOME", "TELEFONE1", "TELEFONE2", "EMAIL1", "EMAIL2", "CNH"
+                "Placa", "Marca", "Modelo", "Combustivel", "Quilometrgem", "Categoria", "Proprietario"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTableVeiculo);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 510, 1900, 560));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 510, 1340, 230));
 
         jPanel9.setBackground(new java.awt.Color(40, 40, 40));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("PLACA:");
 
         jTextFieldPlaca.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTextFieldPlaca.setText("000.000.000-00");
+        jTextFieldPlaca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldPlacaActionPerformed(evt);
+            }
+        });
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("TIPO DE COMBUSTIVEL:");
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("QUILOMETRAGEM:");
 
         jTextFieldQuilometragem.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTextFieldQuilometragem.setText("MACEDO-BENTO");
 
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("CATEGORIA:");
 
         jComboBoxTipoDeCombustivel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jComboBoxTipoDeCombustivel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jComboBoxCategoria.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jComboBoxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -231,16 +306,15 @@ public class CadVeiculo extends javax.swing.JFrame {
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel9Layout.createSequentialGroup()
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jTextFieldPlaca))
-                        .addGroup(jPanel9Layout.createSequentialGroup()
-                            .addComponent(jLabel7)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jTextFieldQuilometragem, javax.swing.GroupLayout.PREFERRED_SIZE, 542, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldQuilometragem))
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel9Layout.createSequentialGroup()
@@ -258,37 +332,23 @@ public class CadVeiculo extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextFieldPlaca, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jTextFieldQuilometragem, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(jComboBoxTipoDeCombustivel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jTextFieldQuilometragem, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBoxTipoDeCombustivel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel10)
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(jComboBoxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(17, 17, 17))
+                    .addComponent(jComboBoxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33))
         );
 
-        getContentPane().add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 720, 270));
-
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 3, 48)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("NHIL");
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 300, 710, 50));
+        getContentPane().add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 450, 270));
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 3, 48)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
@@ -298,21 +358,41 @@ public class CadVeiculo extends javax.swing.JFrame {
 
         jPanel10.setBackground(new java.awt.Color(40, 40, 40));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("NUMERO:");
+        jLabel3.setText("Marca:");
 
-        jTextField2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTextField2.setText("24");
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("CATEGORIA:");
+        jLabel5.setText("Modelo:");
 
-        jComboBox2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxMarca.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jComboBoxMarca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxMarcaActionPerformed(evt);
+            }
+        });
+
+        jTextFieldUrl.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTextFieldUrl.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldUrlActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Url");
+
+        jComboBoxModelo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jComboBoxModelo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxModeloActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -322,40 +402,36 @@ public class CadVeiculo extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
+                        .addComponent(jComboBoxMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldUrl, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel10Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 286, Short.MAX_VALUE))
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField2)))
-                .addContainerGap())
+                        .addComponent(jComboBoxModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel5))
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jComboBoxMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldUrl, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jComboBoxModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 150, 710, 130));
-
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 3, 48)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setText("NHIL");
-        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 100, 720, 50));
+        getContentPane().add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 180, 420, 130));
 
         jButtonReturn.setBackground(new java.awt.Color(254, 173, 0));
         jButtonReturn.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
@@ -367,10 +443,243 @@ public class CadVeiculo extends javax.swing.JFrame {
         Background.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tp/icones/LogoSoneCar3.png"))); // NOI18N
         getContentPane().add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 1080));
+        getContentPane().add(jLabelImagem, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 220, 240, 160));
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 3, 48)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel8.setText("MARCA");
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 140, 330, 50));
+
+        jButtonBuscarMarca.setBackground(new java.awt.Color(254, 173, 0));
+        jButtonBuscarMarca.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jButtonBuscarMarca.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonBuscarMarca.setText("BUSCAR");
+        jButtonBuscarMarca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBuscarMarcaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonBuscarMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 420, 120, 40));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jTextFieldPlacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPlacaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldPlacaActionPerformed
+
+    private void jButtonIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIncluirActionPerformed
+        // TODO add your handling code here:
+        try {
+            String placa = jTextFieldPlaca.getText();
+            TipoDeCombustivel tipoDeCombustivel = (TipoDeCombustivel) jComboBoxTipoDeCombustivel.getSelectedItem();
+            float quilometragem = Float.parseFloat(jTextFieldQuilometragem.getText());
+            CategoriaDeCarro categoria = (CategoriaDeCarro) jComboBoxCategoria.getSelectedItem();
+            Marca marca = (Marca) jComboBoxMarca.getSelectedItem();
+            Modelo modelo = (Modelo) jComboBoxModelo.getSelectedItem();
+            String url = jTextFieldUrl.getText();
+            Proprietario proprietario = (Proprietario) jComboBoxProprietario.getSelectedItem();
+            
+            Veiculo veiculo = new Veiculo(placa, tipoDeCombustivel, quilometragem, categoria, marca, modelo, url, proprietario);
+            
+           VeiculoDao veiculoDao = new VeiculoDao();
+           veiculoDao.createVeiculo(veiculo);
+           limparTela();
+           atualizarGrid(veiculoDao.listaDeVeiculo());
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(this, "Erro ao incluir veículo: " + erro.getMessage());
+        }
+    }//GEN-LAST:event_jButtonIncluirActionPerformed
+
+    private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
+        // TODO add your handling code here:
+       try {
+    String placa = jTextFieldPlaca.getText();
+    float quilometragem = Float.parseFloat(jTextFieldQuilometragem.getText());
+
+    // Cria um objeto Veiculo com os dados atualizados
+    Veiculo veiculo = new Veiculo();
+    veiculo.setPlaca(placa);
+    veiculo.setQuilometragemAtual(quilometragem);
+
+    // Obtém os valores selecionados das comboboxes
+    Modelo modelo = (Modelo) jComboBoxModelo.getSelectedItem();
+    Marca marca = (Marca) jComboBoxMarca.getSelectedItem();
+    CategoriaDeCarro categoria = (CategoriaDeCarro) jComboBoxCategoria.getSelectedItem();
+    TipoDeCombustivel tipoCombustivel = (TipoDeCombustivel) jComboBoxTipoDeCombustivel.getSelectedItem();
+
+    // Define os valores no objeto Veiculo
+    veiculo.setMarca(marca);
+    veiculo.setModelo(modelo);
+    veiculo.setCategoria(categoria);
+    veiculo.setTipoDeCombustivel(tipoCombustivel);
+
+    IVeiculoDao veiculoBD = new VeiculoDao();
+    veiculoBD.alterarVeiculo(veiculo);
+
+    // Exibição de mensagem de sucesso
+    JOptionPane.showMessageDialog(this, "Veiculo alterada com sucesso.");
+
+    // Atualiza o grid de veiculos
+    atualizarGrid(veiculoBD.listaDeVeiculo());
+
+} catch (NumberFormatException e) {
+    JOptionPane.showMessageDialog(this, "Placa inválida. Insira um valor numérico.");
+} catch (Exception erro) {
+    JOptionPane.showMessageDialog(this, erro.getMessage());
+}
+
+    }//GEN-LAST:event_jButtonAlterarActionPerformed
+
+    private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
+  try {
+    String placa = jTextFieldPlaca.getText(); // Obtém a placa do JTextField
+    IVeiculoDao veiculoBD = new VeiculoDao();
+    veiculoBD.deleteVeiculo(placa);
+    
+    // Exibição de mensagem de sucesso ou atualização do grid, se necessário
+    JOptionPane.showMessageDialog(this, "Veiculo excluído com sucesso.");
+    
+     atualizarGrid(veiculoBD.listaDeVeiculo());
+    
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Placa inválido. Insira uma placa valida.");
+  } catch (Exception erro) {
+    JOptionPane.showMessageDialog(this, erro.getMessage());
+}            // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonExcluirActionPerformed
+
+    private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
+ try {
+    String placaText = jTextFieldPlaca.getText();
+    
+    // Verifica se o campo da Placa está vazio
+    if (placaText.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Insira uma Placa válida.");
+        return;
+    }
+    
+    String placa = (placaText); // Obtém a placa da JTextField
+    IVeiculoDao veiculoBD = new VeiculoDao();
+    ArrayList<Veiculo> listaDeConsultores = veiculoBD.listaDeVeiculo();
+    ArrayList<Veiculo> listaDeVeiculoEncontrados = new ArrayList<>();
+    
+    // Verifica se a marca com o ID especificado está na lista
+    for (Veiculo veiculo : listaDeConsultores) {
+        if (veiculo.getPlaca()== placa) {
+            listaDeVeiculoEncontrados.add(veiculo);
+        }
+    }
+    
+    // Verifica se foram encontradas marcas com o ID especificado
+    if (!listaDeVeiculoEncontrados.isEmpty()) {
+        atualizarGrid(listaDeVeiculoEncontrados);
+    } else {
+        JOptionPane.showMessageDialog(this, "Veiculo não encontrado.");
+    }
+} catch (NumberFormatException e) {
+    JOptionPane.showMessageDialog(this, "Placa inválida. Insira um valor valido.");
+} catch (Exception erro) {
+    JOptionPane.showMessageDialog(this, erro.getMessage());
+}        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonBuscarActionPerformed
+
+    private void jTextFieldUrlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldUrlActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldUrlActionPerformed
+
+    private void jButtonBuscarMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarMarcaActionPerformed
+
+    }//GEN-LAST:event_jButtonBuscarMarcaActionPerformed
+
+    private void jButtonBuscarVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarVeiculoActionPerformed
+        // TODO add your handling code here:
+        try{
+            JFileChooser fc = new JFileChooser(".\\src\\com\\tp\\ferramentas\\imagens");
+            fc.setDialogTitle("Buscar Imagem");
+            fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            IVeiculoDao veiculoBD = new VeiculoDao();
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("Imagem", "jpg", "png", "jpeg", "jfif");
+
+            fc.setFileFilter(filter);
+            int retorno = fc.showOpenDialog(this);
+
+            if (retorno == JFileChooser.APPROVE_OPTION) {
+                File selectedImageFile = fc.getSelectedFile();
+                urlArquivo = selectedImageFile.getPath();
+                jTextFieldUrl.setText(urlArquivo);
+                imagePath = selectedImageFile.getAbsolutePath();
+
+                ImageIcon imagemCarro = new ImageIcon(urlArquivo);
+                imagemCarro.setImage(imagemCarro.getImage().getScaledInstance(jLabelImagem.getWidth(), jLabelImagem.getHeight(), 1));
+                jLabelImagem.setIcon(imagemCarro);
+                atualizarGrid(veiculoBD.listaDeVeiculo());
+            }}catch (Exception erro) {
+                JOptionPane.showMessageDialog(this, erro.getMessage());
+            }
+    }//GEN-LAST:event_jButtonBuscarVeiculoActionPerformed
+
+    private void jComboBoxMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxMarcaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxMarcaActionPerformed
+
+    private void jComboBoxModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxModeloActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxModeloActionPerformed
+private  void limparTela(){
+    jTextFieldPlaca.setText("");
+    jTextFieldQuilometragem.setText("");
+    jTextFieldUrl.setText("");
+}
+ private void atualizarGrid(ArrayList<Veiculo> listaDeConsultores) {
+    try {
+        DefaultTableModel model = (DefaultTableModel) jTableVeiculo.getModel();
+        model.setNumRows(0);
+        for (int pos = 0; pos < listaDeConsultores.size(); pos++) {
+            Veiculo veiculo = listaDeConsultores.get(pos);
+            String placa = veiculo.getPlaca();
+            float quilometragem = veiculo.getQuilometragemAtual();
+            String url = veiculo.getUrl();
+            String marca = veiculo.getMarca().getDescricao(); // Obtenha a descrição da marca
+            String modelo = veiculo.getModelo().getDescricao(); // Obtenha a descrição do modelo
+            String tipoCombustivel = veiculo.getTipoDeCombustivel().toString(); // Obtenha o tipo de combustível
+            String categoria = veiculo.getCategoria().toString(); // Obtenha a categoria
+            String proprietario = veiculo.getProprietario().getCPF(); // Obtenha o CPF do proprietário do veículo
+           
+            Object[] dados = { placa, quilometragem, url, marca, modelo, tipoCombustivel, categoria, proprietario };
+            model.addRow(dados);
+        }
+    } catch (Exception erro) {
+        JOptionPane.showMessageDialog(rootPane, "Erro ao atualizar o grid: " + erro.getMessage());
+        System.out.println("Problema em atualizarGrid()");
+    }
+}
+
+
+    public class CellRenderer extends DefaultTableCellRenderer{
+    //o
+    JLabel jLabelImagem = new JLabel();
+    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row,
+int column){
+            
+            if(isSelected){
+            this.setBackground(table.getBackground());
+            this.setForeground(table.getForeground());
+            
+            }else{
+            this.setBackground(table.getBackground());
+            this.setForeground(table.getForeground());
+            }
+            ImageIcon logo = new ImageIcon(table.getValueAt(row, column -1).toString());
+            jLabelImagem.setText("");
+            logo.setImage(logo.getImage().getScaledInstance(table.getRowHeight(), table.getRowHeight(), 1));
+            jLabelImagem.setIcon(logo);
+            jLabelImagem.setHorizontalAlignment(CENTER);
+            return jLabelImagem;
+        
+        }
+}
     /**
      * @param args the command line arguments
      */
@@ -401,7 +710,11 @@ public class CadVeiculo extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CadVeiculo().setVisible(true);
+                try {
+                    new CadVeiculo().setVisible(true);
+                } catch (Exception ex) {
+                    Logger.getLogger(CadVeiculo.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -411,33 +724,36 @@ public class CadVeiculo extends javax.swing.JFrame {
     private javax.swing.JLabel UI_1;
     private javax.swing.JButton jButtonAlterar;
     private javax.swing.JButton jButtonBuscar;
+    private javax.swing.JButton jButtonBuscarMarca;
+    private javax.swing.JButton jButtonBuscarVeiculo;
     private javax.swing.JButton jButtonExcluir;
     private javax.swing.JButton jButtonIncluir;
     private javax.swing.JButton jButtonReturn;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBoxCategoria;
+    private javax.swing.JComboBox<String> jComboBoxMarca;
+    private javax.swing.JComboBox<String> jComboBoxModelo;
+    private javax.swing.JComboBox<String> jComboBoxProprietario;
     private javax.swing.JComboBox<String> jComboBoxTipoDeCombustivel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabelImagem;
+    private javax.swing.JLabel jLabelImagem1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTable jTableVeiculo;
     private javax.swing.JTextField jTextFieldPlaca;
     private javax.swing.JTextField jTextFieldQuilometragem;
+    private javax.swing.JTextField jTextFieldUrl;
     // End of variables declaration//GEN-END:variables
 }

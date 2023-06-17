@@ -11,6 +11,8 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -32,9 +34,10 @@ public class CadMarca extends javax.swing.JFrame {
     /**
      * Creates new form CadastroDeMarca
      */
-    public CadMarca() {
+    public CadMarca() throws Exception {
         initComponents();
-        
+         jTextFieldUrl.setVisible(false);
+        atualizarGrid(new MarcaDao().listaDeMarca());
     }
 
     /**
@@ -280,10 +283,10 @@ public class CadMarca extends javax.swing.JFrame {
     IMarcaDao marcaBD = new MarcaDao();
    
      
-    /*if (marcaBD.descricaoJaExiste(descricao, url)) {
-        JOptionPane.showMessageDialog(this, "A descrição já existe. Não é possível cadastrar novamente.");
-        return;
-    }*/
+//    if (marcaBD.descricaoJaExiste(descricao, url)) {
+//        JOptionPane.showMessageDialog(this, "A descrição já existe. Não é possível cadastrar novamente.");
+//        return;
+//    }
     
     atualizarGrid(marcaBD.listaDeMarca());
     Marca marca = new Marca(descricao, url);
@@ -499,7 +502,11 @@ int column){
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CadMarca().setVisible(true);
+                try {
+                    new CadMarca().setVisible(true);
+                } catch (Exception ex) {
+                    Logger.getLogger(CadMarca.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

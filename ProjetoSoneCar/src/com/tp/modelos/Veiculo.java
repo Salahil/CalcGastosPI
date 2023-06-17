@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.tp.modelos;
+import com.tp.modelos.Proprietario;
 import com.tp.enumeracao.CategoriaDeCarro;
 import com.tp.enumeracao.TipoDeCombustivel;
 import com.tp.modelos.Marca;
@@ -18,10 +19,19 @@ public class Veiculo {
     CategoriaDeCarro categoria;
     Marca marca = new Marca();
     Modelo modelo = new Modelo();
+    Proprietario proprietario = new Proprietario();
     String url;
     
     public String getUrl() {
         return url;
+    }
+
+    public Proprietario getProprietario() {
+        return proprietario;
+    }
+
+    public void setProprietario(Proprietario proprietario) {
+        this.proprietario = proprietario;
     }
 
     // Gets e Sets... pq a gente precisa né!
@@ -82,7 +92,7 @@ public class Veiculo {
     public Veiculo(){
     }
     
-    public Veiculo(String placa, TipoDeCombustivel combust, float kms, CategoriaDeCarro cat, Marca marca, Modelo modelo,String url){
+    public Veiculo(String placa, TipoDeCombustivel combust, float kms, CategoriaDeCarro cat, Marca marca, Modelo modelo,String url,Proprietario proprietario){
         this.placa = placa;
         this.tipoDeCombustivel = combust;
         this.quilometragemAtual = kms;
@@ -90,6 +100,7 @@ public class Veiculo {
         this.marca = marca;
         this.modelo = modelo;
         this.url = url;
+        this.proprietario = proprietario;
     }
     
     // Objetos das classes
@@ -128,6 +139,10 @@ public class Veiculo {
     public String toStringMarcaDoVeiculo(){
         return Ma.toStringDescricao();
     }
+    public String toStringProprietarioDoVeiculoNomeDoProprietario(){
+        return proprietario.toStringCPF();
+    }
+    
     //Marca e Modelo já tem seus próprios métodos toString, usa o deles:
     // marca.toStringDescricao()
     // modelo.toStringDescricao()
