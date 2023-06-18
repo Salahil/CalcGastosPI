@@ -4,16 +4,16 @@
  */
 package com.tp.modelos.subClasses;
 import java.util.Date;
+import com.tp.modelos.subClasses.TipoDeGastos;
 /**
  *
  * @author Julio
  */
 public class Gastos {
-    private float valor;
-    private Date dateDataDeRegistroDeGasto;
-    private String descricao;
-    private int id;
-    private int idT;
+     float valor;
+     Date dateDataDeRegistroDeGasto;
+     int id;
+     TipoDeGastos tipoDeGastos = new TipoDeGastos();
     
     // paranaue dos get e set:
 
@@ -33,14 +33,6 @@ public class Gastos {
         this.dateDataDeRegistroDeGasto = dateDataDeRegistroDeGasto;
     }
 
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
     public int getId() {
         return id;
     }
@@ -49,25 +41,19 @@ public class Gastos {
         this.id = id;
     }
 
-    public int getIdT() {
-        return idT;
+    public TipoDeGastos getTipoDeGastos() {
+        return tipoDeGastos;
     }
 
-    public void setIdT(int idT) {
-        this.idT = idT;
+    public void setTipoDeGastos(TipoDeGastos tipoDeGastos) {
+        this.tipoDeGastos = tipoDeGastos;
     }
-    
-    
-    // parafernalha de tranqueiras de construtor
-    
-    public Gastos(){
+
+    @Override
+    public String toString() {
+        return "Gastos{" + "valor=" + valor + ", dateDataDeRegistroDeGasto=" + dateDataDeRegistroDeGasto + ", id=" + id + ", tipoDeGastos=" + tipoDeGastos + '}';
     }
-    public Gastos(float val, Date data, String descricao){
-        this.valor = val;
-        this.dateDataDeRegistroDeGasto = data;
-        this.descricao = descricao;
-        // botar aqui o codigo que gera a id desse troço
-        
-        // bota aqui^^^^
-    }
+
+   
+    
 }

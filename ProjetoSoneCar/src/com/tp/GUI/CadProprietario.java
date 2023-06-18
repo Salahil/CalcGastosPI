@@ -43,6 +43,7 @@ public class CadProprietario extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButtonReturn = new javax.swing.JButton();
         UI_1 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jButtonIncluir = new javax.swing.JButton();
@@ -69,11 +70,21 @@ public class CadProprietario extends javax.swing.JFrame {
         jTextFieldTelefone2 = new javax.swing.JTextField();
         jTextFieldEmail2 = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        jButtonReturn = new javax.swing.JButton();
         Background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButtonReturn.setBackground(new java.awt.Color(254, 173, 0));
+        jButtonReturn.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jButtonReturn.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonReturn.setText("X");
+        jButtonReturn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonReturnActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonReturn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1840, 10, 70, -1));
 
         UI_1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         UI_1.setForeground(new java.awt.Color(254, 173, 0));
@@ -301,12 +312,6 @@ public class CadProprietario extends javax.swing.JFrame {
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel12.setText("CNH");
         getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 110, 720, 50));
-
-        jButtonReturn.setBackground(new java.awt.Color(254, 173, 0));
-        jButtonReturn.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jButtonReturn.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonReturn.setText("X");
-        getContentPane().add(jButtonReturn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1840, 10, 70, -1));
 
         Background.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         Background.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);

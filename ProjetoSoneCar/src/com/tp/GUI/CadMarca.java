@@ -11,6 +11,8 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -21,6 +23,7 @@ import static javax.swing.SwingConstants.CENTER;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import java.sql.SQLException;
 
 /**
  *
@@ -32,9 +35,10 @@ public class CadMarca extends javax.swing.JFrame {
     /**
      * Creates new form CadastroDeMarca
      */
-    public CadMarca() {
+    public CadMarca() throws Exception {
         initComponents();
-        
+         jTextFieldUrl.setVisible(false);
+        atualizarGrid(new MarcaDao().listaDeMarca());
     }
 
     /**
@@ -46,6 +50,7 @@ public class CadMarca extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButtonReturn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableDadosProjeto = new javax.swing.JTable();
         jPanel8 = new javax.swing.JPanel();
@@ -56,7 +61,6 @@ public class CadMarca extends javax.swing.JFrame {
         UI_1 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jButtonBuscarMarca = new javax.swing.JButton();
-        jButtonReturn = new javax.swing.JButton();
         jLabelImagem = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jTextFieldUrl = new javax.swing.JTextField();
@@ -69,6 +73,17 @@ public class CadMarca extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButtonReturn.setBackground(new java.awt.Color(254, 173, 0));
+        jButtonReturn.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jButtonReturn.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonReturn.setText("X");
+        jButtonReturn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonReturnActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonReturn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 10, 70, -1));
 
         jTableDadosProjeto.setBackground(new java.awt.Color(40, 40, 40));
         jTableDadosProjeto.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -178,12 +193,6 @@ public class CadMarca extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButtonBuscarMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 420, 120, 40));
-
-        jButtonReturn.setBackground(new java.awt.Color(254, 173, 0));
-        jButtonReturn.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jButtonReturn.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonReturn.setText("X");
-        getContentPane().add(jButtonReturn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1840, 10, 70, -1));
         getContentPane().add(jLabelImagem, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 220, 240, 160));
 
         jPanel7.setBackground(new java.awt.Color(40, 40, 40));
@@ -273,34 +282,33 @@ public class CadMarca extends javax.swing.JFrame {
 
     private void jButtonIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIncluirActionPerformed
         // TODO add your handling code here:
-         try {
+     try {
     String descricao = jTextFieldDescricao.getText();
     String url = jTextFieldUrl.getText();
 
     IMarcaDao marcaBD = new MarcaDao();
-   
-    boolean descricaoUrlJaExiste = marcaBD.descricaoJaExiste(jTextFieldDescricao.getText(), jTextFieldUrl.getText());
-
-    if (descricaoUrlJaExiste) {
-        JOptionPane.showMessageDialog(null, "A descrição já existe. Não é possível cadastrar novamente.");
-        return;
+    // Verificar se a marca já existe no banco de dados
+    if (marcaBD.descricaoJaExiste(descricao, url)) {
+        JOptionPane.showMessageDialog(this, "Já existe uma marca com a mesma descrição e URL.");
+        return; // Sai do método sem prosseguir com o cadastro
     }
-    
     atualizarGrid(marcaBD.listaDeMarca());
     Marca marca = new Marca(descricao, url);
     marcaBD.createMarca(marca);
     limparTela();
     
-} catch (Exception erro) {
-    JOptionPane.showMessageDialog(this,"A descrição já existe. Não é possível cadastrar novamente.");
+} catch (SQLException ex) {
+    JOptionPane.showMessageDialog(this, "Ocorreu um erro ao verificar a descrição: " + ex.getMessage());
+} catch (Exception ex) {
+    JOptionPane.showMessageDialog(this, "Ocorreu um erro ao cadastrar a marca: " + ex.getMessage());
 }
+
     }//GEN-LAST:event_jButtonIncluirActionPerformed
 
     private void jButtonBuscarMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarMarcaActionPerformed
-        // TODO add your handling code here:
-         // TODO add your handling code here:
+ // TODO add your handling code here:
         try{
-        JFileChooser fc = new JFileChooser(".\\src\\com\\tp\\ferramentas\\imagens");
+        JFileChooser fc = new JFileChooser("src/main/java/com/tp/ferramentas/imagens");
         fc.setDialogTitle("Buscar Imagem");
         fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
         IMarcaDao marcaBD = new MarcaDao();
@@ -415,6 +423,11 @@ public class CadMarca extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButtonConsultarActionPerformed
 
+    private void jButtonReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReturnActionPerformed
+     new MainHub().setVisible(true);
+        this.hide();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonReturnActionPerformed
+
     private  void limparTela(){
     jTextFieldId.setText("");
     jTextFieldDescricao.setText("");
@@ -500,7 +513,11 @@ int column){
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CadMarca().setVisible(true);
+                try {
+                    new CadMarca().setVisible(true);
+                } catch (Exception ex) {
+                    Logger.getLogger(CadMarca.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

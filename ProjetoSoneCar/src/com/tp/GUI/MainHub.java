@@ -4,6 +4,12 @@
  */
 package com.tp.GUI;
 
+import com.tp.modelos.Veiculo;
+import java.awt.event.ActionEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author sergy
@@ -52,6 +58,11 @@ public class MainHub extends javax.swing.JFrame {
         jButtonCadastrarVeiculo.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jButtonCadastrarVeiculo.setForeground(new java.awt.Color(255, 255, 255));
         jButtonCadastrarVeiculo.setText("CADASTRAR VEICULO");
+        jButtonCadastrarVeiculo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCadastrarVeiculoActionPerformed(evt);
+            }
+        });
 
         jButtonCadastrarModelo.setBackground(new java.awt.Color(254, 173, 0));
         jButtonCadastrarModelo.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
@@ -67,16 +78,31 @@ public class MainHub extends javax.swing.JFrame {
         jButtonCadastrarMarca.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jButtonCadastrarMarca.setForeground(new java.awt.Color(255, 255, 255));
         jButtonCadastrarMarca.setText("CADASTRAR MARCA");
+        jButtonCadastrarMarca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCadastrarMarcaActionPerformed(evt);
+            }
+        });
 
         jButtonCadastrarGastos.setBackground(new java.awt.Color(254, 173, 0));
         jButtonCadastrarGastos.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jButtonCadastrarGastos.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonCadastrarGastos.setText("CADASTRAR GASTOS");
+        jButtonCadastrarGastos.setText("CADASTRAR TIPO DE GASTOS");
+        jButtonCadastrarGastos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCadastrarGastosActionPerformed(evt);
+            }
+        });
 
         jButtonInserirGastos.setBackground(new java.awt.Color(254, 173, 0));
         jButtonInserirGastos.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jButtonInserirGastos.setForeground(new java.awt.Color(255, 255, 255));
         jButtonInserirGastos.setText("INSERIR GASTOS");
+        jButtonInserirGastos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonInserirGastosActionPerformed(evt);
+            }
+        });
 
         jButtonCadastrarProprietario.setBackground(new java.awt.Color(254, 173, 0));
         jButtonCadastrarProprietario.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
@@ -95,7 +121,7 @@ public class MainHub extends javax.swing.JFrame {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonCadastrarProprietario, javax.swing.GroupLayout.DEFAULT_SIZE, 508, Short.MAX_VALUE)
+                    .addComponent(jButtonCadastrarProprietario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonCadastrarVeiculo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonCadastrarModelo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonCadastrarMarca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -132,12 +158,46 @@ public class MainHub extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonCadastrarModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarModeloActionPerformed
-
+        try {
+            new CadModelo().setVisible(true);
+        } catch (Exception ex) {
+            Logger.getLogger(MainHub.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.hide();
     }//GEN-LAST:event_jButtonCadastrarModeloActionPerformed
 
     private void jButtonCadastrarProprietarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarProprietarioActionPerformed
-        // TODO add your handling code here:
+       new CadProprietario().setVisible(true);
+        this.hide();        // TODO add your handling code here:
     }//GEN-LAST:event_jButtonCadastrarProprietarioActionPerformed
+
+    private void jButtonInserirGastosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInserirGastosActionPerformed
+
+       
+    // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonInserirGastosActionPerformed
+
+    private void jButtonCadastrarGastosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarGastosActionPerformed
+             // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCadastrarGastosActionPerformed
+
+    private void jButtonCadastrarMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarMarcaActionPerformed
+        try {
+            new CadMarca().setVisible(true);
+        } catch (Exception ex) {
+            Logger.getLogger(MainHub.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.hide();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCadastrarMarcaActionPerformed
+
+    private void jButtonCadastrarVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarVeiculoActionPerformed
+        try {
+            new CadVeiculo().setVisible(true);
+        } catch (Exception ex) {
+            Logger.getLogger(MainHub.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.hide();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCadastrarVeiculoActionPerformed
 
     /**
      * @param args the command line arguments

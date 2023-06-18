@@ -7,6 +7,7 @@ package com.tp.persistencia;
 
 import com.tp.enumeracao.CategoriaDeCarro;
 import com.tp.enumeracao.TipoDeCombustivel;
+import com.tp.modelos.Proprietario;
 import com.tp.modelos.Marca;
 import com.tp.modelos.Modelo;
 import com.tp.modelos.Veiculo;
@@ -31,22 +32,29 @@ public VeiculoDao() throws Exception{
 
     @Override
     public void createVeiculo(Veiculo isVeiculo) throws Exception {
-       try {
-    String sql = "INSERT INTO veiculo (marca, modelo, combustivel, quilometragemAtual, categoriaDoCarro, url) VALUES (?, ?, ?, ?, ?, ?)";
-    PreparedStatement preparedStatement = conexao.prepareStatement(sql);
-    preparedStatement.setString(1, isVeiculo.getMarca().getDescricao());
-    preparedStatement.setString(2, isVeiculo.getModelo().getDescricao());
-    preparedStatement.setString(3, isVeiculo.getTipoDeCombustivel().toString());
-    preparedStatement.setFloat(4, isVeiculo.getQuilometragemAtual());
-    preparedStatement.setString(5, isVeiculo.getCategoria().toString());
-    preparedStatement.setString(6, isVeiculo.getUrl());
-    preparedStatement.executeUpdate(); // Executa a atualização no banco de dados
-} catch (SQLException erro) {
-    throw new Exception("SQL ERRO:" + erro.getMessage());
-} catch (Exception erro) {
-    throw erro;
-}
+           try {
+        String sql = "INSERT INTO veiculo (placa, marca_descricao, modelo_descricao, cpf_proprietario, combustivel, quilometragemAtual, categoria_Do_Carro, url) " +
+                     "SELECT ?, m.descricao, mo.descricao, p.cpf, ?, ?, ?, ? " +
+                     "FROM marca m, modelo mo, proprietario p " +
+                     "WHERE m.id = ? AND mo.id = ? AND p.cpf = ?";
+
+        PreparedStatement preparedStatement = conexao.prepareStatement(sql);
+        preparedStatement.setString(1, isVeiculo.getPlaca());
+        preparedStatement.setString(2, isVeiculo.getTipoDeCombustivel().name());
+        preparedStatement.setFloat(3, isVeiculo.getQuilometragemAtual());
+        preparedStatement.setString(4, isVeiculo.getCategoria().toString());
+        preparedStatement.setString(5, isVeiculo.getUrl());
+        preparedStatement.setInt(6, isVeiculo.getMarca().getId());
+        preparedStatement.setInt(7, isVeiculo.getModelo().getId());
+        preparedStatement.setString(8, isVeiculo.getProprietario().getCPF());
+
+        preparedStatement.executeUpdate(); // Executa a atualização no banco de dados
+    } catch (SQLException erro) {
+        throw new Exception("SQL ERRO:" + erro.getMessage());
+    } catch (Exception erro) {
+        throw erro;
     }
+}
 
     @Override
     public ArrayList<Veiculo> listaDeVeiculo() throws Exception {
@@ -65,6 +73,7 @@ public VeiculoDao() throws Exception{
             isVeiculo.setQuilometragemAtual(rs.getFloat("quilometragemAtual"));
             isVeiculo.setCategoria(CategoriaDeCarro.valueOf(rs.getString("categoriaDoCarro")));
             isVeiculo.setUrl(rs.getString("url"));
+            isVeiculo.setProprietario(new Proprietario(rs.getString("proprietario")));
             listaDeVeiculo.add(isVeiculo);
         }
     } catch (SQLException e) {
@@ -100,9 +109,10 @@ public VeiculoDao() throws Exception{
         preparedStatement.setString(5, veiculo.getCategoria().toString());
         preparedStatement.setString(6, veiculo.getUrl());
         preparedStatement.setString(7, veiculo.getPlaca());
+        preparedStatement.setString(8, veiculo.getProprietario().toStringCPF());
         preparedStatement.executeUpdate();
     } catch (SQLException e) {
-        throw new Exception("Erro ao alterar a marca: " + e.getMessage());
+        throw new Exception("Erro ao alterar a Veiculo: " + e.getMessage());
     }
        return alterarVeiculo;
     }
@@ -127,6 +137,77 @@ public VeiculoDao() throws Exception{
         return false;
 }
 
+    @Override
+    public ArrayList<Marca> listarMarcas() throws Exception {
+       ArrayList<Marca> marcas = new ArrayList<>();
+
+        String sql = "SELECT * FROM marca";
+
+        try (PreparedStatement statement = conexao.prepareStatement(sql);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                String descricao = resultSet.getString("descricao");
+
+                Marca marca = new Marca(descricao);
+                marcas.add(marca);
+            }
+        } catch (SQLException e) {
+            throw new Exception("Erro ao listar marcas: " + e.getMessage());
+        }
+
+        return marcas;
+    }
+
+    @Override
+    public ArrayList<Modelo> listarModelos() throws Exception {
+       ArrayList<Modelo> modelos = new ArrayList<>();
+
+        String sql = "SELECT * FROM modelo";
+
+        try (PreparedStatement statement = conexao.prepareStatement(sql);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                String descricao = resultSet.getString("descricao");
+
+                Modelo modelo = new Modelo(descricao);
+                modelos.add(modelo);
+            }
+        } catch (SQLException e) {
+            throw new Exception("Erro ao listar modelos: " + e.getMessage());
+        }
+
+        return modelos;
+    }
+
+    @Override
+    public ArrayList<Proprietario> listarProprietarios() throws Exception {
+       ArrayList<Proprietario> proprietarios = new ArrayList<>();
+
+        String sql = "SELECT * FROM proprietario";
+
+        try (PreparedStatement statement = conexao.prepareStatement(sql);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                String cpf = resultSet.getString("cpf");
+
+                Proprietario proprietario = new Proprietario(cpf);
+                proprietarios.add(proprietario);
+            }
+        } catch (SQLException e) {
+            throw new Exception("Erro ao listar proprietários: " + e.getMessage());
+        }
+
+        return proprietarios;
+    }
+}
 
     
-}
+      
+
+    
+
+    
+

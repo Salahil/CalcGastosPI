@@ -4,17 +4,49 @@
  */
 package com.tp.GUI;
 
+import com.tp.persistencia.GastosDao;
+import com.tp.persistencia.IGastosDao;
+import com.tp.persistencia.TipoDeGastosDao;
+import com.tp.persistencia.ITipoDeGastosDao;
+import com.tp.modelos.subClasses.*;
+
+import java.awt.Dimension;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.table.DefaultTableModel;
+
+
 /**
  *
  * @author sergy
  */
 public class CadGastos extends javax.swing.JFrame {
+    
+    private IGastosDao gastosBD;
+    private ITipoDeGastosDao tipoDeGastoBD;
+
+    private DefaultTableModel tableModel;
+
 
     /**
      * Creates new form CadGastos
      */
-    public CadGastos() {
-        initComponents();
+    public CadGastos() throws Exception {
+       initComponents();
+
+        gastosBD = new GastosDao();
+        tipoDeGastoBD = new TipoDeGastosDao();
+
+        tableModel = (DefaultTableModel) jTableTabelaDeGasto.getModel();
+        atualizarGrid(tipoDeGastoBD.listaDeTipoDeGasto());
     }
 
     /**
@@ -40,18 +72,22 @@ public class CadGastos extends javax.swing.JFrame {
         jButtonIncluir = new javax.swing.JButton();
         jButtonAlterar = new javax.swing.JButton();
         jButtonExcluir = new javax.swing.JButton();
-        jButtonBuscar = new javax.swing.JButton();
+        jButtonListar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableTabelaDeGasto = new javax.swing.JTable();
-        jButtonReturn = new javax.swing.JButton();
         Background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel7.setBackground(new java.awt.Color(40, 40, 40));
 
         jTextFieldValor.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTextFieldValor.setText("$15000");
+        jTextFieldValor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldValorActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -59,7 +95,6 @@ public class CadGastos extends javax.swing.JFrame {
         jLabel1.setText("ID:");
 
         jTextFieldId.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTextFieldId.setText("24");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -80,7 +115,11 @@ public class CadGastos extends javax.swing.JFrame {
         jLabel4.setText("DATA:");
 
         jTextFieldData.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTextFieldData.setText("20/01/2001");
+        jTextFieldData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldDataActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -88,7 +127,7 @@ public class CadGastos extends javax.swing.JFrame {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
@@ -96,15 +135,15 @@ public class CadGastos extends javax.swing.JFrame {
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxGasto, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jComboBoxGasto, 0, 162, Short.MAX_VALUE))
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
                             .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldData, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldValor, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextFieldData, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+                            .addComponent(jTextFieldValor))))
                 .addContainerGap(104, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
@@ -138,10 +177,13 @@ public class CadGastos extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
 
+        getContentPane().add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 135, -1, 280));
+
         UI_1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         UI_1.setForeground(new java.awt.Color(254, 173, 0));
         UI_1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         UI_1.setText("CADASTRO DE GASTO");
+        getContentPane().add(UI_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1390, 80));
 
         jPanel8.setBackground(new java.awt.Color(40, 40, 40));
 
@@ -149,33 +191,58 @@ public class CadGastos extends javax.swing.JFrame {
         jButtonIncluir.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jButtonIncluir.setForeground(new java.awt.Color(255, 255, 255));
         jButtonIncluir.setText("INCLUIR");
+        jButtonIncluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonIncluirActionPerformed(evt);
+            }
+        });
 
         jButtonAlterar.setBackground(new java.awt.Color(254, 173, 0));
         jButtonAlterar.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jButtonAlterar.setForeground(new java.awt.Color(255, 255, 255));
         jButtonAlterar.setText("ALTERAR");
+        jButtonAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAlterarActionPerformed(evt);
+            }
+        });
 
         jButtonExcluir.setBackground(new java.awt.Color(254, 173, 0));
         jButtonExcluir.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jButtonExcluir.setForeground(new java.awt.Color(255, 255, 255));
         jButtonExcluir.setText("EXCLUIR");
+        jButtonExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonExcluirActionPerformed(evt);
+            }
+        });
 
-        jButtonBuscar.setBackground(new java.awt.Color(254, 173, 0));
-        jButtonBuscar.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jButtonBuscar.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonBuscar.setText("BUSCAR");
+        jButtonListar.setBackground(new java.awt.Color(254, 173, 0));
+        jButtonListar.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jButtonListar.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonListar.setText("LISTAR");
+        jButtonListar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonListarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButtonIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButtonAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonListar, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
@@ -183,14 +250,16 @@ public class CadGastos extends javax.swing.JFrame {
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButtonIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addGap(18, 18, 18)
                 .addComponent(jButtonAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addGap(18, 18, 18)
                 .addComponent(jButtonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16))
+                .addGap(18, 18, 18)
+                .addComponent(jButtonListar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(10, Short.MAX_VALUE))
         );
+
+        getContentPane().add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 140, 420, 310));
 
         jTableTabelaDeGasto.setBackground(new java.awt.Color(40, 40, 40));
         jTableTabelaDeGasto.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -205,102 +274,189 @@ public class CadGastos extends javax.swing.JFrame {
                 "ID", "DATA", "VALOR", "GASTO"
             }
         ));
+        jTableTabelaDeGasto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableTabelaDeGastoMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableTabelaDeGasto);
 
-        jButtonReturn.setBackground(new java.awt.Color(254, 173, 0));
-        jButtonReturn.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jButtonReturn.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonReturn.setText("X");
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 510, 1340, 560));
 
         Background.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         Background.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tp/icones/LogoSoneCar3.png"))); // NOI18N
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(1443, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(50, 50, 50)
-                            .addComponent(UI_1, javax.swing.GroupLayout.PREFERRED_SIZE, 1820, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(10, 10, 10)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1900, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(1840, 1840, 1840)
-                            .addComponent(jButtonReturn, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(1480, 1480, 1480)
-                            .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(Background))
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(135, 135, 135)
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(665, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(UI_1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(430, 430, 430)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(10, 10, 10)
-                            .addComponent(jButtonReturn))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(150, 150, 150)
-                            .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(Background))
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
+        getContentPane().add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1390, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButtonIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIncluirActionPerformed
+                                              
+    try {
+    // Obtenha os valores dos campos da tela
+    float valor = Float.parseFloat(jTextFieldValor.getText());
+    java.util.Date data = jDateChooserData.getDate();
+    String tipoGastos = jComboBoxGasto.getSelectedItem().toString();
+
+    // Crie um novo objeto Gastos e defina os valores
+    Gastos novoGasto = new Gastos();
+    novoGasto.setValor(valor);
+    novoGasto.setDateDataDeRegistroDeGasto(data);
+    novoGasto.setTipoDeGastos(tipoGastos);
+
+    // Chame o método createGasto da classe GastosDao para salvar o novo gasto
+    GastosDao gastosDao = new GastosDao(); // Crie uma instância da classe GastosDao
+    gastosDao.createGasto(novoGasto);
+
+    JOptionPane.showMessageDialog(this, "Gasto incluído com sucesso!");
+    // Outras ações necessárias após a inclusão do gasto...
+
+} catch (Exception erro) {
+    JOptionPane.showMessageDialog(this, "Erro ao incluir o gasto: " + erro.getMessage());
+}
+
+
+
+    }//GEN-LAST:event_jButtonIncluirActionPerformed
+
+    private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
+        try {
+            int id = Integer.parseInt(jTextFieldId.getText());
+            float valor = Float.parseFloat(jTextFieldValor.getText());
+            String tipoDeGasto = jComboBoxGasto.getSelectedItem().toString();
+            LocalDate gastosDate = LocalDate.now();
+
+            // Crie um objeto Gastos com os dados inseridos
+            Gastos gastos = new Gastos();
+            gastos.setId(id);
+            gastos.setValor(valor);
+            // Recupere o tipoDeGasto do banco de dados usando tipoDeGastoBD e atribua-o ao objeto gastos
+            // gastos.setTipoDeGasto(tipoDeGastoBD.getTipoDeGasto(tipoDeGasto));
+            Date date = Date.from(gastosDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+            // Atualize o objeto gastos no banco de dados usando gastosBD
+            gastosBD.alterarGastos(gastos);
+
+            // Exiba uma mensagem de sucesso
+            JOptionPane.showMessageDialog(this, "Gastos atualizados com sucesso.");
+
+            // Atualize a tabela
+            atualizarGrid(tipoDeGastoBD.listaDeTipoDeGasto());
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Valor inválido. Insira um número válido.");
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(this, erro.getMessage());
+        }
+    }//GEN-LAST:event_jButtonAlterarActionPerformed
+
+    private void jTextFieldValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldValorActionPerformed
+        
+    }//GEN-LAST:event_jTextFieldValorActionPerformed
+    private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
+        try {
+            int id = Integer.parseInt(jTextFieldId.getText());
+
+            // Exclua o objeto gastos do banco de dados usando gastosBD
+            gastosBD.excluirGastos(id);
+
+            // Exiba uma mensagem de sucesso
+            JOptionPane.showMessageDialog(this, "Gastos excluídos com sucesso.");
+
+            // Limpe os campos de entrada
+            jTextFieldId.setText("");
+            jTextFieldValor.setText("");
+            jComboBoxGasto.setSelectedIndex(0);
+
+            // Atualize a tabela
+            atualizarGrid(tipoDeGastoBD.listaDeTipoDeGasto());
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "ID inválido. Insira um número válido.");
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(this, erro.getMessage());
+        }
+    }//GEN-LAST:event_jButtonExcluirActionPerformed
+
+    private void jButtonListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonListarActionPerformed
+        
+    }//GEN-LAST:event_jButtonListarActionPerformed
+
+    private void jTableTabelaDeGastoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableTabelaDeGastoMouseClicked
+// Obtenha o índice da linha selecionada
+        int rowIndex = jTableTabelaDeGasto.getSelectedRow();
+
+        // Obtenha o valor da célula da coluna de ID
+        int id = (int) jTableTabelaDeGasto.getValueAt(rowIndex, 0);
+
+        // Use o ID para buscar os detalhes do gasto no banco de dados usando gastosBD
+        Gastos gastos = null;
+        try {
+            gastos = gastosBD.getGasto(id);
+        } catch (Exception ex) {
+            Logger.getLogger(CadGastos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        // Preencha os campos de entrada com os detalhes do gasto
+        jTextFieldId.setText(String.valueOf(gastos.getId()));
+        jTextFieldValor.setText(String.valueOf(gastos.getValor()));
+        //jComboBoxGasto.setSelectedItem(gastos.getTipoDeGasto().getDescricao());
+        //TODO add your handling code here:
+    }//GEN-LAST:event_jTableTabelaDeGastoMouseClicked
+
+    private void jTextFieldDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDataActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldDataActionPerformed
+
+  private  void limparTela(){
+      jTextFieldId.setText("");
+      jTextFieldValor.setText("");
+      jTextFieldData.setText("");
+  }
+    private void atualizarGrid(ArrayList<Gastos> listaDeConsultores) {
+    try {
+        DefaultTableModel model = (DefaultTableModel) jTableTabelaDeGasto.getModel();
+        model.setNumRows(0);
+        for (int pos = 0; pos < listaDeConsultores.size(); pos++) {
+            Gastos gasto = listaDeConsultores.get(pos);
+            String id = String.valueOf(gasto.getId());
+            String valor = String.valueOf(gasto.getValor());
+            String data = gasto.getDateDataDeRegistroDeGasto().toString();
+            TipoDeGastos tipo = gasto.getTipoDeGastos();
+            
+            Object[] dados = { id, valor, data, tipo };
+            model.addRow(dados);
+        }
+    } catch (Exception erro) {
+        JOptionPane.showMessageDialog(rootPane, "Erro ao atualizar o grid: " + erro.getMessage());
+        System.out.println("Problema em atualizarGrid()");
+    }
+}
+
+    
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CadGastos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CadGastos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CadGastos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(CadGastos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
 
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CadGastos().setVisible(true);
+                try {
+                    new CadGastos().setVisible(true);
+                } catch (Exception ex) {
+                    Logger.getLogger(CadGastos.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -309,10 +465,9 @@ public class CadGastos extends javax.swing.JFrame {
     private javax.swing.JLabel Background;
     private javax.swing.JLabel UI_1;
     private javax.swing.JButton jButtonAlterar;
-    private javax.swing.JButton jButtonBuscar;
     private javax.swing.JButton jButtonExcluir;
     private javax.swing.JButton jButtonIncluir;
-    private javax.swing.JButton jButtonReturn;
+    private javax.swing.JButton jButtonListar;
     private javax.swing.JComboBox<String> jComboBoxGasto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
