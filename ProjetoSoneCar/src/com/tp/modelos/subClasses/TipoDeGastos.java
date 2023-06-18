@@ -11,7 +11,6 @@ package com.tp.modelos.subClasses;
 public class TipoDeGastos {
     private int id;
     private String descricao;
-    private Gastos valor = new Gastos();
 
     public int getId() {
         return id;
@@ -28,21 +27,26 @@ public class TipoDeGastos {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-
-    public Gastos getValor() {
-        return valor;
-    }
-
-    public void setValor(Gastos valor) {
-        this.valor = valor;
-    }
-
-    public TipoDeGastos(String descricao) {
-        this.descricao = descricao;
-    }
     
-    public TipoDeGastos(){
+     public TipoDeGastos(){
         
     }
+    public TipoDeGastos(String desc){
+        this.descricao = desc;
+    }
     
+
+    @Override
+    public String toString() {
+        return "TipoDeGastos{" + "id=" + id + ", descricao=" + descricao + '}';
+    }
+
+    public String toStringDescricao() {
+        return(descricao);
+    }
+    
+    public String toStringID(){
+        return ("" + id);
+    }
+  
 }

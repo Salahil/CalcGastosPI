@@ -57,7 +57,7 @@ public class TipoDeGastosDao implements ITipoDeGastosDao{
     @Override
     public void createTipoDeGasto(TipoDeGastos isTipoDeGastos) throws Exception {
         try{
-            String sql = "insert into Tipodegastos(descricao) values(?)";
+            String sql = "insert into tipodegastos(descricao) values(?)";
             PreparedStatement preparedStatement = conexao.prepareStatement(sql);
             preparedStatement.setString(1, isTipoDeGastos.getDescricao());
             preparedStatement.executeUpdate(); // Executa a atualização no banco de dados
@@ -72,7 +72,7 @@ public class TipoDeGastosDao implements ITipoDeGastosDao{
     @Override
     public ArrayList<TipoDeGastos> listaDeTipoDeGasto() throws Exception {
         ArrayList<TipoDeGastos>listaDeTipoDeGastos = new ArrayList<TipoDeGastos>();
-        String sql = "Select * From Tipodegastos";
+        String sql = "Select * From tipodegastos";
         try{
             Statement statement = conexao.createStatement();
             ResultSet rs = statement.executeQuery(sql);
@@ -92,7 +92,7 @@ public class TipoDeGastosDao implements ITipoDeGastosDao{
     @Override
     public ArrayList<TipoDeGastos> deletarTipoDeGasto(int idT) throws Exception {
         ArrayList<TipoDeGastos> listaDeTipoDeGastos = new ArrayList<>();
-    String sql = "DELETE FROM Tipodegastos WHERE id = ?";
+    String sql = "DELETE FROM tipodegastos WHERE id = ?";
     try (PreparedStatement preparedStatement = conexao.prepareStatement(sql)) {
         preparedStatement.setInt(1, idT);
         preparedStatement.executeUpdate();
@@ -106,7 +106,7 @@ public class TipoDeGastosDao implements ITipoDeGastosDao{
     @Override
     public ArrayList<TipoDeGastos> alterarTipoDeGasto(TipoDeGastos gastos) throws Exception {
             ArrayList<TipoDeGastos>alterarTipoDeGastos = new ArrayList<TipoDeGastos>();
-       String sql = "UPDATE Tipodegastos SET descricao = ? WHERE id = ?";
+       String sql = "UPDATE tipodegastos SET descricao = ? WHERE id = ?";
     try (PreparedStatement preparedStatement = conexao.prepareStatement(sql)) {
         preparedStatement.setString(1, gastos.getDescricao());
         preparedStatement.setInt(2, gastos.getId());
@@ -119,7 +119,7 @@ public class TipoDeGastosDao implements ITipoDeGastosDao{
 
     @Override
     public boolean descricaoJaExiste(String descricao) {
-        String query = "SELECT COUNT(*) FROM Tipodegastos WHERE descricao = ?";
+        String query = "SELECT COUNT(*) FROM tipodegastos WHERE descricao = ?";
         try (Connection conn = ConexaoBanco.getConexao();
             PreparedStatement stmt = conn.prepareStatement(query)) {
 

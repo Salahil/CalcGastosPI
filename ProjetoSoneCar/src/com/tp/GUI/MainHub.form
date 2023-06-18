@@ -60,7 +60,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jButtonCadastrarProprietario" alignment="0" pref="508" max="32767" attributes="0"/>
+                      <Component id="jButtonCadastrarProprietario" alignment="0" max="32767" attributes="0"/>
                       <Component id="jButtonCadastrarVeiculo" alignment="0" max="32767" attributes="0"/>
                       <Component id="jButtonCadastrarModelo" alignment="0" max="32767" attributes="0"/>
                       <Component id="jButtonCadastrarMarca" alignment="0" max="32767" attributes="0"/>
@@ -105,6 +105,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="CADASTRAR VEICULO"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCadastrarVeiculoActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButtonCadastrarModelo">
           <Properties>
@@ -136,6 +139,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="CADASTRAR MARCA"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCadastrarMarcaActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButtonCadastrarGastos">
           <Properties>
@@ -148,8 +154,11 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="CADASTRAR GASTOS"/>
+            <Property name="text" type="java.lang.String" value="CADASTRAR TIPO DE GASTOS"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCadastrarGastosActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButtonInserirGastos">
           <Properties>
@@ -164,6 +173,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="INSERIR GASTOS"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonInserirGastosActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButtonCadastrarProprietario">
           <Properties>

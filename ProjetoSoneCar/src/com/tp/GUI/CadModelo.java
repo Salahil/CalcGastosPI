@@ -47,6 +47,7 @@ String imagePath = "";
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButtonReturn = new javax.swing.JButton();
         jLabelImagem = new javax.swing.JLabel();
         UI_1 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
@@ -65,11 +66,21 @@ String imagePath = "";
         jTableCadastroDeModelo = new javax.swing.JTable();
         jLabel8 = new javax.swing.JLabel();
         jButtonBuscarModelo = new javax.swing.JButton();
-        jButtonReturn = new javax.swing.JButton();
         Background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButtonReturn.setBackground(new java.awt.Color(254, 173, 0));
+        jButtonReturn.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jButtonReturn.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonReturn.setText("X");
+        jButtonReturn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonReturnActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonReturn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1280, 10, 70, -1));
         getContentPane().add(jLabelImagem, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 120, 228, 180));
 
         UI_1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
@@ -257,12 +268,6 @@ String imagePath = "";
         });
         getContentPane().add(jButtonBuscarModelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 310, -1, 40));
 
-        jButtonReturn.setBackground(new java.awt.Color(254, 173, 0));
-        jButtonReturn.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jButtonReturn.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonReturn.setText("X");
-        getContentPane().add(jButtonReturn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1280, 10, 70, -1));
-
         Background.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         Background.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tp/icones/LogoSoneCar3.png"))); // NOI18N
@@ -405,6 +410,11 @@ try {
     JOptionPane.showMessageDialog(this, erro.getMessage());
 }  
     }//GEN-LAST:event_jButtonBuscarModeloActionPerformed
+
+    private void jButtonReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReturnActionPerformed
+      new MainHub().setVisible(true);
+        this.hide();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonReturnActionPerformed
 private  void limparTela(){
     jTextFieldId.setText("");
     jTextFieldDescricao.setText("");

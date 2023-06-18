@@ -6,7 +6,11 @@ package com.tp.execucao;
 
 import com.tp.ferramentas.graficas.GraficoBarras;
 import org.jfree.data.category.DefaultCategoryDataset;
-import com.tp.ferramentas.fileArranger.FileArranger;
+import com.tp.ferramentas.contabil.*;
+import com.tp.ferramentas.auxiliar.*;
+import com.tp.ferramentas.fileArranger.*;
+import com.tp.ferramentas.graficas.*;
+import com.tp.modelos.subClasses.Gastos;
 /**
  *
  * @author Julio
@@ -16,7 +20,7 @@ public class MainClass {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         // TODO code application logic here
         final String tituloGrafico = "Maconha!";
         final String descricaoX = "CUECÃO DE COURO";//nome de um dos textos da bagaceira
@@ -31,6 +35,9 @@ public class MainClass {
         
         GraficoBarras graf = new GraficoBarras(tituloGrafico, descricaoX, descricaoY, dataset);
         graf.exibirGraficoNaTela(800, 600);
+        
+        PegarGastoDoBancoDeDados mewTwo = new PegarGastoDoBancoDeDados();
+        Gastos cuticuti = mewTwo.buscarGastoPorId(1);
         
        /* FileArranger cuecaoDeCouro = new FileArranger();
         cuecaoDeCouro.chooseImageFile();

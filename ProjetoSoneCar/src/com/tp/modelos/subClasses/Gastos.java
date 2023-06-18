@@ -4,15 +4,16 @@
  */
 package com.tp.modelos.subClasses;
 import java.util.Date;
+import com.tp.modelos.subClasses.TipoDeGastos;
 /**
  *
  * @author Julio
  */
 public class Gastos {
-    private float valor;
-    private Date dateDataDeRegistroDeGasto;
-    private int id;
-    private TipoDeGastos descricao = new TipoDeGastos();
+     float valor;
+     Date dateDataDeRegistroDeGasto;
+     int id;
+     TipoDeGastos tipoDeGastos = new TipoDeGastos();
     
     // paranaue dos get e set:
 
@@ -32,14 +33,6 @@ public class Gastos {
         this.dateDataDeRegistroDeGasto = dateDataDeRegistroDeGasto;
     }
 
-//    public String getDescricao() {
-//        return descricao;
-//    }
-//
-//    public void setDescricao(String descricao) {
-//        this.descricao = descricao;
-//    }
-
     public int getId() {
         return id;
     }
@@ -47,52 +40,20 @@ public class Gastos {
     public void setId(int id) {
         this.id = id;
     }
-    
-    public String toStringTipoDeGasto() {
-        return (descricao.getDescricao() + ";" + descricao.getId());
-    }
-    
-    public String toStringIDTipodegasto(){
-        return "" + descricao.getId();
-    }
-    
-    public String toStringDescricaoTipodegasto(){
-        return descricao.getDescricao();
-    }
-    
-    public void setDescricao(TipoDeGastos tipoDeGastos) {
-    this.descricao = tipoDeGastos;
+
+    public TipoDeGastos getTipoDeGastos() {
+        return tipoDeGastos;
     }
 
+    public void setTipoDeGastos(TipoDeGastos tipoDeGastos) {
+        this.tipoDeGastos = tipoDeGastos;
+    }
 
-//    public int getIdT() {
-//        return idT;
-//    }
-//
-//    public void setIdT(int idT) {
-//        this.idT = idT;
-//    }
-    
-    
-    // parafernalha de tranqueiras de construtor
-    
-    public Gastos(){
+    @Override
+    public String toString() {
+        return "Gastos{" + "valor=" + valor + ", dateDataDeRegistroDeGasto=" + dateDataDeRegistroDeGasto + ", id=" + id + ", tipoDeGastos=" + tipoDeGastos + '}';
     }
-    
-    public Gastos(float val, Date data/*, String descricao*/){
-        this.valor = val;
-        this.dateDataDeRegistroDeGasto = data;
-//        this.descricao = descricao;
-        // botar aqui o codigo que gera a id desse troço
-        
-        // bota aqui^^^^
-    }
-    public Gastos(float val, Date data, String desc){
-        this.valor = val;
-        this.dateDataDeRegistroDeGasto = data;
-        TipoDeGastos Tpg = new TipoDeGastos(desc);
-        this.descricao = Tpg;
-    }
-    
+
+   
     
 }
