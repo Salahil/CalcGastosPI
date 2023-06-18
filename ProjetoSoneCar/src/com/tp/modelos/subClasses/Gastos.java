@@ -11,9 +11,8 @@ import java.util.Date;
 public class Gastos {
     private float valor;
     private Date dateDataDeRegistroDeGasto;
-    private String descricao;
     private int id;
-    private int idT;
+    private TipoDeGastos descricao = new TipoDeGastos();
     
     // paranaue dos get e set:
 
@@ -33,13 +32,13 @@ public class Gastos {
         this.dateDataDeRegistroDeGasto = dateDataDeRegistroDeGasto;
     }
 
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
+//    public String getDescricao() {
+//        return descricao;
+//    }
+//
+//    public void setDescricao(String descricao) {
+//        this.descricao = descricao;
+//    }
 
     public int getId() {
         return id;
@@ -48,26 +47,52 @@ public class Gastos {
     public void setId(int id) {
         this.id = id;
     }
-
-    public int getIdT() {
-        return idT;
+    
+    public String toStringTipoDeGasto() {
+        return (descricao.getDescricao() + ";" + descricao.getId());
+    }
+    
+    public String toStringIDTipodegasto(){
+        return "" + descricao.getId();
+    }
+    
+    public String toStringDescricaoTipodegasto(){
+        return descricao.getDescricao();
+    }
+    
+    public void setDescricao(TipoDeGastos tipoDeGastos) {
+    this.descricao = tipoDeGastos;
     }
 
-    public void setIdT(int idT) {
-        this.idT = idT;
-    }
+
+//    public int getIdT() {
+//        return idT;
+//    }
+//
+//    public void setIdT(int idT) {
+//        this.idT = idT;
+//    }
     
     
     // parafernalha de tranqueiras de construtor
     
     public Gastos(){
     }
-    public Gastos(float val, Date data, String descricao){
+    
+    public Gastos(float val, Date data/*, String descricao*/){
         this.valor = val;
         this.dateDataDeRegistroDeGasto = data;
-        this.descricao = descricao;
+//        this.descricao = descricao;
         // botar aqui o codigo que gera a id desse troço
         
         // bota aqui^^^^
     }
+    public Gastos(float val, Date data, String desc){
+        this.valor = val;
+        this.dateDataDeRegistroDeGasto = data;
+        TipoDeGastos Tpg = new TipoDeGastos(desc);
+        this.descricao = Tpg;
+    }
+    
+    
 }

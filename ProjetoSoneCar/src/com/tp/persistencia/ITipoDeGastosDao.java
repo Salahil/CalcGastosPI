@@ -4,7 +4,7 @@
  */
 package com.tp.persistencia;
 
-import com.tp.modelos.subClasses.Gastos;
+import com.tp.modelos.subClasses.TipoDeGastos;
 import java.util.ArrayList;
 
 /**
@@ -12,9 +12,9 @@ import java.util.ArrayList;
  * @author Julio
  */
 public interface ITipoDeGastosDao {
-    void createTipoDeGasto(Gastos isGastos)throws Exception;
-    ArrayList<Gastos>listaDeTipoDeGasto()throws Exception;
-    ArrayList<Gastos>deletarTipoDeGasto(int idT)throws Exception;
-    ArrayList<Gastos>alterarTipoDeGasto(Gastos gastos)throws Exception;
+    void createTipoDeGasto(TipoDeGastos isTipoDeGastos)throws Exception;
+    ArrayList<TipoDeGastos>listaDeTipoDeGasto()throws Exception;
+    ArrayList<TipoDeGastos>deletarTipoDeGasto(int id)throws Exception;
+    ArrayList<TipoDeGastos>alterarTipoDeGasto(TipoDeGastos tipoDeGastos)throws Exception;
     boolean descricaoJaExiste(String descricao);
 }

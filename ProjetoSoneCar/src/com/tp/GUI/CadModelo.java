@@ -4,17 +4,38 @@
  */
 package com.tp.GUI;
 
+import com.tp.modelos.Modelo;
+import com.tp.persistencia.IModeloDao;
+import com.tp.persistencia.ModeloDao;
+import java.awt.Component;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author sergy
  */
 public class CadModelo extends javax.swing.JFrame {
-
+String urlArquivo = "";
+String imagePath = "";
     /**
      * Creates new form CadModelo
      */
-    public CadModelo() {
+    public CadModelo() throws Exception {
         initComponents();
+        jTextFieldUrl.setVisible(false);
+        atualizarGrid(new ModeloDao().listaDeModelo());
     }
 
     /**
@@ -26,22 +47,414 @@ public class CadModelo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jLabelImagem = new javax.swing.JLabel();
+        UI_1 = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        jTextFieldUrl = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jTextFieldId = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jTextFieldDescricao = new javax.swing.JTextField();
+        jPanel8 = new javax.swing.JPanel();
+        jButtonIncluir = new javax.swing.JButton();
+        jButtonAlterar = new javax.swing.JButton();
+        jButtonExcluir = new javax.swing.JButton();
+        jButtonBuscar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableCadastroDeModelo = new javax.swing.JTable();
+        jLabel8 = new javax.swing.JLabel();
+        jButtonBuscarModelo = new javax.swing.JButton();
+        jButtonReturn = new javax.swing.JButton();
+        Background = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1920, Short.MAX_VALUE)
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(jLabelImagem, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 120, 228, 180));
+
+        UI_1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        UI_1.setForeground(new java.awt.Color(254, 173, 0));
+        UI_1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        UI_1.setText("CADASTRO DE MODELO");
+        getContentPane().add(UI_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-430, 0, 1920, 80));
+
+        jPanel7.setBackground(new java.awt.Color(40, 40, 40));
+
+        jTextFieldUrl.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("ID:");
+
+        jTextFieldId.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTextFieldId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldIdActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("URL:");
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("DESCRIÇAO:");
+
+        jTextFieldDescricao.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextFieldUrl, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(jTextFieldId, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1080, Short.MAX_VALUE)
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldId, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(jTextFieldUrl, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(72, 72, 72))
         );
+
+        getContentPane().add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 330, 200));
+
+        jPanel8.setBackground(new java.awt.Color(40, 40, 40));
+
+        jButtonIncluir.setBackground(new java.awt.Color(254, 173, 0));
+        jButtonIncluir.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jButtonIncluir.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonIncluir.setText("INCLUIR");
+        jButtonIncluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonIncluirActionPerformed(evt);
+            }
+        });
+
+        jButtonAlterar.setBackground(new java.awt.Color(254, 173, 0));
+        jButtonAlterar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jButtonAlterar.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonAlterar.setText("ALTERAR");
+        jButtonAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAlterarActionPerformed(evt);
+            }
+        });
+
+        jButtonExcluir.setBackground(new java.awt.Color(254, 173, 0));
+        jButtonExcluir.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jButtonExcluir.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonExcluir.setText("EXCLUIR");
+        jButtonExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonExcluirActionPerformed(evt);
+            }
+        });
+
+        jButtonBuscar.setBackground(new java.awt.Color(254, 173, 0));
+        jButtonBuscar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jButtonBuscar.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonBuscar.setText("BUSCAR");
+        jButtonBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBuscarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jButtonExcluir, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonAlterar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonIncluir, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(107, 107, 107))
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButtonIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 100, 210, 270));
+
+        jTableCadastroDeModelo.setBackground(new java.awt.Color(40, 40, 40));
+        jTableCadastroDeModelo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jTableCadastroDeModelo.setForeground(new java.awt.Color(255, 255, 255));
+        jTableCadastroDeModelo.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "ID", "DESCRIÇAO", "URL"
+            }
+        ));
+        jScrollPane1.setViewportView(jTableCadastroDeModelo);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, 650, 360));
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel8.setText("MODELO");
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 80, 330, 50));
+
+        jButtonBuscarModelo.setBackground(new java.awt.Color(254, 173, 0));
+        jButtonBuscarModelo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jButtonBuscarModelo.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonBuscarModelo.setText("BUSCAR");
+        jButtonBuscarModelo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBuscarModeloActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonBuscarModelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 310, -1, 40));
+
+        jButtonReturn.setBackground(new java.awt.Color(254, 173, 0));
+        jButtonReturn.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jButtonReturn.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonReturn.setText("X");
+        getContentPane().add(jButtonReturn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1280, 10, 70, -1));
+
+        Background.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        Background.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tp/icones/LogoSoneCar3.png"))); // NOI18N
+        getContentPane().add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 1080));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jTextFieldIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldIdActionPerformed
+
+    private void jButtonIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIncluirActionPerformed
+        // TODO add your handling code here:
+         try {
+    String descricao = jTextFieldDescricao.getText();
+    String url = jTextFieldUrl.getText();
+
+    IModeloDao modeloBD = new ModeloDao();
+   
+     
+    /*if (modeloBD.descricaoJaExiste(descricao, url)) {
+        JOptionPane.showMessageDialog(this, "A descrição já existe. Não é possível cadastrar novamente.");
+        return;
+    }*/
+    
+    atualizarGrid(modeloBD.listaDeModelo());
+    Modelo modelo = new Modelo(descricao, url);
+    modeloBD.createModelo(modelo);
+    limparTela();
+    atualizarGrid(modeloBD.listaDeModelo());
+} catch (Exception erro) {
+    JOptionPane.showMessageDialog(this,"A descrição já existe. Não é possível cadastrar novamente.");
+}
+    }//GEN-LAST:event_jButtonIncluirActionPerformed
+
+    private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
+        // TODO add your handling code here:
+        try {
+        int id = Integer.parseInt(jTextFieldId.getText()); // Obtém o ID do JTextField
+        String descricao = jTextFieldDescricao.getText(); // Obtém a descrição do JTextField
+
+        // Cria um objeto Modelo com os dados atualizados
+        Modelo modelo = new Modelo();
+        modelo.setId(id);
+        modelo.setDescricao(descricao);
+
+        IModeloDao modeloBD = new ModeloDao();
+        modeloBD.alterarModelo(modelo);
+
+        // Exibição de mensagem de sucesso
+        JOptionPane.showMessageDialog(this, "Modelo alterada com sucesso.");
+
+        // Atualiza o grid de modelos
+        atualizarGrid(modeloBD.listaDeModelo());
+
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "ID inválido. Insira um valor numérico.");
+    } catch (Exception erro) {
+        JOptionPane.showMessageDialog(this, erro.getMessage());
+    }
+    }//GEN-LAST:event_jButtonAlterarActionPerformed
+
+    private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
+try {
+    int id = Integer.parseInt(jTextFieldId.getText()); // Obtém o ID do JTextField
+    IModeloDao modeloBD = new ModeloDao();
+    modeloBD.deleteModelo(id);
+    
+    // Exibição de mensagem de sucesso ou atualização do grid, se necessário
+    JOptionPane.showMessageDialog(this, "Modelo excluída com sucesso.");
+    
+     atualizarGrid(modeloBD.listaDeModelo());
+    
+} catch (NumberFormatException e) {
+    JOptionPane.showMessageDialog(this, "ID inválido. Insira um valor numérico.");
+} catch (Exception erro) {
+    JOptionPane.showMessageDialog(this, erro.getMessage());
+}         // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonExcluirActionPerformed
+
+    private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
+try {
+    String idText = jTextFieldId.getText();
+    
+    // Verifica se o campo de ID está vazio
+    if (idText.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Insira um ID válido.");
+        return;
+    }
+    
+    int id = Integer.parseInt(idText); // Obtém o ID do JTextField
+    IModeloDao marcaBD = new ModeloDao();
+    ArrayList<Modelo> listaDeConsultores = marcaBD.listaDeModelo();
+    ArrayList<Modelo> listaDeModelosEncontradas = new ArrayList<>();
+    
+    // Verifica se a marca com o ID especificado está na lista
+    for (Modelo modelo : listaDeConsultores) {
+        if (modelo.getId() == id) {
+            listaDeModelosEncontradas.add(modelo);
+        }
+    }
+    
+    // Verifica se foram encontradas marcas com o ID especificado
+    if (!listaDeModelosEncontradas.isEmpty()) {
+        atualizarGrid(listaDeModelosEncontradas);
+    } else {
+        JOptionPane.showMessageDialog(this, "Modelo não encontrada.");
+    }
+} catch (NumberFormatException e) {
+    JOptionPane.showMessageDialog(this, "ID inválido. Insira um valor numérico.");
+} catch (Exception erro) {
+    JOptionPane.showMessageDialog(this, erro.getMessage());
+}        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonBuscarActionPerformed
+
+    private void jButtonBuscarModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarModeloActionPerformed
+        // TODO add your handling code here:
+         try{
+        JFileChooser fc = new JFileChooser(".\\src\\com\\tp\\ferramentas\\imagens");
+        fc.setDialogTitle("Buscar Imagem");
+        fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        IModeloDao modeloBD = new ModeloDao();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Imagem", "jpg", "png", "jpeg", "jfif");
+
+        fc.setFileFilter(filter);
+        int retorno = fc.showOpenDialog(this);
+
+        if (retorno == JFileChooser.APPROVE_OPTION) {
+            File selectedImageFile = fc.getSelectedFile();
+            urlArquivo = selectedImageFile.getPath();
+            jTextFieldUrl.setText(urlArquivo);
+            imagePath = selectedImageFile.getAbsolutePath();
+            
+            ImageIcon imagemCarro = new ImageIcon(urlArquivo);
+            imagemCarro.setImage(imagemCarro.getImage().getScaledInstance(jLabelImagem.getWidth(), jLabelImagem.getHeight(), 1));
+            jLabelImagem.setIcon(imagemCarro);
+             atualizarGrid(modeloBD.listaDeModelo());
+        }}catch (Exception erro) {
+    JOptionPane.showMessageDialog(this, erro.getMessage());
+}  
+    }//GEN-LAST:event_jButtonBuscarModeloActionPerformed
+private  void limparTela(){
+    jTextFieldId.setText("");
+    jTextFieldDescricao.setText("");
+    jTextFieldUrl.setText("");
+}
+private void atualizarGrid(ArrayList<Modelo>listaDeConsultores){
+   try {
+    DefaultTableModel model =  (DefaultTableModel) jTableCadastroDeModelo.getModel();
+    model.setNumRows(0);
+    for(int pos = 0; pos < listaDeConsultores.size(); pos++){
+      Modelo pessoa = listaDeConsultores.get(pos);
+                String[] linha = new String[3];
+                linha[0]= pessoa.getId()+ "";
+                linha[1]= pessoa.getDescricao();
+                linha[2]= pessoa.getUrl();
+                Object[] dados = {linha[0], linha[1],linha[2]};
+                model.addRow(dados);
+            }
+            //JOptionPane.showMessageDialog(rootPane, dadosDosProfessores.toString());
+            
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(rootPane, erro.getMessage());
+             System.out.println("isProblem in atualizarGrid()_Menu");
+        }
+   
+}
+
+     public class CellRenderer extends DefaultTableCellRenderer{
+    //o
+    JLabel jLabelImagem = new JLabel();
+    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row,
+int column){
+            
+            if(isSelected){
+            this.setBackground(table.getBackground());
+            this.setForeground(table.getForeground());
+            
+            }else{
+            this.setBackground(table.getBackground());
+            this.setForeground(table.getForeground());
+            }
+            ImageIcon logo = new ImageIcon(table.getValueAt(row, column -1).toString());
+            jLabelImagem.setText("");
+            logo.setImage(logo.getImage().getScaledInstance(table.getRowHeight(), table.getRowHeight(), 1));
+            jLabelImagem.setIcon(logo);
+            jLabelImagem.setHorizontalAlignment(CENTER);
+            return jLabelImagem;
+        
+        }
+}
     /**
      * @param args the command line arguments
      */
@@ -72,11 +485,35 @@ public class CadModelo extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CadModelo().setVisible(true);
+                try {
+                    new CadModelo().setVisible(true);
+                } catch (Exception ex) {
+                    Logger.getLogger(CadModelo.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Background;
+    private javax.swing.JLabel UI_1;
+    private javax.swing.JButton jButtonAlterar;
+    private javax.swing.JButton jButtonBuscar;
+    private javax.swing.JButton jButtonBuscarModelo;
+    private javax.swing.JButton jButtonExcluir;
+    private javax.swing.JButton jButtonIncluir;
+    private javax.swing.JButton jButtonReturn;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabelImagem;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTableCadastroDeModelo;
+    private javax.swing.JTextField jTextFieldDescricao;
+    private javax.swing.JTextField jTextFieldId;
+    private javax.swing.JTextField jTextFieldUrl;
     // End of variables declaration//GEN-END:variables
 }

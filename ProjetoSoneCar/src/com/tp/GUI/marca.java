@@ -237,10 +237,10 @@ public class marca extends javax.swing.JFrame {
     IMarcaDao marcaBD = new MarcaDao();
    
      
-    /*if (marcaBD.descricaoJaExiste(descricao, url)) {
+    if (marcaBD.descricaoJaExiste(descricao, url)) {
         JOptionPane.showMessageDialog(this, "A descrição já existe. Não é possível cadastrar novamente.");
         return;
-    }*/
+    }
     
     atualizarGrid(marcaBD.listaDeMarca());
     Marca marca = new Marca(descricao, url);
