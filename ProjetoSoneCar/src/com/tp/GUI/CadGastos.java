@@ -8,7 +8,7 @@ import com.tp.persistencia.GastosDao;
 import com.tp.persistencia.IGastosDao;
 import com.tp.persistencia.TipoDeGastosDao;
 import com.tp.persistencia.ITipoDeGastosDao;
-import com.tp.modelos.subClasses.Gastos;
+import com.tp.modelos.subClasses.*;
 
 import java.awt.Dimension;
 import java.time.LocalDate;
@@ -312,16 +312,17 @@ public class CadGastos extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldValorActionPerformed
 
     
-    private void atualizarGrid(ArrayList<Gastos>listadegastos){
+    private void atualizarGrid(ArrayList<TipoDeGastos>listadegastos){
         try {
+            Gastos gastos = new Gastos();
             DefaultTableModel model = (DefaultTableModel) jTableTabelaDeGasto.getModel();
             model.setNumRows(0);
             for (int pos = 0; pos < listadegastos.size(); pos++) {
-                Gastos gastos = listadegastos.get(pos);
+                TipoDeGastos tipoDeGastos = listadegastos.get(pos);
                 String[] linha = new String[3];
-                linha[0] = gastos.getId() + "";
+                linha[0] = tipoDeGastos.getId() + "";
                 linha[1] = gastos.getDateDataDeRegistroDeGasto().toString();
-                linha[2] = gastos.getValor() + "";
+                linha[2] = tipoDeGastos.getValor() + "";
                 Object[] dados = {linha[0], linha[1], linha[2]};
                 model.addRow(dados);
             }

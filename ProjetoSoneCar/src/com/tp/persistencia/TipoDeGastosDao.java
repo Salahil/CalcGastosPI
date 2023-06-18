@@ -4,7 +4,7 @@
  */
 package com.tp.persistencia;
 
-import com.tp.modelos.subClasses.Gastos;
+import com.tp.modelos.subClasses.TipoDeGastos;
 import com.tp.persistencia.ConexaoBanco;
 
 import java.sql.Connection;
@@ -31,11 +31,11 @@ public class TipoDeGastosDao implements ITipoDeGastosDao{
     }
 
     @Override
-    public void createTipoDeGasto(Gastos isGastos) throws Exception {
+    public void createTipoDeGasto(TipoDeGastos isTipoDeGastos) throws Exception {
         try{
-            String sql = "insert into tipodegasto(descricao) values(?)";
+            String sql = "insert into Tipodegastos(descricao) values(?)";
             PreparedStatement preparedStatement = conexao.prepareStatement(sql);
-            preparedStatement.setString(1, isGastos.getDescricao());
+            preparedStatement.setString(1, isTipoDeGastos.getDescricao());
             preparedStatement.executeUpdate(); // Executa a atualização no banco de dados
         }catch(SQLException erro){
             throw new Exception("SQL ERRO:" + erro.getMessage());
@@ -46,29 +46,29 @@ public class TipoDeGastosDao implements ITipoDeGastosDao{
     }
 
     @Override
-    public ArrayList<Gastos> listaDeTipoDeGasto() throws Exception {
-        ArrayList<Gastos>listaDeTipoDeGastos = new ArrayList<Gastos>();
-        String sql = "Select * From gastos";
-     try{
-       Statement statement = conexao.createStatement();
-       ResultSet rs = statement.executeQuery(sql);
-       while (rs.next()){
-        Gastos isGastos = new Gastos();
-        isGastos.setId(rs.getInt("id"));
-        isGastos.setDescricao(rs.getString("descricao"));
-        listaDeTipoDeGastos.add(isGastos);
-    }
-     }catch(SQLException e){
-         e.printStackTrace();
-         System.out.println("isProblem in listaDeTipoDeGastos()_TipoDeGastosDao");
-     }
-       return listaDeTipoDeGastos;
+    public ArrayList<TipoDeGastos> listaDeTipoDeGasto() throws Exception {
+        ArrayList<TipoDeGastos>listaDeTipoDeGastos = new ArrayList<TipoDeGastos>();
+        String sql = "Select * From Tipodegastos";
+        try{
+            Statement statement = conexao.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+            while (rs.next()){
+            TipoDeGastos isTipoDeGastos = new TipoDeGastos();
+            isTipoDeGastos.setId(rs.getInt("id"));
+            isTipoDeGastos.setDescricao(rs.getString("descricao"));
+            listaDeTipoDeGastos.add(isTipoDeGastos);
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+            System.out.println("isProblem in listaDeTipoDeGastos()_TipoDeGastosDao");
+        }
+        return listaDeTipoDeGastos;
     }
 
     @Override
-    public ArrayList<Gastos> deletarTipoDeGasto(int idT) throws Exception {
-        ArrayList<Gastos> listaDeTipoDeGastos = new ArrayList<>();
-    String sql = "DELETE FROM tipodegasto WHERE id = ?";
+    public ArrayList<TipoDeGastos> deletarTipoDeGasto(int idT) throws Exception {
+        ArrayList<TipoDeGastos> listaDeTipoDeGastos = new ArrayList<>();
+    String sql = "DELETE FROM Tipodegastos WHERE id = ?";
     try (PreparedStatement preparedStatement = conexao.prepareStatement(sql)) {
         preparedStatement.setInt(1, idT);
         preparedStatement.executeUpdate();
@@ -80,12 +80,12 @@ public class TipoDeGastosDao implements ITipoDeGastosDao{
     }
 
     @Override
-    public ArrayList<Gastos> alterarTipoDeGasto(Gastos gastos) throws Exception {
-            ArrayList<Gastos>alterarTipoDeGastos = new ArrayList<Gastos>();
-       String sql = "UPDATE tipodegasto SET descricao = ? WHERE id = ?";
+    public ArrayList<TipoDeGastos> alterarTipoDeGasto(TipoDeGastos gastos) throws Exception {
+            ArrayList<TipoDeGastos>alterarTipoDeGastos = new ArrayList<TipoDeGastos>();
+       String sql = "UPDATE Tipodegastos SET descricao = ? WHERE id = ?";
     try (PreparedStatement preparedStatement = conexao.prepareStatement(sql)) {
         preparedStatement.setString(1, gastos.getDescricao());
-        preparedStatement.setInt(2, gastos.getIdT());
+        preparedStatement.setInt(2, gastos.getId());
         preparedStatement.executeUpdate();
     } catch (SQLException e) {
         throw new Exception("Erro ao alterar o tipo de gasto: " + e.getMessage());
@@ -95,7 +95,7 @@ public class TipoDeGastosDao implements ITipoDeGastosDao{
 
     @Override
     public boolean descricaoJaExiste(String descricao) {
-        String query = "SELECT COUNT(*) FROM tipodegasto WHERE descricao = ?";
+        String query = "SELECT COUNT(*) FROM Tipodegastos WHERE descricao = ?";
         try (Connection conn = ConexaoBanco.getConexao();
             PreparedStatement stmt = conn.prepareStatement(query)) {
 
