@@ -58,7 +58,6 @@ public class CadGastos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButtonReturn = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jTextFieldValor = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -80,17 +79,6 @@ public class CadGastos extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jButtonReturn.setBackground(new java.awt.Color(254, 173, 0));
-        jButtonReturn.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jButtonReturn.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonReturn.setText("X");
-        jButtonReturn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonReturnActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButtonReturn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1270, 10, 70, -1));
 
         jPanel7.setBackground(new java.awt.Color(40, 40, 40));
 
@@ -468,7 +456,6 @@ public class CadGastos extends javax.swing.JFrame {
     private javax.swing.JButton jButtonExcluir;
     private javax.swing.JButton jButtonIncluir;
     private javax.swing.JButton jButtonListar;
-    private javax.swing.JButton jButtonReturn;
     private javax.swing.JComboBox<String> jComboBoxGasto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;

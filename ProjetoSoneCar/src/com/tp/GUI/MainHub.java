@@ -173,14 +173,12 @@ public class MainHub extends javax.swing.JFrame {
 
     private void jButtonInserirGastosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInserirGastosActionPerformed
 
-       new CadGastos().setVisible(true);
-        this.hide();
+       
     // TODO add your handling code here:
     }//GEN-LAST:event_jButtonInserirGastosActionPerformed
 
     private void jButtonCadastrarGastosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarGastosActionPerformed
-       new CadTipoDeGasto().setVisible(true);
-        this.hide();        // TODO add your handling code here:
+             // TODO add your handling code here:
     }//GEN-LAST:event_jButtonCadastrarGastosActionPerformed
 
     private void jButtonCadastrarMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarMarcaActionPerformed

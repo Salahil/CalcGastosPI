@@ -37,7 +37,6 @@ public class CadTipoDeGasto extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButtonReturn = new javax.swing.JButton();
         UI_1 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -51,28 +50,16 @@ public class CadTipoDeGasto extends javax.swing.JFrame {
         jButtonBuscarTipoDeGasto = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableGridGridGridGrid = new javax.swing.JTable();
-        jButtonReturn = new javax.swing.JButton();
         Background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButtonReturn.setBackground(new java.awt.Color(254, 173, 0));
-        jButtonReturn.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jButtonReturn.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonReturn.setText("X");
-        jButtonReturn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonReturnActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButtonReturn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1840, 10, 70, -1));
-
         UI_1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         UI_1.setForeground(new java.awt.Color(254, 173, 0));
         UI_1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         UI_1.setText("INSERIR TIPO DE GASTO");
-        getContentPane().add(UI_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-290, 0, 1920, 80));
+        getContentPane().add(UI_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-300, 0, 1920, 80));
 
         jPanel7.setBackground(new java.awt.Color(40, 40, 40));
 
@@ -221,11 +208,6 @@ public class CadTipoDeGasto extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 1380, 560));
 
-        jButtonReturn.setBackground(new java.awt.Color(254, 173, 0));
-        jButtonReturn.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jButtonReturn.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonReturn.setText("X");
-        getContentPane().add(jButtonReturn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1270, 10, 70, -1));
         Background.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         Background.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tp/icones/LogoSoneCar3.png"))); // NOI18N
@@ -353,7 +335,6 @@ public class CadTipoDeGasto extends javax.swing.JFrame {
     private javax.swing.JButton jButtonBuscarTipoDeGasto;
     private javax.swing.JButton jButtonExcluirTipoDeGastos;
     private javax.swing.JButton jButtonIncluirTipoDeGasto;
-    private javax.swing.JButton jButtonReturn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel7;
