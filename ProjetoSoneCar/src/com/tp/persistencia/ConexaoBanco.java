@@ -13,7 +13,7 @@ public class ConexaoBanco {
         try{
             if(conexao == null){
                 String driver = "org.postgresql.Driver";
-                String url = "jdbc:postgresql://localhost:5432/SoneCar";
+                String url = "jdbc:postgresql://localhost:5432/CarDB";
                 String user = "postgres";
                 String password = "aluno"; 
                 Class.forName(driver);

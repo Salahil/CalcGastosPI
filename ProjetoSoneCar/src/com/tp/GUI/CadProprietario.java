@@ -4,17 +4,34 @@
  */
 package com.tp.GUI;
 
+import com.tp.enumeracao.CategoriaDeCNH;
+import com.tp.enumeracao.CategoriaDeCarro;
+import com.tp.ferramentas.auxiliar.BuscarEnumFromString;
+import com.tp.modelos.Proprietario;
+import com.tp.modelos.subClasses.CNH;
+import com.tp.persistencia.IProprietarioDao;
+import com.tp.persistencia.ProprietarioDao;
+import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author sergy
  */
 public class CadProprietario extends javax.swing.JFrame {
-
+    CNH cnh = new CNH();
     /**
      * Creates new form CadProprietario
      */
+   
     public CadProprietario() {
         initComponents();
+        CategoriaDeCNH[] cnhCategoria = CategoriaDeCNH.values();
+            for (CategoriaDeCNH categoria : cnhCategoria) {
+                jComboBoxCNHCategoria.addItem(categoria.name());
+            }
     }
 
     /**
@@ -27,16 +44,11 @@ public class CadProprietario extends javax.swing.JFrame {
     private void initComponents() {
 
         UI_1 = new javax.swing.JLabel();
-        jPanel7 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jTextFieldTelefone2 = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jTextFieldEmail2 = new javax.swing.JTextField();
         jPanel8 = new javax.swing.JPanel();
         jButtonIncluir = new javax.swing.JButton();
-        jButtonAlterar = new javax.swing.JButton();
-        jButtonExcluir = new javax.swing.JButton();
         jButtonBuscar = new javax.swing.JButton();
+        jButtonExcluir = new javax.swing.JButton();
+        jButtonAlterar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableCadastroDeProprietario = new javax.swing.JTable();
         jPanel9 = new javax.swing.JPanel();
@@ -48,12 +60,14 @@ public class CadProprietario extends javax.swing.JFrame {
         jTextFieldNome = new javax.swing.JTextField();
         jTextFieldEmail1 = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jPanel10 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jTextFieldCNHNumero = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jComboBoxCNHCategoria = new javax.swing.JComboBox<>();
+        jTextFieldCNHNumero = new javax.swing.JTextField();
+        jTextFieldTelefone2 = new javax.swing.JTextField();
+        jTextFieldEmail2 = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jButtonReturn = new javax.swing.JButton();
         Background = new javax.swing.JLabel();
@@ -65,113 +79,62 @@ public class CadProprietario extends javax.swing.JFrame {
         UI_1.setForeground(new java.awt.Color(254, 173, 0));
         UI_1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         UI_1.setText("CADASTRO DE PROPRIETARIO");
-        getContentPane().add(UI_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1920, 80));
-
-        jPanel7.setBackground(new java.awt.Color(40, 40, 40));
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("TELEFONE:");
-
-        jTextFieldTelefone2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTextFieldTelefone2.setText("487654546546");
-
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("EMAIL:");
-
-        jTextFieldEmail2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTextFieldEmail2.setText("AlgumEmail@SeuEmail.com.br");
-
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldEmail2, javax.swing.GroupLayout.DEFAULT_SIZE, 533, Short.MAX_VALUE))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldTelefone2)))
-                .addContainerGap())
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldTelefone2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel4)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextFieldEmail2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(17, 17, 17))))
-        );
-
-        getContentPane().add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 360, 710, 130));
+        getContentPane().add(UI_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-290, 0, 1920, 80));
 
         jPanel8.setBackground(new java.awt.Color(40, 40, 40));
 
         jButtonIncluir.setBackground(new java.awt.Color(254, 173, 0));
-        jButtonIncluir.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jButtonIncluir.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButtonIncluir.setForeground(new java.awt.Color(255, 255, 255));
         jButtonIncluir.setText("INCLUIR");
+        jButtonIncluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonIncluirActionPerformed(evt);
+            }
+        });
 
-        jButtonAlterar.setBackground(new java.awt.Color(254, 173, 0));
-        jButtonAlterar.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jButtonAlterar.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonAlterar.setText("ALTERAR");
+        jButtonBuscar.setBackground(new java.awt.Color(254, 173, 0));
+        jButtonBuscar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jButtonBuscar.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonBuscar.setText("BUSCAR");
 
         jButtonExcluir.setBackground(new java.awt.Color(254, 173, 0));
-        jButtonExcluir.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jButtonExcluir.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButtonExcluir.setForeground(new java.awt.Color(255, 255, 255));
         jButtonExcluir.setText("EXCLUIR");
 
-        jButtonBuscar.setBackground(new java.awt.Color(254, 173, 0));
-        jButtonBuscar.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jButtonBuscar.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonBuscar.setText("BUSCAR");
+        jButtonAlterar.setBackground(new java.awt.Color(254, 173, 0));
+        jButtonAlterar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jButtonAlterar.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonAlterar.setText("ALTERAR");
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(14, Short.MAX_VALUE)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButtonExcluir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonAlterar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                    .addComponent(jButtonIncluir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButtonIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addGap(0, 22, Short.MAX_VALUE)
+                .addComponent(jButtonIncluir)
                 .addGap(30, 30, 30)
-                .addComponent(jButtonAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonAlterar)
                 .addGap(30, 30, 30)
-                .addComponent(jButtonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16))
+                .addComponent(jButtonExcluir)
+                .addGap(30, 30, 30)
+                .addComponent(jButtonBuscar))
         );
 
-        getContentPane().add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1480, 150, 420, 350));
+        getContentPane().add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 150, 320, 260));
 
         jTableCadastroDeProprietario.setBackground(new java.awt.Color(40, 40, 40));
         jTableCadastroDeProprietario.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -188,167 +151,156 @@ public class CadProprietario extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTableCadastroDeProprietario);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 510, 1900, 560));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 450, 1230, 270));
 
         jPanel9.setBackground(new java.awt.Color(40, 40, 40));
 
-        jTextFieldTelefone1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTextFieldTelefone1.setText("5478524535");
+        jTextFieldTelefone1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("CPF:");
 
-        jTextFieldCPF.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTextFieldCPF.setText("000.000.000-00");
+        jTextFieldCPF.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTextFieldCPF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldCPFActionPerformed(evt);
+            }
+        });
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("TELEFONE:");
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("NOME:");
 
-        jTextFieldNome.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTextFieldNome.setText("MACEDO-BENTO");
+        jTextFieldNome.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        jTextFieldEmail1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTextFieldEmail1.setText("AlgumEmail@SeuEmail.com.br");
+        jTextFieldEmail1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("EMAIL:");
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("NUMERO:");
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("CATEGORIA:");
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("TELEFONE:");
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("EMAIL:");
+
+        jComboBoxCNHCategoria.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+
+        jTextFieldCNHNumero.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+
+        jTextFieldTelefone2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTextFieldTelefone2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldTelefone2ActionPerformed(evt);
+            }
+        });
+
+        jTextFieldEmail2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(31, 31, 31)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addComponent(jLabel10)
-                        .addGap(1, 1, 1)
-                        .addComponent(jTextFieldEmail1))
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextFieldEmail1, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
                     .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel9Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldTelefone1, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(jPanel9Layout.createSequentialGroup()
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jTextFieldCPF))
-                                .addGroup(jPanel9Layout.createSequentialGroup()
-                                    .addComponent(jLabel7)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 542, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 1, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldTelefone1))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextFieldNome))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextFieldCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(149, 149, 149)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextFieldCNHNumero))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addGap(18, 18, 18)
+                        .addComponent(jComboBoxCNHCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldEmail2, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldTelefone2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(100, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                        .addComponent(jTextFieldTelefone1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(15, 15, 15)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10)
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jTextFieldEmail1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(17, 17, 17))
-        );
-
-        getContentPane().add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 720, 270));
-
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 3, 48)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("ALTERNATIVO");
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 300, 710, 50));
-
-        jPanel10.setBackground(new java.awt.Color(40, 40, 40));
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("NUMERO:");
-
-        jTextFieldCNHNumero.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTextFieldCNHNumero.setText("24");
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("CATEGORIA:");
-
-        jComboBoxCNHCategoria.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jComboBoxCNHCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
-        jPanel10.setLayout(jPanel10Layout);
-        jPanel10Layout.setHorizontalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxCNHCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 286, Short.MAX_VALUE))
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldCNHNumero)))
-                .addContainerGap())
-        );
-        jPanel10Layout.setVerticalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldCNHNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel5))
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addComponent(jComboBoxCNHCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel5)
+                    .addComponent(jComboBoxCNHCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldTelefone1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldTelefone2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(jTextFieldEmail1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(jTextFieldEmail2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39))
         );
 
-        getContentPane().add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 150, 710, 130));
+        getContentPane().add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 960, 270));
 
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 3, 48)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel12.setText("CNH");
-        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 100, 720, 50));
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 110, 720, 50));
 
         jButtonReturn.setBackground(new java.awt.Color(254, 173, 0));
         jButtonReturn.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
@@ -364,6 +316,83 @@ public class CadProprietario extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jTextFieldTelefone2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldTelefone2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldTelefone2ActionPerformed
+
+    private void jButtonIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIncluirActionPerformed
+        // TODO add your handling code here:
+         try {
+//    Proprietario p = new Proprietario(jTextFieldCPF.getText(), jTextFieldNome.getText(), Integer.parseInt(jTextFieldTelefone1.getText()),
+//    Integer.parseInt(jTextFieldTelefone2.getText()),jTextFieldEmail1.getText(), jTextFieldEmail2.getText(),
+//    Integer.parseInt(jTextFieldCNHNumero.getText()), jComboBoxCNHCategoria.getSelectedItem().toString());
+    String cpf = jTextFieldCPF.getText();
+    String nome = jTextFieldNome.getText();
+    int telefone1 = Integer.parseInt(jTextFieldTelefone1.getText());
+    int telefone2 = Integer.parseInt(jTextFieldTelefone2.getText());
+    String email1 = jTextFieldEmail1.getText();
+    String email2 = jTextFieldEmail2.getText();
+    int cnh = Integer.parseInt(jTextFieldCNHNumero.getText());
+    String tipoSelecionado = (String) jComboBoxCNHCategoria.getSelectedItem().toString();
+    CategoriaDeCNH categoria =  BuscarEnumFromString.fromString(CategoriaDeCNH.class, tipoSelecionado);
+   
+    IProprietarioDao proprietarioBD = new ProprietarioDao();
+    
+   
+    //String categoriaSelecionada = (String) jComboBoxCategoria.getSelectedItem();
+//    CategoriaDeCarro categoria = BuscarEnumFromString.fromString(CategoriaDeCarro.class, categoriaSelecionada);
+//
+    atualizarGrid(proprietarioBD.listaProprietario());
+    Proprietario p = new Proprietario(cpf, nome, telefone1, telefone2, email1, email2, cnh, tipoSelecionado);
+    proprietarioBD.createProprietario(p);
+    limparTela();
+    
+} catch (Exception erro) {
+    JOptionPane.showMessageDialog(this,"A descrição já existe. Não é possível cadastrar novamente.");
+}
+    }//GEN-LAST:event_jButtonIncluirActionPerformed
+
+    private void jTextFieldCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCPFActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldCPFActionPerformed
+
+    private  void limparTela(){
+    jTextFieldCPF.setText("");
+    jTextFieldNome.setText("");
+    jTextFieldTelefone1.setText("");
+    jTextFieldTelefone2.setText("");
+    jTextFieldEmail1.setText("");
+    jTextFieldEmail2.setText("");
+    jTextFieldCNHNumero.setText("");
+    jComboBoxCNHCategoria.setSelectedItem(null);
+}
+    
+    private void atualizarGrid(ArrayList<Proprietario>listaDeConsultores){
+   try {
+    DefaultTableModel model =  (DefaultTableModel) jTableCadastroDeProprietario.getModel();
+    model.setNumRows(0);
+    for(int pos = 0; pos < listaDeConsultores.size(); pos++){
+      Proprietario pessoa = listaDeConsultores.get(pos);
+                String[] linha = new String[8];
+                linha[0]= pessoa.getCPF();
+                linha[1]= pessoa.getNomeCompleto();
+                linha[2]= pessoa.toStringTelefone_1();
+                linha[3]= pessoa.toStringTelefone_2();
+                linha[4]= pessoa.toStringEmail_1();
+                linha[5]= pessoa.toStringEmail_2();
+                linha[6]= pessoa.toStringCNHNumero();
+                linha[7]= pessoa.toStringCNHCategoria();
+                Object[] dados = {linha[0], linha[1],linha[2], linha[3], linha[4], linha[5], linha[6], linha[7]};
+                model.addRow(dados);
+            }
+            //JOptionPane.showMessageDialog(rootPane, dadosDosProfessores.toString());
+            
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(rootPane, erro.getMessage());
+             System.out.println("isProblem in atualizarGrid()_Menu");
+        }
+   
+}
     /**
      * @param args the command line arguments
      */
@@ -417,9 +446,6 @@ public class CadProprietario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;

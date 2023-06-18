@@ -17,7 +17,10 @@ public class Proprietario {
     int telefone2;
     String email_1;
     String email_2;
-    CNH DocumentoCNH = new CNH();
+    CategoriaDeCNH categoria;
+    int numeroCNH;
+    CNH DocumentoCNH = new CNH();    
+   
     
     // gets e sets maroteiros:
 
@@ -68,36 +71,45 @@ public class Proprietario {
     public void setEmail_2(String email_2) {
         this.email_2 = email_2;
     }
-
-    public CNH getDocumentoCNH() {
-        return DocumentoCNH;
+     public int getNumeroCNH() {
+        return numeroCNH;
     }
 
-    public void setDocumentoCNH(CNH DocumentoCNH) {
-        this.DocumentoCNH = DocumentoCNH;
+    public void setNumeroCNH(int numeroCNH) {
+        this.numeroCNH = numeroCNH;
     }
+     public CategoriaDeCNH getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(CategoriaDeCNH categoria) {
+        this.categoria = categoria;
+    }
+   
         
     // Construtor feinho e construtor bunitim
     
     public Proprietario(){
     }
     
-    public Proprietario(String cpf, String NomeC, int tel_1, int tel_2, String email_1, String email_2, CategoriaDeCNH cat, int numeroCNH){
+    public Proprietario(String cpf, String NomeC, int tel_1, int tel_2, String email_1, String email_2, int numeroCNH, String categoria){
         this.CPF = cpf;
         this.nomeCompleto = NomeC;
         this.telefone1 = tel_1;
         this.telefone2 = tel_2;
         this.email_1 = email_1;
         this.email_2 = email_2;
-       CNH cnh = new CNH(numeroCNH, cat);
-       this.DocumentoCNH = cnh;
+        this.numeroCNH = numeroCNH;
+        this.categoria = CategoriaDeCNH.valueOf(categoria);
+        this.DocumentoCNH = new CNH(numeroCNH + "", categoria);
     }
+    
     
     //toString Sapecagens:
 
     @Override
     public String toString() {
-        return "Proprietario{" + "CPF=" + CPF + ", nomeCompleto=" + nomeCompleto + ", telefone1=" + telefone1 + ", telefone2=" + telefone2 + ", email_1=" + email_1 + ", email_2=" + email_2 + ", DocumentoCNH=" + DocumentoCNH + '}';
+        return "Proprietario{" + "CPF=" + CPF + ", nomeCompleto=" + nomeCompleto + ", telefone1=" + telefone1 + ", telefone2=" + telefone2 + ", email_1=" + email_1 + ", email_2=" + email_2 + ", DocumentoCNH=" +  + '}';
     }
     
     public String toStringCPF(){

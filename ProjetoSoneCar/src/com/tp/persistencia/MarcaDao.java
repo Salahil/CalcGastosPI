@@ -90,12 +90,12 @@ public MarcaDao() throws Exception{
 
     @Override
 public boolean descricaoJaExiste(String descricao, String url) {
-    String query = "SELECT COUNT(*) FROM marca WHERE descricao = ? OR url = ?";
+    String query = "SELECT COUNT(*) FROM marca WHERE descricao = ?";
     try (Connection conn = ConexaoBanco.getConexao();
          PreparedStatement stmt = conn.prepareStatement(query)) {
 
         stmt.setString(1, descricao);
-        stmt.setString(2, url);
+        //stmt.setString(2, url);
         ResultSet rs = stmt.executeQuery();
         rs.next();
         int count = rs.getInt(1);

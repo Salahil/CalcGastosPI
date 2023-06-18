@@ -279,11 +279,12 @@ public class CadMarca extends javax.swing.JFrame {
 
     IMarcaDao marcaBD = new MarcaDao();
    
-     
-    /*if (marcaBD.descricaoJaExiste(descricao, url)) {
-        JOptionPane.showMessageDialog(this, "A descrição já existe. Não é possível cadastrar novamente.");
+    boolean descricaoUrlJaExiste = marcaBD.descricaoJaExiste(jTextFieldDescricao.getText(), jTextFieldUrl.getText());
+
+    if (descricaoUrlJaExiste) {
+        JOptionPane.showMessageDialog(null, "A descrição já existe. Não é possível cadastrar novamente.");
         return;
-    }*/
+    }
     
     atualizarGrid(marcaBD.listaDeMarca());
     Marca marca = new Marca(descricao, url);

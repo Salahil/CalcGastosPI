@@ -5,6 +5,7 @@
 package com.tp.persistencia;
 
 import com.tp.enumeracao.CategoriaDeCNH;
+import com.tp.ferramentas.auxiliar.BuscarEnumFromString;
 import com.tp.modelos.Proprietario;
 import com.tp.modelos.subClasses.CNH;
 import java.sql.Connection;
@@ -30,13 +31,16 @@ public ProprietarioDao() throws Exception{
     @Override
     public void createProprietario(Proprietario isProprietario) throws Exception{
         try{
-        String sql = "insert into proprietario(Email_1, Email_2, Telefone_1, Telefone_2, DocumentoCNH) values(?,?,?,?,?,?)";
+        String sql = "insert into proprietario(cpf, nome, Telefone_1, Telefone_2, Email_1, Email_2, DocumentoCNH, cnhCategoria) values(?,?,?,?,?,?,?,?)";
         PreparedStatement preparedStatement = conexao.prepareStatement(sql);
-        preparedStatement.setString(1, isProprietario.getEmail_1());
-        preparedStatement.setString(2, isProprietario.getEmail_2());
-        preparedStatement.setInt(3, isProprietario.getTelefone1());
-        preparedStatement.setInt(4, isProprietario.getTelefone2());
-        preparedStatement.setString(5, isProprietario.toStringCNH());
+        preparedStatement.setString(1, isProprietario.getCPF());
+        preparedStatement.setString(2, isProprietario.getNomeCompleto());
+        preparedStatement.setString(3, isProprietario.getEmail_1());
+        preparedStatement.setString(4, isProprietario.getEmail_2());
+        preparedStatement.setInt(5, isProprietario.getTelefone1());
+        preparedStatement.setInt(6, isProprietario.getTelefone2());
+        preparedStatement.setInt(7, isProprietario.getNumeroCNH());
+        preparedStatement.setString(8, isProprietario.getCategoria().toString());
         preparedStatement.executeUpdate(); // Executa a atualização no banco de dados
     }catch(SQLException erro){
         throw new Exception("SQL ERRO:" + erro.getMessage());
@@ -49,6 +53,7 @@ public ProprietarioDao() throws Exception{
     @Override
     public ArrayList<Proprietario> listaProprietario() throws Exception {
         ArrayList<Proprietario>listaProprietarios = new ArrayList<Proprietario>();
+        
         String sql = "Select * From proprietario";
      try{
          
@@ -56,13 +61,16 @@ public ProprietarioDao() throws Exception{
         ResultSet rs = statement.executeQuery(sql);
        while (rs.next()){
         Proprietario isProprietario = new Proprietario();
-        isProprietario.setCPF(rs.getNString("CPF"));
-        isProprietario.setNomeCompleto(rs.getString("Nome"));
-        isProprietario.setTelefone1(rs.getInt("Telefone_1"));
-        isProprietario.setTelefone2(rs.getInt("Telefone_2"));
+        isProprietario.setCPF(rs.getNString("cpf"));
+        isProprietario.setNomeCompleto(rs.getString("nome"));
+        isProprietario.setTelefone1(rs.getInt("telefone_1"));
+        isProprietario.setTelefone2(rs.getInt("telefone_2"));
         isProprietario.setEmail_1(rs.getString("email_1"));
         isProprietario.setEmail_2(rs.getString("email_2"));
-        isProprietario.setDocumentoCNH(new CNH(rs.getString("numeroDocumentoCNH"), rs.getString("CategoriaDocumentoCNH")));
+        //isProprietario.setDocumentoCNH(new CNH(rs.getString("numeroDocumentoCNH"), rs.getString("CategoriaDocumentoCNH")));
+        isProprietario.setNumeroCNH(rs.getInt("cnh"));
+        isProprietario.setCategoria(BuscarEnumFromString.fromString(CategoriaDeCNH.class, rs.getString(isProprietario.toStringCNHCategoria())));
+        
         listaProprietarios.add(isProprietario);
     }
      }catch(SQLException e){
