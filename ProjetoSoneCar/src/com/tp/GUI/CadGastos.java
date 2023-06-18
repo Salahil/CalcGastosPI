@@ -292,32 +292,32 @@ public class CadGastos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIncluirActionPerformed
-        try {
-            float valor = Float.parseFloat(jTextFieldValor.getText());
-            String tipoDeGasto = jComboBoxGasto.getSelectedItem().toString();
-            LocalDate gastosDate = LocalDate.now();
+                                              
+    try {
+    // Obtenha os valores dos campos da tela
+    float valor = Float.parseFloat(jTextFieldValor.getText());
+    java.util.Date data = jDateChooserData.getDate();
+    String tipoGastos = jComboBoxGasto.getSelectedItem().toString();
 
-            // Crie um objeto Gastos com os dados inseridos
-            Gastos gastos = new Gastos();
-            gastos.setValor(valor);
-            // Recupere o tipoDeGasto do banco de dados usando tipoDeGastoBD e atribua-o ao objeto gastos
-            // gastos.setTipoDeGasto(tipoDeGastoBD.getTipoDeGasto(tipoDeGasto));
-            Date date = Date.from(gastosDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+    // Crie um novo objeto Gastos e defina os valores
+    Gastos novoGasto = new Gastos();
+    novoGasto.setValor(valor);
+    novoGasto.setDateDataDeRegistroDeGasto(data);
+    novoGasto.setTipoDeGastos(tipoGastos);
 
-            // Salve o objeto gastos no banco de dados usando gastosBD
-            gastosBD.createGasto(gastos);
+    // Chame o método createGasto da classe GastosDao para salvar o novo gasto
+    GastosDao gastosDao = new GastosDao(); // Crie uma instância da classe GastosDao
+    gastosDao.createGasto(novoGasto);
 
-            // Exiba uma mensagem de sucesso
-            JOptionPane.showMessageDialog(this, "Gastos cadastrados com sucesso.");
+    JOptionPane.showMessageDialog(this, "Gasto incluído com sucesso!");
+    // Outras ações necessárias após a inclusão do gasto...
 
-            // Atualize a tabela
-            atualizarGrid(tipoDeGastoBD.listaDeTipoDeGasto());
+} catch (Exception erro) {
+    JOptionPane.showMessageDialog(this, "Erro ao incluir o gasto: " + erro.getMessage());
+}
 
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Valor inválido. Insira um número válido.");
-        } catch (Exception erro) {
-            JOptionPane.showMessageDialog(this, erro.getMessage());
-        }
+
+
     }//GEN-LAST:event_jButtonIncluirActionPerformed
 
     private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
@@ -409,19 +409,31 @@ public class CadGastos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldDataActionPerformed
 
-    
-    private void atualizarGrid(ArrayList<TipoDeGastos> tipoDeGastos) {
-        // Limpe o conteúdo da tabela
-        tableModel.setRowCount(0);
-
-        // Percorra a lista de tipoDeGastos e adicione cada um como uma nova linha na tabela
-        for (TipoDeGastos tipoDeGasto : tipoDeGastos) {
-            tableModel.addRow(new Object[]{
-                tipoDeGasto.getId(),
-                tipoDeGasto.getDescricao()
-            });
+  private  void limparTela(){
+      jTextFieldId.setText("");
+      jTextFieldValor.setText("");
+      jTextFieldData.setText("");
+  }
+    private void atualizarGrid(ArrayList<Gastos> listaDeConsultores) {
+    try {
+        DefaultTableModel model = (DefaultTableModel) jTableTabelaDeGasto.getModel();
+        model.setNumRows(0);
+        for (int pos = 0; pos < listaDeConsultores.size(); pos++) {
+            Gastos gasto = listaDeConsultores.get(pos);
+            String id = String.valueOf(gasto.getId());
+            String valor = String.valueOf(gasto.getValor());
+            String data = gasto.getDateDataDeRegistroDeGasto().toString();
+            TipoDeGastos tipo = gasto.getTipoDeGastos();
+            
+            Object[] dados = { id, valor, data, tipo };
+            model.addRow(dados);
         }
+    } catch (Exception erro) {
+        JOptionPane.showMessageDialog(rootPane, "Erro ao atualizar o grid: " + erro.getMessage());
+        System.out.println("Problema em atualizarGrid()");
     }
+}
+
     
     /**
      * @param args the command line arguments
