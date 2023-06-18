@@ -47,6 +47,23 @@ public class Gastos {
     public void setId(int id) {
         this.id = id;
     }
+    
+    public String toStringTipoDeGasto() {
+        return (descricao.getDescricao() + ";" + descricao.getId());
+    }
+    
+    public String toStringIDTipodegasto(){
+        return "" + descricao.getId();
+    }
+    
+    public String toStringDescricaoTipodegasto(){
+        return descricao.getDescricao();
+    }
+    
+    public void setDescricao(TipoDeGastos tipoDeGastos) {
+    this.descricao = tipoDeGastos;
+    }
+
 
 //    public int getIdT() {
 //        return idT;
@@ -61,6 +78,7 @@ public class Gastos {
     
     public Gastos(){
     }
+    
     public Gastos(float val, Date data/*, String descricao*/){
         this.valor = val;
         this.dateDataDeRegistroDeGasto = data;

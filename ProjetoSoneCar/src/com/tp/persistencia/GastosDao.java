@@ -27,6 +27,50 @@ public class GastosDao implements IGastosDao {
     public GastosDao()throws Exception{
         conexao = ConexaoBanco.getConexao();
     }
+    TipoDeGastosDao tipoDeGastosDao = new TipoDeGastosDao();
+    
+
+    @Override
+    public Gastos getGasto(int id) throws Exception {
+    Connection con = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+    Gastos gastos = null;
+
+    try {
+        con = ConexaoBanco.getConexao();
+        String query = "SELECT * FROM gastos WHERE id = ?";
+        ps = con.prepareStatement(query);
+        ps.setInt(1, id);
+        rs = ps.executeQuery();
+
+        if (rs.next()) {
+            // Ler os valores do ResultSet e criar um objeto Gastos
+            int gastoId = rs.getInt("id");
+            float valor = rs.getFloat("valor");
+            // Recupere outros atributos do gasto aqui
+
+            gastos = new Gastos();
+            gastos.setId(gastoId);
+            gastos.setValor(valor);
+            // Defina outros atributos do gasto aqui
+        }
+    } finally {
+        // Feche as conexões e os recursos
+        if (rs != null) {
+            rs.close();
+        }
+        if (ps != null) {
+            ps.close();
+        }
+        if (con != null) {
+            con.close();
+        }
+    }
+
+    return gastos;
+}
+
     
     @Override
     public void createGasto(Gastos isGastos) throws Exception {
@@ -41,7 +85,7 @@ public class GastosDao implements IGastosDao {
         //preparedStatement.setString(6, isVeiculo.getMarca().getDescricao());
 
         preparedStatement.setDate(2, sqlDate);
-       // preparedStatement.setString(3, isGastos.get());
+        preparedStatement.setString(3, isGastos.toStringIDTipodegasto());
         preparedStatement.executeUpdate(); // Executa a atualização no banco de dados
     } catch (SQLException erro) {
         throw new Exception("SQL ERRO:" + erro.getMessage());
@@ -52,16 +96,22 @@ public class GastosDao implements IGastosDao {
 
     @Override
     public ArrayList<Gastos> alterarGastos(Gastos gastos) throws Exception {
-        ArrayList<Gastos>alterarGastos = new ArrayList<Gastos>();
-        String sql = "UPDATE gastos SET valor = ? WHERE id = ?";
-        try (PreparedStatement preparedStatement = conexao.prepareStatement(sql)) {
-            preparedStatement.setFloat(1, gastos.getValor());
-            preparedStatement.setInt(2, gastos.getId());
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            throw new Exception("Erro ao alterar o Valor: " + e.getMessage());
-        }
-        return alterarGastos;
+        ArrayList<Gastos> alterarGastos = new ArrayList<Gastos>();
+    String sql = "UPDATE gastos SET valor = ?, data = ? WHERE id = ?";
+    try (PreparedStatement preparedStatement = conexao.prepareStatement(sql)) {
+        preparedStatement.setFloat(1, gastos.getValor());
+
+        // Converter java.util.Date para java.sql.Date
+        java.util.Date utilDate = gastos.getDateDataDeRegistroDeGasto();
+        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+
+        preparedStatement.setDate(2, sqlDate);
+        preparedStatement.setInt(3, gastos.getId());
+        preparedStatement.executeUpdate();
+    } catch (SQLException e) {
+        throw new Exception("Erro ao alterar o Valor: " + e.getMessage());
+    }
+    return alterarGastos;
     }
 
     @Override
@@ -80,23 +130,31 @@ public class GastosDao implements IGastosDao {
 
     @Override
     public ArrayList<Gastos> listarGastos(int id) throws Exception {
-        ArrayList<Gastos>listaDeMarca = new ArrayList<Gastos>();
-        String sql = "Select * From gastos";
-        try{
-            Statement statement = conexao.createStatement();
-            ResultSet rs = statement.executeQuery(sql);
-            while (rs.next()){
-                Gastos isGastos = new Gastos();
-                isGastos.setId(rs.getInt("id"));
-                isGastos.setDateDataDeRegistroDeGasto(rs.getDate("data"));
-                isGastos.setValor(rs.getFloat("descricao"));
-                listaDeMarca.add(isGastos);
-            }
-        }catch(SQLException e){
-            e.printStackTrace();
-            System.out.println("isProblem in listaDeMarca()_MarcaDao");
+        ArrayList<Gastos> listagemGastos = new ArrayList<Gastos>();
+    String sql = "SELECT * FROM gastos";
+    try {
+        Statement statement = conexao.createStatement();
+        ResultSet rs = statement.executeQuery(sql);
+        while (rs.next()) {
+            Gastos isGastos = new Gastos();
+            isGastos.setId(rs.getInt("id"));
+            isGastos.setDateDataDeRegistroDeGasto(rs.getDate("data"));
+            isGastos.setValor(rs.getFloat("valor"));
+
+            // Aqui você pode adicionar o código para obter e definir o objeto TipoDeGastos
+            // Exemplo:
+            int tipoDeGastosId = rs.getInt("Tipodegastos");
+            TipoDeGastos tipoDeGastos = tipoDeGastosDao.getTipoDeGastosById(tipoDeGastosId);
+            isGastos.setDescricao(tipoDeGastos);
+
+
+            listagemGastos.add(isGastos);
         }
-        return listaDeMarca;
+    } catch (SQLException e) {
+        e.printStackTrace();
+        System.out.println("Problem in listarGastos()_GastosDao");
+    }
+    return listagemGastos;
     }
     
     public TipoDeGastos getTipoDeGastosById(int id) throws Exception {

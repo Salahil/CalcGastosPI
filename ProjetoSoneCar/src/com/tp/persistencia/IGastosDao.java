@@ -16,4 +16,5 @@ public interface IGastosDao {
     ArrayList<Gastos>alterarGastos(Gastos gastos)throws Exception;
     ArrayList<Gastos>excluirGastos(int id)throws Exception;
     ArrayList<Gastos>listarGastos(int id) throws Exception;
+    public Gastos getGasto(int id) throws Exception;
 }

@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.tp.GUI;
-
 import com.tp.modelos.subClasses.TipoDeGastos;
 import com.tp.persistencia.GastosDao;
 import com.tp.persistencia.IGastosDao;
@@ -13,23 +12,22 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-
 /**
  *
  * @author sergy
  */
-public class CadTipoDeGasto extends javax.swing.JFrame {
-
+public class CadTipoDeGasto extends javax.swing.JFrame {    
+    private ITipoDeGastosDao tipoDeGastosBD;
     /**
      * Creates new form CadTipoDeGasto
      */
-    public CadTipoDeGasto() throws Exception {
+        public CadTipoDeGasto() throws Exception {
         initComponents();
-        atualizarGrid(new TipoDeGastosDao().listaDeTipoDeGasto());
+        tipoDeGastosBD = new TipoDeGastosDao();
+        atualizarGrid(tipoDeGastosBD.listaDeTipoDeGasto());
     }
-    
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -73,6 +71,11 @@ public class CadTipoDeGasto extends javax.swing.JFrame {
 
         jTextFieldID.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jTextFieldID.setText("24");
+        jTextFieldID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldIDActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -221,124 +224,81 @@ public class CadTipoDeGasto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonIncluirTipoDeGastoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIncluirTipoDeGastoActionPerformed
-          try {
-    String descricao = jTextFieldDescricao.getText();
-    ITipoDeGastosDao tipoDeGastosBD = new TipoDeGastosDao();
-   
-     
-//    if (marcaBD.descricaoJaExiste(descricao, url)) {
-//        JOptionPane.showMessageDialog(this, "A descrição já existe. Não é possível cadastrar novamente.");
-//        return;
-//    }
-    
-    atualizarGrid(tipoDeGastosBD.listaDeTipoDeGasto());
-    TipoDeGastos tipoDeGastos = new TipoDeGastos(descricao);
-    tipoDeGastosBD.createTipoDeGasto(tipoDeGastos);
-    limparTela();
-    
-} catch (Exception erro) {
-    JOptionPane.showMessageDialog(this,"A descrição já existe. Não é possível cadastrar novamente.");
-}
+        try {
+            String descricao = jTextFieldDescricao.getText();
+            TipoDeGastos tipoDeGastos = new TipoDeGastos(descricao);
+            tipoDeGastosBD.createTipoDeGasto(tipoDeGastos);
+            limparTela();
+            atualizarGrid(tipoDeGastosBD.listaDeTipoDeGasto());
+            JOptionPane.showMessageDialog(this, "Tipo de Gasto incluído com sucesso.");
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(this, "Erro ao incluir Tipo de Gasto: " + erro.getMessage());
+        }
     }//GEN-LAST:event_jButtonIncluirTipoDeGastoActionPerformed
 
     private void jButtonAlterarTipoDeGastoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarTipoDeGastoActionPerformed
         try {
-
             int id = Integer.parseInt(jTextFieldID.getText());
             String descricao = jTextFieldDescricao.getText();
-
-            TipoDeGastos gastos = new TipoDeGastos();
-            gastos.setId(id);
-            gastos.setDescricao(descricao);
-            
-            TipoDeGastosDao tipoDeGastosDao = new TipoDeGastosDao();
-
-            
-            tipoDeGastosDao.alterarTipoDeGasto(gastos);
-
-            ITipoDeGastosDao tgasto = new TipoDeGastosDao();
-            IGastosDao gastosBD = new GastosDao();
-        
-            atualizarGrid(tgasto.listaDeTipoDeGasto());
-            
-            
-        } catch (Exception ex) {
-
-            JOptionPane.showMessageDialog(this, "Erro ao alterar tipo de gasto: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            TipoDeGastos tipoDeGastos = new TipoDeGastos(descricao);
+            tipoDeGastosBD.alterarTipoDeGasto(tipoDeGastos);
+            limparTela();
+            atualizarGrid(tipoDeGastosBD.listaDeTipoDeGasto());
+            JOptionPane.showMessageDialog(this, "Tipo de Gasto alterado com sucesso.");
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "ID inválido. Insira um valor numérico.");
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(this, "Erro ao alterar Tipo de Gasto: " + erro.getMessage());
         }
     }//GEN-LAST:event_jButtonAlterarTipoDeGastoActionPerformed
 
     private void jButtonExcluirTipoDeGastosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirTipoDeGastosActionPerformed
         try {
-    int id = Integer.parseInt(jTextFieldID.getText()); // Obtém o ID do JTextField
-     ITipoDeGastosDao tipoDeGastosBD = new TipoDeGastosDao();
-    tipoDeGastosBD.deletarTipoDeGasto(id);
-    
-    // Exibição de mensagem de sucesso ou atualização do grid, se necessário
-    JOptionPane.showMessageDialog(this, "Esse Tipo de Gasto foi excluída com sucesso.");
-    
-     atualizarGrid(tipoDeGastosBD.listaDeTipoDeGasto());
-    
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(this, "ID inválido. Insira um valor numérico.");
-  } catch (Exception erro) {
-    JOptionPane.showMessageDialog(this, erro.getMessage());
-}    
+            int id = Integer.parseInt(jTextFieldID.getText());
+            tipoDeGastosBD.deletarTipoDeGasto(id);
+            limparTela();
+            atualizarGrid(tipoDeGastosBD.listaDeTipoDeGasto());
+            JOptionPane.showMessageDialog(this, "Tipo de Gasto excluído com sucesso.");
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "ID inválido. Insira um valor numérico.");
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(this, "Erro ao excluir Tipo de Gasto: " + erro.getMessage());
+        }
     }//GEN-LAST:event_jButtonExcluirTipoDeGastosActionPerformed
 
     private void jButtonBuscarTipoDeGastoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarTipoDeGastoActionPerformed
         try {
-            String idText = jTextFieldID.getText();
-    
-            if (idText.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Insira um ID válido.");
-            return;
-            }
-
-            int id = Integer.parseInt(idText);
-            ITipoDeGastosDao tgastos = new TipoDeGastosDao();
-            ArrayList<TipoDeGastos> listaDeConsultores = tgastos.listaDeTipoDeGasto();
-            ArrayList<TipoDeGastos> listaDeTiposDeGastosEncontrados = new ArrayList<>();
-
-            for (TipoDeGastos gastinhos : listaDeConsultores) {
-                if (gastinhos.getId() == id) {
-                    listaDeTiposDeGastosEncontrados.add(gastinhos);
-                }
-            }
-
-            if (!listaDeTiposDeGastosEncontrados.isEmpty()) {
-                atualizarGrid(listaDeTiposDeGastosEncontrados);
-            } else {
-                JOptionPane.showMessageDialog(this, "Marca não encontrada.");
-            }
+            int id = Integer.parseInt(jTextFieldID.getText());
+            tipoDeGastosBD.deletarTipoDeGasto(id);
+            limparTela();
+            atualizarGrid(tipoDeGastosBD.listaDeTipoDeGasto());
+            JOptionPane.showMessageDialog(this, "Tipo de Gasto excluído com sucesso.");
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "ID inválido. Insira um valor numérico.");
         } catch (Exception erro) {
-            JOptionPane.showMessageDialog(this, erro.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro ao excluir Tipo de Gasto: " + erro.getMessage());
         }
     }//GEN-LAST:event_jButtonBuscarTipoDeGastoActionPerformed
- private  void limparTela(){
-    jTextFieldID.setText("");
-    jTextFieldDescricao.setText("");
-}
-    
-    private void atualizarGrid(ArrayList<TipoDeGastos> listaDeGastos) {
-    try {
-        DefaultTableModel model = (DefaultTableModel) jTableGridGridGridGrid.getModel();
-        model.setNumRows(0);
-        for (int pos = 0; pos < listaDeGastos.size(); pos++) {
-            TipoDeGastos tipoDeGastos = listaDeGastos.get(pos);
-            String[] linha = new String[2];
-            linha[0] = "" + tipoDeGastos.getId();
-            linha[1] = tipoDeGastos.getDescricao();
-            model.addRow(linha);
-        }
-    } catch (Exception erro) {
-        JOptionPane.showMessageDialog(this, erro.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-        System.out.println("Problema em atualizarGrid()");
-    }
-}
 
+    private void jTextFieldIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldIDActionPerformed
+//  private  void limparTela(){
+//      JTextFieldID.setText("");
+//      jTextFieldDescricao.setText("");
+//  }
+    private  void limparTela(){
+        jTextFieldID.setText("");
+        jTextFieldDescricao.setText("");
+    }
+    private void atualizarGrid(ArrayList<TipoDeGastos> listaDeTipoDeGasto) {
+        DefaultTableModel model = (DefaultTableModel) jTableGridGridGridGrid.getModel();
+        model.setRowCount(0);
+        for (TipoDeGastos tipoDeGastos : listaDeTipoDeGasto) {
+            Object[] row = {tipoDeGastos.getId(), tipoDeGastos.getDescricao()};
+            model.addRow(row);
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -365,7 +325,6 @@ public class CadTipoDeGasto extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(CadTipoDeGasto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -377,7 +336,6 @@ public class CadTipoDeGasto extends javax.swing.JFrame {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Background;
     private javax.swing.JLabel UI_1;

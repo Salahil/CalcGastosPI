@@ -29,6 +29,30 @@ public class TipoDeGastosDao implements ITipoDeGastosDao{
     public TipoDeGastosDao() throws Exception{
         conexao = ConexaoBanco.getConexao();
     }
+    
+    public TipoDeGastos getTipoDeGastosById(int id) throws Exception {
+        TipoDeGastos tipoDeGastos = null;
+        try {
+            String sql = "SELECT * FROM tipodegastos WHERE id = ?";
+            PreparedStatement preparedStatement = conexao.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+            // Recupera as informações do ResultSet
+                String descricao = resultSet.getString("descricao");
+
+            // Instancia o objeto TipoDeGastos
+                tipoDeGastos = new TipoDeGastos(descricao);
+            }
+        } catch (SQLException erro) {
+            throw new Exception("SQL ERRO:" + erro.getMessage());
+        } catch (Exception erro) {
+            throw erro;
+        }
+        return tipoDeGastos;
+    }
+
 
     @Override
     public void createTipoDeGasto(TipoDeGastos isTipoDeGastos) throws Exception {
