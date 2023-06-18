@@ -23,6 +23,7 @@ import static javax.swing.SwingConstants.CENTER;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import java.sql.SQLException;
 
 /**
  *
@@ -276,26 +277,29 @@ public class CadMarca extends javax.swing.JFrame {
 
     private void jButtonIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIncluirActionPerformed
         // TODO add your handling code here:
-         try {
+     try {
     String descricao = jTextFieldDescricao.getText();
     String url = jTextFieldUrl.getText();
 
     IMarcaDao marcaBD = new MarcaDao();
-   
-     
-//    if (marcaBD.descricaoJaExiste(descricao, url)) {
-//        JOptionPane.showMessageDialog(this, "A descrição já existe. Não é possível cadastrar novamente.");
-//        return;
-//    }
-    
+
+    // Verificar se a marca já existe no banco de dados
+    if (marcaBD.descricaoJaExiste(descricao, url)) {
+        JOptionPane.showMessageDialog(this, "Já existe uma marca com a mesma descrição e URL.");
+        return; // Sai do método sem prosseguir com o cadastro
+    }
+
     atualizarGrid(marcaBD.listaDeMarca());
     Marca marca = new Marca(descricao, url);
     marcaBD.createMarca(marca);
     limparTela();
     
-} catch (Exception erro) {
-    JOptionPane.showMessageDialog(this,"A descrição já existe. Não é possível cadastrar novamente.");
+} catch (SQLException ex) {
+    JOptionPane.showMessageDialog(this, "Ocorreu um erro ao verificar a descrição: " + ex.getMessage());
+} catch (Exception ex) {
+    JOptionPane.showMessageDialog(this, "Ocorreu um erro ao cadastrar a marca: " + ex.getMessage());
 }
+
     }//GEN-LAST:event_jButtonIncluirActionPerformed
 
     private void jButtonBuscarMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarMarcaActionPerformed

@@ -6,6 +6,7 @@ package com.tp.GUI;
 
 import com.tp.enumeracao.CategoriaDeCarro;
 import com.tp.enumeracao.TipoDeCombustivel;
+import com.tp.ferramentas.auxiliar.BuscarEnumFromString;
 import com.tp.modelos.Marca;
 import com.tp.modelos.Modelo;
 import com.tp.modelos.Proprietario;
@@ -46,39 +47,39 @@ public class CadVeiculo extends javax.swing.JFrame {
         jTextFieldUrl.setVisible(false);
         atualizarGrid(new VeiculoDao().listaDeVeiculo());
         try {
-        IVeiculoDao veiculoBD = new VeiculoDao();
-        
-        TipoDeCombustivel[] tiposCombustivel = TipoDeCombustivel.values();
-        for (TipoDeCombustivel tipo : tiposCombustivel) {
-        jComboBoxTipoDeCombustivel.addItem(tipo.name());
+            IVeiculoDao veiculoBD = new VeiculoDao();
+
+            TipoDeCombustivel[] tiposCombustivel = TipoDeCombustivel.values();
+            for (TipoDeCombustivel tipo : tiposCombustivel) {
+                jComboBoxTipoDeCombustivel.addItem(tipo.name());
+            }
+
+            CategoriaDeCarro[] categorias = CategoriaDeCarro.values();
+            for (CategoriaDeCarro categoria : categorias) {
+                jComboBoxCategoria.addItem(categoria.name());
+            }
+
+            // Preencher combobox de Marcas
+            ArrayList<Marca> listaDeMarcas = veiculoBD.listarMarcas();
+            for (Marca marca : listaDeMarcas) {
+                jComboBoxMarca.addItem(marca.getDescricao());
+            }
+
+            // Preencher combobox de Modelos
+            ArrayList<Modelo> listaDeModelos = veiculoBD.listarModelos();
+            for (Modelo modelo : listaDeModelos) {
+                jComboBoxModelo.addItem(modelo.getDescricao());
+            }
+
+            // Preencher combobox de Proprietários
+            ArrayList<Proprietario> listaDeProprietarios = veiculoBD.listarProprietarios();
+            for (Proprietario proprietario : listaDeProprietarios) {
+                jComboBoxProprietario.addItem(proprietario.getCPF());
+            }
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(this, erro.getMessage());
         }
-        
-        CategoriaDeCarro[] categorias = CategoriaDeCarro.values();
-        for (CategoriaDeCarro categoria : categorias) {
-        jComboBoxCategoria.addItem(categoria.name());
-        }
-         
-        // Preencher combobox de Marcas
-        ArrayList<Marca> listaDeMarcas = veiculoBD.listarMarcas();
-        for (Marca marca : listaDeMarcas) {
-            jComboBoxMarca.addItem(marca.getDescricao());
-        }
-        
-        // Preencher combobox de Modelos
-        ArrayList<Modelo> listaDeModelos = veiculoBD.listarModelos();
-        for (Modelo modelo : listaDeModelos) {
-            jComboBoxModelo.addItem(modelo.getDescricao());
-        }
-        
-        // Preencher combobox de Proprietários
-        ArrayList<Proprietario> listaDeProprietarios = veiculoBD.listarProprietarios();
-        for (Proprietario proprietario : listaDeProprietarios) {
-            jComboBoxProprietario.addItem(proprietario.getCPF());
-        }
-    } catch (Exception erro) {
-        JOptionPane.showMessageDialog(this, erro.getMessage());
     }
-}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -88,7 +89,7 @@ public class CadVeiculo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabelImagem1 = new javax.swing.JLabel();
+        jLabelImagem = new javax.swing.JLabel();
         jButtonBuscarVeiculo = new javax.swing.JButton();
         UI_1 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
@@ -120,13 +121,12 @@ public class CadVeiculo extends javax.swing.JFrame {
         jComboBoxModelo = new javax.swing.JComboBox<>();
         jButtonReturn = new javax.swing.JButton();
         Background = new javax.swing.JLabel();
-        jLabelImagem = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jButtonBuscarMarca = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(jLabelImagem1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 170, 240, 160));
+        getContentPane().add(jLabelImagem, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 170, 240, 160));
 
         jButtonBuscarVeiculo.setBackground(new java.awt.Color(254, 173, 0));
         jButtonBuscarVeiculo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -153,6 +153,7 @@ public class CadVeiculo extends javax.swing.JFrame {
         jLabel1.setText("Proprietario:");
 
         jComboBoxProprietario.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jComboBoxProprietario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "item 1" }));
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -385,7 +386,7 @@ public class CadVeiculo extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Url");
+        jLabel4.setText("Url:");
 
         jComboBoxModelo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jComboBoxModelo.addActionListener(new java.awt.event.ActionListener() {
@@ -405,9 +406,9 @@ public class CadVeiculo extends javax.swing.JFrame {
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
                         .addComponent(jComboBoxMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jTextFieldUrl, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addComponent(jLabel5)
@@ -443,7 +444,6 @@ public class CadVeiculo extends javax.swing.JFrame {
         Background.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tp/icones/LogoSoneCar3.png"))); // NOI18N
         getContentPane().add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 1080));
-        getContentPane().add(jLabelImagem, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 220, 240, 160));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 3, 48)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
@@ -471,25 +471,30 @@ public class CadVeiculo extends javax.swing.JFrame {
 
     private void jButtonIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIncluirActionPerformed
         // TODO add your handling code here:
-        try {
-            String placa = jTextFieldPlaca.getText();
-            TipoDeCombustivel tipoDeCombustivel = (TipoDeCombustivel) jComboBoxTipoDeCombustivel.getSelectedItem();
-            float quilometragem = Float.parseFloat(jTextFieldQuilometragem.getText());
-            CategoriaDeCarro categoria = (CategoriaDeCarro) jComboBoxCategoria.getSelectedItem();
-            Marca marca = (Marca) jComboBoxMarca.getSelectedItem();
-            Modelo modelo = (Modelo) jComboBoxModelo.getSelectedItem();
-            String url = jTextFieldUrl.getText();
-            Proprietario proprietario = (Proprietario) jComboBoxProprietario.getSelectedItem();
-            
-            Veiculo veiculo = new Veiculo(placa, tipoDeCombustivel, quilometragem, categoria, marca, modelo, url, proprietario);
-            
-           VeiculoDao veiculoDao = new VeiculoDao();
-           veiculoDao.createVeiculo(veiculo);
-           limparTela();
-           atualizarGrid(veiculoDao.listaDeVeiculo());
-        } catch (Exception erro) {
-            JOptionPane.showMessageDialog(this, "Erro ao incluir veículo: " + erro.getMessage());
-        }
+      try {
+    String placa = jTextFieldPlaca.getText();
+    String tipoSelecionado = (String) jComboBoxTipoDeCombustivel.getSelectedItem();
+    TipoDeCombustivel tipoDeCombustivel = TipoDeCombustivel.valueOf(tipoSelecionado);
+    float quilometragem = Float.parseFloat(jTextFieldQuilometragem.getText());
+
+    String categoriaSelecionada = (String) jComboBoxCategoria.getSelectedItem();
+    CategoriaDeCarro categoria = BuscarEnumFromString.fromString(CategoriaDeCarro.class, categoriaSelecionada);
+
+    String marca = jComboBoxMarca.getSelectedItem().toString();
+    String modelo = jComboBoxModelo.getSelectedItem().toString();
+    String proprietario = jComboBoxProprietario.getSelectedItem().toString();
+
+    String url = jTextFieldUrl.getText();
+
+    Veiculo veiculo = new Veiculo(placa, tipoDeCombustivel, quilometragem, categoria, marca, modelo, url, proprietario);
+
+    VeiculoDao veiculoDao = new VeiculoDao();
+    veiculoDao.createVeiculo(veiculo);
+    limparTela();
+    atualizarGrid(veiculoDao.listaDeVeiculo());
+} catch (Exception erro) {
+    JOptionPane.showMessageDialog(this, "Erro ao incluir veículo: " + erro.getMessage());
+}
     }//GEN-LAST:event_jButtonIncluirActionPerformed
 
     private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
@@ -544,7 +549,7 @@ public class CadVeiculo extends javax.swing.JFrame {
      atualizarGrid(veiculoBD.listaDeVeiculo());
     
     } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(this, "Placa inválido. Insira uma placa valida.");
+        JOptionPane.showMessageDialog(this, "Placa inválida. Insira uma placa valida.");
   } catch (Exception erro) {
     JOptionPane.showMessageDialog(this, erro.getMessage());
 }            // TODO add your handling code here:
@@ -745,7 +750,6 @@ int column){
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabelImagem;
-    private javax.swing.JLabel jLabelImagem1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;

@@ -92,16 +92,17 @@ public class Veiculo {
     public Veiculo(){
     }
     
-    public Veiculo(String placa, TipoDeCombustivel combust, float kms, CategoriaDeCarro cat, Marca marca, Modelo modelo,String url,Proprietario proprietario){
-        this.placa = placa;
-        this.tipoDeCombustivel = combust;
-        this.quilometragemAtual = kms;
-        this.categoria = cat;
-        this.marca = marca;
-        this.modelo = modelo;
-        this.url = url;
-        this.proprietario = proprietario;
-    }
+   public Veiculo(String placa, TipoDeCombustivel tipoDeCombustivel, float quilometragem, CategoriaDeCarro categoria, String marca, String modelo, String url, String proprietario) {
+    this.placa = placa;
+    this.tipoDeCombustivel = tipoDeCombustivel;
+    this.quilometragemAtual = quilometragem;
+    this.categoria = categoria;
+    this.marca.setDescricao(marca); // Configura a descrição da marca
+    this.modelo.setDescricao(modelo); // Configura a descrição do modelo
+    this.url = url;
+    this.proprietario.setCPF(proprietario); // Configura o CPF do proprietário
+}
+
     
     // Objetos das classes
     

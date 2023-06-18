@@ -32,25 +32,30 @@ public VeiculoDao() throws Exception{
 
     @Override
     public void createVeiculo(Veiculo isVeiculo) throws Exception {
-       try {
-    String sql = "INSERT INTO veiculo (placa, marca, modelo, combustivel, quilometragemAtual, categoriaDoCarro, url, proprietario) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-    PreparedStatement preparedStatement = conexao.prepareStatement(sql);
-    preparedStatement.setString(1, isVeiculo.getPlaca());
-    preparedStatement.setString(2, isVeiculo.getMarca().getDescricao());
-    preparedStatement.setString(3, isVeiculo.getModelo().getDescricao());
-    preparedStatement.setString(4, isVeiculo.getTipoDeCombustivel().toString());
-    preparedStatement.setFloat(5, isVeiculo.getQuilometragemAtual());
-    preparedStatement.setString(6, isVeiculo.getCategoria().toString());
-    preparedStatement.setString(7, isVeiculo.getUrl());
-    preparedStatement.setString(8, isVeiculo.getProprietario().getCPF());
-    
-    preparedStatement.executeUpdate(); // Executa a atualização no banco de dados
-} catch (SQLException erro) {
-    throw new Exception("SQL ERRO:" + erro.getMessage());
-} catch (Exception erro) {
-    throw erro;
-}
+           try {
+        String sql = "INSERT INTO veiculo (placa, marca_descricao, modelo_descricao, cpf_proprietario, combustivel, quilometragemAtual, categoria_Do_Carro, url) " +
+                     "SELECT ?, m.descricao, mo.descricao, p.cpf, ?, ?, ?, ? " +
+                     "FROM marca m, modelo mo, proprietario p " +
+                     "WHERE m.id = ? AND mo.id = ? AND p.cpf = ?";
+
+        PreparedStatement preparedStatement = conexao.prepareStatement(sql);
+        preparedStatement.setString(1, isVeiculo.getPlaca());
+        preparedStatement.setString(2, isVeiculo.getTipoDeCombustivel().name());
+        preparedStatement.setFloat(3, isVeiculo.getQuilometragemAtual());
+        preparedStatement.setString(4, isVeiculo.getCategoria().toString());
+        preparedStatement.setString(5, isVeiculo.getUrl());
+        preparedStatement.setInt(6, isVeiculo.getMarca().getId());
+        preparedStatement.setInt(7, isVeiculo.getModelo().getId());
+        preparedStatement.setString(8, isVeiculo.getProprietario().getCPF());
+
+        preparedStatement.executeUpdate(); // Executa a atualização no banco de dados
+    } catch (SQLException erro) {
+        throw new Exception("SQL ERRO:" + erro.getMessage());
+    } catch (Exception erro) {
+        throw erro;
     }
+}
+
     @Override
     public ArrayList<Veiculo> listaDeVeiculo() throws Exception {
      
@@ -107,7 +112,7 @@ public VeiculoDao() throws Exception{
         preparedStatement.setString(8, veiculo.getProprietario().toStringCPF());
         preparedStatement.executeUpdate();
     } catch (SQLException e) {
-        throw new Exception("Erro ao alterar a marca: " + e.getMessage());
+        throw new Exception("Erro ao alterar a Veiculo: " + e.getMessage());
     }
        return alterarVeiculo;
     }
