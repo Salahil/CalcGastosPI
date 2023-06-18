@@ -12,9 +12,10 @@ import java.util.ArrayList;
  * @author Julio
  */
 public interface ITipoDeGastosDao {
-    void createTipoDeGasto(TipoDeGastos isTipoDeGastos)throws Exception;
-    ArrayList<TipoDeGastos>listaDeTipoDeGasto()throws Exception;
-    ArrayList<TipoDeGastos>deletarTipoDeGasto(int id)throws Exception;
-    ArrayList<TipoDeGastos>alterarTipoDeGasto(TipoDeGastos tipoDeGastos)throws Exception;
+    void createTipoDeGasto(TipoDeGastos isTipoDeGastos) throws Exception;
+    ArrayList<TipoDeGastos> listaDeTipoDeGasto() throws Exception;
+    ArrayList<TipoDeGastos> deletarTipoDeGasto(int id) throws Exception;
+    ArrayList<TipoDeGastos> alterarTipoDeGasto(TipoDeGastos tipoDeGastos) throws Exception;
     boolean descricaoJaExiste(String descricao);
+    ArrayList<String> listarDescricoesTipoDeGastos() throws Exception;
 }

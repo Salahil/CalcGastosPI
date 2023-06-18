@@ -135,5 +135,22 @@ public class TipoDeGastosDao implements ITipoDeGastosDao{
     }
     return false;
     }
+
+    @Override
+    public ArrayList<String> listarDescricoesTipoDeGastos() throws Exception {
+    ArrayList<String> descricoes = new ArrayList<>();
+    String sql = "SELECT descricao FROM tipodegastos";
+    try (Statement statement = conexao.createStatement();
+         ResultSet resultSet = statement.executeQuery(sql)) {
+        while (resultSet.next()) {
+            String descricao = resultSet.getString("descricao");
+            descricoes.add(descricao);
+        }
+    } catch (SQLException e) {
+        throw new Exception("Erro ao listar as descrições dos tipos de gastos: " + e.getMessage());
+    }
+    return descricoes;
+}
+
     
 }
