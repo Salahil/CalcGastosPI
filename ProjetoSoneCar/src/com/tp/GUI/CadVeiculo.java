@@ -116,9 +116,9 @@ public class CadVeiculo extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jComboBoxMarca = new javax.swing.JComboBox<>();
-        jTextFieldUrl = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jComboBoxModelo = new javax.swing.JComboBox<>();
+        jTextFieldUrl = new javax.swing.JTextField();
         jButtonReturn = new javax.swing.JButton();
         Background = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -376,13 +376,6 @@ public class CadVeiculo extends javax.swing.JFrame {
             }
         });
 
-        jTextFieldUrl.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTextFieldUrl.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldUrlActionPerformed(evt);
-            }
-        });
-
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -392,6 +385,13 @@ public class CadVeiculo extends javax.swing.JFrame {
         jComboBoxModelo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxModeloActionPerformed(evt);
+            }
+        });
+
+        jTextFieldUrl.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTextFieldUrl.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldUrlActionPerformed(evt);
             }
         });
 
@@ -408,13 +408,14 @@ public class CadVeiculo extends javax.swing.JFrame {
                         .addComponent(jComboBoxMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jTextFieldUrl, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jComboBoxModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -438,6 +439,11 @@ public class CadVeiculo extends javax.swing.JFrame {
         jButtonReturn.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jButtonReturn.setForeground(new java.awt.Color(255, 255, 255));
         jButtonReturn.setText("X");
+        jButtonReturn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonReturnActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButtonReturn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1840, 10, 70, -1));
 
         Background.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
@@ -632,6 +638,11 @@ public class CadVeiculo extends javax.swing.JFrame {
     private void jComboBoxModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxModeloActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBoxModeloActionPerformed
+
+    private void jButtonReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReturnActionPerformed
+      new MainHub().setVisible(true);
+        this.hide();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonReturnActionPerformed
 private  void limparTela(){
     jTextFieldPlaca.setText("");
     jTextFieldQuilometragem.setText("");

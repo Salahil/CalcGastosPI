@@ -26,6 +26,7 @@ public class CadTipoDeGasto extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButtonReturn = new javax.swing.JButton();
         UI_1 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -39,11 +40,21 @@ public class CadTipoDeGasto extends javax.swing.JFrame {
         jButtonCadastrarMarca2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButtonReturn = new javax.swing.JButton();
         Background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButtonReturn.setBackground(new java.awt.Color(254, 173, 0));
+        jButtonReturn.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jButtonReturn.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonReturn.setText("X");
+        jButtonReturn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonReturnActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonReturn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1840, 10, 70, -1));
 
         UI_1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         UI_1.setForeground(new java.awt.Color(254, 173, 0));
@@ -173,12 +184,6 @@ public class CadTipoDeGasto extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 510, 1900, 560));
 
-        jButtonReturn.setBackground(new java.awt.Color(254, 173, 0));
-        jButtonReturn.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jButtonReturn.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonReturn.setText("X");
-        getContentPane().add(jButtonReturn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1840, 10, 70, -1));
-
         Background.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         Background.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tp/icones/LogoSoneCar3.png"))); // NOI18N
@@ -186,6 +191,11 @@ public class CadTipoDeGasto extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReturnActionPerformed
+    new MainHub().setVisible(true);
+        this.hide();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonReturnActionPerformed
 
     /**
      * @param args the command line arguments
