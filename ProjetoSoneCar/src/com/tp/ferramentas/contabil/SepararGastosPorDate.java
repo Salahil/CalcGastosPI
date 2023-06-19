@@ -1,7 +1,6 @@
 package com.tp.ferramentas.contabil;
 
 import com.tp.modelos.subClasses.Gastos;
-import com.tp.persistencia.GastosDao;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -11,8 +10,11 @@ import java.util.Date;
 import java.util.Stack;
 
 public class SepararGastosPorDate {
-    private GastosDao gastosDao;
 
+    /**
+     *
+     */
+    public static SepararGastosPorDate separator = new SepararGastosPorDate();
     public Stack<Gastos> organizarGastosPorData(ArrayList<Gastos> gastosList, int mes) {
     Stack<Gastos> pilhaGastos = new Stack<>();
 
@@ -41,7 +43,13 @@ public class SepararGastosPorDate {
     return pilhaGastos;
 }
 
-private ArrayList<Gastos> filtrarGastosPorMes(ArrayList<Gastos> listaGastos, int mes) {
+    /**
+     *
+     * @param listaGastos
+     * @param mes
+     * @return
+     */
+    public ArrayList<Gastos> filtrarGastosPorMes(ArrayList<Gastos> listaGastos, int mes) {
     ArrayList<Gastos> gastosFiltrados = new ArrayList<>();
 
     for (Gastos gasto : listaGastos) {

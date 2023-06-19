@@ -35,6 +35,11 @@ public class TipoDeGastos {
         this.descricao = desc;
     }
     
+    public TipoDeGastos (int id, String desc){
+        this.descricao = desc;
+        this.id = id;
+    }
+    
 
     @Override
     public String toString() {

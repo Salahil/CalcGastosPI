@@ -4,6 +4,17 @@
  */
 package com.tp.GUI;
 
+import com.tp.ferramentas.contabil.SepararGastosPorDate;
+import com.tp.ferramentas.graficas.SetGastosInGrafico;
+import com.tp.ferramentas.graficas.SetarGastosNumaTable;
+import com.tp.modelos.subClasses.Gastos;
+import com.tp.persistencia.GastosDao;
+import com.tp.persistencia.TipoDeGastosDao;
+import java.util.ArrayList;
+import java.util.Stack;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author sergy
@@ -36,6 +47,8 @@ public class VisualizarRelatorio extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableRelatorio = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
+        jTextFieldMesDesejado = new javax.swing.JTextField();
         Background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -94,6 +107,7 @@ public class VisualizarRelatorio extends javax.swing.JFrame {
         jLabel2.setText("DESCRIÇÃO:");
 
         jTableRelatorio.setBackground(new java.awt.Color(0, 0, 0));
+        jTableRelatorio.setForeground(new java.awt.Color(255, 255, 255));
         jTableRelatorio.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
@@ -107,30 +121,49 @@ public class VisualizarRelatorio extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTableRelatorio);
 
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("DATA:");
+
+        jTextFieldMesDesejado.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTextFieldMesDesejado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldMesDesejadoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldId, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 135, Short.MAX_VALUE)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonListar, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(114, 114, 114))
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1)
                 .addContainerGap())
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextFieldId, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextFieldMesDesejado, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 377, Short.MAX_VALUE)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButtonListar, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(114, 114, 114))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -144,17 +177,16 @@ public class VisualizarRelatorio extends javax.swing.JFrame {
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButtonGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButtonListar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(50, 50, 50)))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonListar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldMesDesejado, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(63, 63, 63))
         );
@@ -170,11 +202,36 @@ public class VisualizarRelatorio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonGraficoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGraficoActionPerformed
-              // TODO add your handling code here:
+        
+        try {
+    TipoDeGastosDao tgastosDao = new TipoDeGastosDao();
+    GastosDao gastosDao = new GastosDao();
+    SetGastosInGrafico graficGenerator = new SetGastosInGrafico();
+    SepararGastosPorDate separarGastosPorDate = new SepararGastosPorDate();
+
+    ArrayList<Gastos> gastosList;
+    String tipoDeGastosDescricao = jTextFieldDescricao.getText();
+    int tipoDeGastosId = tgastosDao.encontrarIdTipoDeGastoPorDescricao(tipoDeGastosDescricao);
+    gastosList = separarGastosPorDate.filtrarGastosPorMes(gastosDao.listarGastosPorTipo(jTextFieldDescricao.getText()), Integer.parseInt(jTextFieldMesDesejado.getText()));
+    graficGenerator.gerarGraficoGastos(gastosList, Integer.parseInt(jTextFieldMesDesejado.getText()));
+} catch (Exception ex) {
+    Logger.getLogger(VisualizarRelatorio.class.getName()).log(Level.SEVERE, null, ex);
+}
+
     }//GEN-LAST:event_jButtonGraficoActionPerformed
 
     private void jButtonListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonListarActionPerformed
-        // TODO add your handling code here:
+        try {
+            SetarGastosNumaTable setarGastos = new SetarGastosNumaTable();
+            SepararGastosPorDate separator = new SepararGastosPorDate();
+            TipoDeGastosDao listerine = new TipoDeGastosDao();
+            listerine.listarTiposDeGasto();
+            GastosDao gDao = new GastosDao();
+            Stack<Gastos> pilhaGastos = separator.organizarGastosPorData(gDao.listarGastosPorTipo(jTextFieldDescricao.getText()), Integer.parseInt(jTextFieldMesDesejado.getText()));
+            setarGastos.exibirGastosEmTable(pilhaGastos, jTableRelatorio);
+        } catch (Exception ex) {
+            Logger.getLogger(VisualizarRelatorio.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButtonListarActionPerformed
 
     private void jTextFieldIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldIdActionPerformed
@@ -184,6 +241,10 @@ public class VisualizarRelatorio extends javax.swing.JFrame {
     private void jTextFieldDescricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDescricaoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldDescricaoActionPerformed
+
+    private void jTextFieldMesDesejadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldMesDesejadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldMesDesejadoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -227,10 +288,12 @@ public class VisualizarRelatorio extends javax.swing.JFrame {
     private javax.swing.JButton jButtonListar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableRelatorio;
     private javax.swing.JTextField jTextFieldDescricao;
     private javax.swing.JTextField jTextFieldId;
+    private javax.swing.JTextField jTextFieldMesDesejado;
     // End of variables declaration//GEN-END:variables
 }

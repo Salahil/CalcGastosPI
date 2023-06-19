@@ -21,7 +21,13 @@ import java.util.ArrayList;
 
 public class SetGastosInGrafico {
 
-    public void gerarGraficoGastos(ArrayList<Gastos> gastosList, int mesDesejado) throws Exception {
+    /**
+     *
+     * @param gastosList
+     * @param mesDesejado
+     * @throws Exception
+     */
+    public static void gerarGraficoGastos(ArrayList<Gastos> gastosList, int mesDesejado) throws Exception {
     SepararGastosPorDate ferramenta = new SepararGastosPorDate();
     Stack<Gastos> pilhaGastos = ferramenta.organizarGastosPorData(gastosList, mesDesejado);
 

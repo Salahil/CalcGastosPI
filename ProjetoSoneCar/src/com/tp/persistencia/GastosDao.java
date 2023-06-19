@@ -24,25 +24,20 @@ import java.util.logging.Logger;
  */
 public class GastosDao implements IGastosDao {
     
-    public ArrayList<Gastos> listarGastosPorTipo(int tipoDeGastosId) throws Exception {
+   public ArrayList<Gastos> listarGastosPorTipo(String tipoDeGastosDescricao) throws Exception {
     ArrayList<Gastos> listaGastos = new ArrayList<>();
 
-    String sql = "SELECT * FROM gastos WHERE Tipodegastos = ?";
+    String sql = "SELECT * FROM gastos WHERE tipodegastos = ?";
     try (PreparedStatement preparedStatement = conexao.prepareStatement(sql)) {
-        preparedStatement.setInt(1, tipoDeGastosId);
+        preparedStatement.setString(1, tipoDeGastosDescricao);
         ResultSet rs = preparedStatement.executeQuery();
 
         while (rs.next()) {
             Gastos gastos = new Gastos();
-            gastos.setId(Integer.parseInt(rs.getString("id")));
-            gastos.setValor(rs.getInt("valor"));
+            gastos.setId(rs.getInt("id"));
+            gastos.setValor(rs.getFloat("valor"));
             gastos.setDateDataDeRegistroDeGasto(rs.getDate("data"));
-
-            // Obtenha o objeto TipoDeGastos com base no ID
-            tipoDeGastosId = rs.getInt("Tipodegastos");
-            TipoDeGastos tipoDeGastos = new TipoDeGastosDao().getTipoDeGastosById(tipoDeGastosId);
-            gastos.setTipoDeGastos(tipoDeGastos);
-
+            gastos.setTipoDeGastos(new TipoDeGastos(rs.getString("tipodegastos")));
             listaGastos.add(gastos);
         }
     } catch (SQLException e) {
@@ -51,6 +46,8 @@ public class GastosDao implements IGastosDao {
 
     return listaGastos;
 }
+
+
 
 
     private Connection conexao = null;
