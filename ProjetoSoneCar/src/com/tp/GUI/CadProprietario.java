@@ -334,7 +334,7 @@ public class CadProprietario extends javax.swing.JFrame {
 //    CategoriaDeCarro categoria = BuscarEnumFromString.fromString(CategoriaDeCarro.class, categoriaSelecionada);
 //
     atualizarGrid(proprietarioBD.listaProprietario());
-    Proprietario p = new Proprietario(cpf, nome, telefone1, telefone2, email1, email2, cnh, tipoSelecionado);
+    Proprietario p = new Proprietario(cpf, nome, telefone1, telefone2, email1, email2, cnh, categoria);
     proprietarioBD.createProprietario(p);
     limparTela();
     

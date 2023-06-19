@@ -17,8 +17,8 @@ public class Proprietario {
     int telefone2;
     String email_1;
     String email_2;
-    CategoriaDeCNH categoria;
     int numeroCNH;
+    CategoriaDeCNH categoria;
     CNH DocumentoCNH = new CNH();    
    
     
@@ -95,7 +95,7 @@ public class Proprietario {
          this.CPF = CPF;
     }
     
-    public Proprietario(String cpf, String NomeC, int tel_1, int tel_2, String email_1, String email_2, CategoriaDeCNH cat, int numeroCNH){
+    public Proprietario(String cpf, String NomeC, int tel_1, int tel_2, String email_1, String email_2, int numeroCNH,CategoriaDeCNH cat){
         this.CPF = cpf;
         this.nomeCompleto = NomeC;
         this.telefone1 = tel_1;
@@ -103,8 +103,8 @@ public class Proprietario {
         this.email_1 = email_1;
         this.email_2 = email_2;
         this.numeroCNH = numeroCNH;
-        this.categoria = CategoriaDeCNH.valueOf(categoria);
-        this.DocumentoCNH = new CNH(numeroCNH + "", categoria);
+        this.categoria = cat;
+        this.DocumentoCNH = new CNH(numeroCNH, categoria);
     }
     
     

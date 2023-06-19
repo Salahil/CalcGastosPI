@@ -33,19 +33,17 @@ public VeiculoDao() throws Exception{
     @Override
     public void createVeiculo(Veiculo isVeiculo) throws Exception {
            try {
-        String sql = "INSERT INTO veiculo (placa, marca_descricao, modelo_descricao, cpf_proprietario, combustivel, quilometragemAtual, categoria_Do_Carro, url) " +
-                     "SELECT ?, m.descricao, mo.descricao, p.cpf, ?, ?, ?, ? " +
-                     "FROM marca m, modelo mo, proprietario p " +
-                     "WHERE m.id = ? AND mo.id = ? AND p.cpf = ?";
+        String sql = "INSERT INTO veiculo (placa, marca_descricao, modelo_descricao, combustivel, quilometragem_atual, categoria_Do_Carro, url, cpf_proprietario) values(?,?,?,?,?,?,?,?)";
+                     
 
         PreparedStatement preparedStatement = conexao.prepareStatement(sql);
         preparedStatement.setString(1, isVeiculo.getPlaca());
-        preparedStatement.setString(2, isVeiculo.getTipoDeCombustivel().name());
-        preparedStatement.setFloat(3, isVeiculo.getQuilometragemAtual());
-        preparedStatement.setString(4, isVeiculo.getCategoria().toString());
-        preparedStatement.setString(5, isVeiculo.getUrl());
-        preparedStatement.setInt(6, isVeiculo.getMarca().getId());
-        preparedStatement.setInt(7, isVeiculo.getModelo().getId());
+        preparedStatement.setString(2, isVeiculo.getMarca().getDescricao());
+        preparedStatement.setString(3, isVeiculo.getModelo().getDescricao());
+        preparedStatement.setString(4, isVeiculo.getTipoDeCombustivel().name());
+        preparedStatement.setFloat(5, isVeiculo.getQuilometragemAtual());
+        preparedStatement.setString(6, isVeiculo.getCategoria().toString());
+        preparedStatement.setString(7, isVeiculo.getUrl());
         preparedStatement.setString(8, isVeiculo.getProprietario().getCPF());
 
         preparedStatement.executeUpdate(); // Executa a atualização no banco de dados
@@ -67,13 +65,13 @@ public VeiculoDao() throws Exception{
         while (rs.next()) {
             Veiculo isVeiculo = new Veiculo();
             isVeiculo.setPlaca(rs.getString("placa"));
-            isVeiculo.setMarca(new Marca(rs.getString("marca")));
-            isVeiculo.setModelo(new Modelo(rs.getString("modelo")));
+            isVeiculo.setMarca(new Marca(rs.getString("marca_descricao")));
+            isVeiculo.setModelo(new Modelo(rs.getString("modelo_descricao")));
             isVeiculo.setTipoDeCombustivel(TipoDeCombustivel.valueOf(rs.getString("combustivel")));
-            isVeiculo.setQuilometragemAtual(rs.getFloat("quilometragemAtual"));
-            isVeiculo.setCategoria(CategoriaDeCarro.valueOf(rs.getString("categoriaDoCarro")));
+            isVeiculo.setQuilometragemAtual(rs.getFloat("quilometragem_atual"));
+            isVeiculo.setCategoria(CategoriaDeCarro.valueOf(rs.getString("categoria_do_carro")));
             isVeiculo.setUrl(rs.getString("url"));
-            isVeiculo.setProprietario(new Proprietario(rs.getString("proprietario")));
+            isVeiculo.setProprietario(new Proprietario(rs.getString("cpf_proprietario")));
             listaDeVeiculo.add(isVeiculo);
         }
     } catch (SQLException e) {
@@ -105,7 +103,7 @@ public VeiculoDao() throws Exception{
          preparedStatement.setString(1, veiculo.getMarca().getDescricao()); 
         preparedStatement.setString(2, veiculo.getModelo().toStringDescricao());
         preparedStatement.setString(3, veiculo.getTipoDeCombustivel().toString());
-        preparedStatement.setFloat(4, veiculo.getQuilometragemAtual());
+        preparedStatement.setDouble(4, veiculo.getQuilometragemAtual());
         preparedStatement.setString(5, veiculo.getCategoria().toString());
         preparedStatement.setString(6, veiculo.getUrl());
         preparedStatement.setString(7, veiculo.getPlaca());
@@ -185,7 +183,7 @@ public VeiculoDao() throws Exception{
     public ArrayList<Proprietario> listarProprietarios() throws Exception {
        ArrayList<Proprietario> proprietarios = new ArrayList<>();
 
-        String sql = "SELECT * FROM proprietario";
+        String sql = "SELECT cpf FROM proprietario";
 
         try (PreparedStatement statement = conexao.prepareStatement(sql);
              ResultSet resultSet = statement.executeQuery()) {
