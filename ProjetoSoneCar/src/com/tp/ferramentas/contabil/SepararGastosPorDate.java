@@ -13,14 +13,12 @@ import java.util.Stack;
 public class SepararGastosPorDate {
     private GastosDao gastosDao;
 
-    public Stack<Gastos> organizarGastosPorData(int tipoDeGastosId, int mes) {
+    public Stack<Gastos> organizarGastosPorData(ArrayList<Gastos> gastosList, int mes) {
     Stack<Gastos> pilhaGastos = new Stack<>();
 
     try {
-        ArrayList<Gastos> listaGastos = gastosDao.listarGastos(tipoDeGastosId);
-
         // Filtra os gastos pelo mês desejado
-        ArrayList<Gastos> gastosFiltrados = filtrarGastosPorMes(listaGastos, mes);
+        ArrayList<Gastos> gastosFiltrados = filtrarGastosPorMes(gastosList, mes);
 
         // Ordena a lista de gastos filtrados pela data de registro em ordem decrescente
         Collections.sort(gastosFiltrados, new Comparator<Gastos>() {
@@ -57,6 +55,7 @@ private ArrayList<Gastos> filtrarGastosPorMes(ArrayList<Gastos> listaGastos, int
     }
 
     return gastosFiltrados;
-}
+    }   
+
 
 }

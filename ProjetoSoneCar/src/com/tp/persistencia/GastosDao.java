@@ -23,6 +23,35 @@ import java.util.logging.Logger;
  * @author Julio
  */
 public class GastosDao implements IGastosDao {
+    
+    public ArrayList<Gastos> listarGastosPorTipo(int tipoDeGastosId) throws Exception {
+    ArrayList<Gastos> listaGastos = new ArrayList<>();
+
+    String sql = "SELECT * FROM gastos WHERE Tipodegastos = ?";
+    try (PreparedStatement preparedStatement = conexao.prepareStatement(sql)) {
+        preparedStatement.setInt(1, tipoDeGastosId);
+        ResultSet rs = preparedStatement.executeQuery();
+
+        while (rs.next()) {
+            Gastos gastos = new Gastos();
+            gastos.setId(Integer.parseInt(rs.getString("id")));
+            gastos.setValor(rs.getInt("valor"));
+            gastos.setDateDataDeRegistroDeGasto(rs.getDate("data"));
+
+            // Obtenha o objeto TipoDeGastos com base no ID
+            tipoDeGastosId = rs.getInt("Tipodegastos");
+            TipoDeGastos tipoDeGastos = new TipoDeGastosDao().getTipoDeGastosById(tipoDeGastosId);
+            gastos.setTipoDeGastos(tipoDeGastos);
+
+            listaGastos.add(gastos);
+        }
+    } catch (SQLException e) {
+        throw new Exception("Erro ao listar gastos por tipo: " + e.getMessage());
+    }
+
+    return listaGastos;
+}
+
 
     private Connection conexao = null;
     public GastosDao()throws Exception{

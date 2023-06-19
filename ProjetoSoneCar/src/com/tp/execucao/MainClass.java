@@ -36,8 +36,7 @@ public class MainClass {
         GraficoBarras graf = new GraficoBarras(tituloGrafico, descricaoX, descricaoY, dataset);
         graf.exibirGraficoNaTela(800, 600);
         
-        PegarGastoDoBancoDeDados mewTwo = new PegarGastoDoBancoDeDados();
-        Gastos cuticuti = mewTwo.buscarGastoPorId(1);
+        
         
        /* FileArranger cuecaoDeCouro = new FileArranger();
         cuecaoDeCouro.chooseImageFile();
