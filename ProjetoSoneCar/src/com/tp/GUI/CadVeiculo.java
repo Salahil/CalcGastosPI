@@ -48,6 +48,7 @@ public class CadVeiculo extends javax.swing.JFrame {
         atualizarGrid(new VeiculoDao().listaDeVeiculo());
         try {
             IVeiculoDao veiculoBD = new VeiculoDao();
+            
 
             TipoDeCombustivel[] tiposCombustivel = TipoDeCombustivel.values();
             for (TipoDeCombustivel tipo : tiposCombustivel) {
@@ -72,10 +73,11 @@ public class CadVeiculo extends javax.swing.JFrame {
             }
 
             // Preencher combobox de Proprietários
-            ArrayList<Proprietario> listaDeProprietarios = veiculoBD.listarProprietarios();
-            for (Proprietario proprietario : listaDeProprietarios) {
+            ArrayList<Proprietario> listaDeCpf = veiculoBD.listarProprietarios();
+            for (Proprietario proprietario : listaDeCpf) {
                 jComboBoxProprietario.addItem(proprietario.getCPF());
-            }
+            }  
+           
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(this, erro.getMessage());
         }
@@ -153,7 +155,6 @@ public class CadVeiculo extends javax.swing.JFrame {
         jLabel1.setText("Proprietario:");
 
         jComboBoxProprietario.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jComboBoxProprietario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "item 1" }));
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -655,7 +656,7 @@ private  void limparTela(){
         for (int pos = 0; pos < listaDeConsultores.size(); pos++) {
             Veiculo veiculo = listaDeConsultores.get(pos);
             String placa = veiculo.getPlaca();
-            float quilometragem = veiculo.getQuilometragemAtual();
+            Float quilometragem = veiculo.getQuilometragemAtual();
             String url = veiculo.getUrl();
             String marca = veiculo.getMarca().getDescricao(); // Obtenha a descrição da marca
             String modelo = veiculo.getModelo().getDescricao(); // Obtenha a descrição do modelo

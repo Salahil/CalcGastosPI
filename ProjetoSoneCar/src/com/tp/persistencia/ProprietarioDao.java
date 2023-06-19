@@ -31,7 +31,7 @@ public ProprietarioDao() throws Exception{
     @Override
     public void createProprietario(Proprietario isProprietario) throws Exception{
         try{
-        String sql = "insert into proprietario(cpf, nome, Telefone_1, Telefone_2, Email_1, Email_2, DocumentoCNH, cnhCategoria) values(?,?,?,?,?,?,?,?)";
+        String sql = "insert into proprietario(cpf, nome, Telefone_1, Telefone_2, Email_1, Email_2, cnh, cnhCategoria) values(?,?,?,?,?,?,?,?)";
         PreparedStatement preparedStatement = conexao.prepareStatement(sql);
         preparedStatement.setString(1, isProprietario.getCPF());
         preparedStatement.setString(2, isProprietario.getNomeCompleto());

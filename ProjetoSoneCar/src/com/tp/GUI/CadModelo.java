@@ -387,7 +387,7 @@ try {
     private void jButtonBuscarModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarModeloActionPerformed
         // TODO add your handling code here:
          try{
-        JFileChooser fc = new JFileChooser(".\\src\\com\\tp\\ferramentas\\imagens");
+        JFileChooser fc = new JFileChooser("C:\\Users\\User\\Documents\\GitHub\\CalcGastosPI\\ProjetoSoneCar\\src\\com.tp.ferramentas.imagens");
         fc.setDialogTitle("Buscar Imagem");
         fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
         IModeloDao modeloBD = new ModeloDao();
