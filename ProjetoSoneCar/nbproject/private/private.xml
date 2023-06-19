@@ -3,16 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Julio/Desktop/CalcGastosPI/ProjetoSoneCar/src/com/tp/GUI/CadProprietario.java</file>
-            <file>file:/C:/Users/Julio/Desktop/CalcGastosPI/ProjetoSoneCar/src/com/tp/GUI/CadMarca.java</file>
-            <file>file:/C:/Users/Julio/Desktop/CalcGastosPI/ProjetoSoneCar/src/com/tp/GUI/CadVeiculo.java</file>
-            <file>file:/C:/Users/Julio/Desktop/CalcGastosPI/ProjetoSoneCar/src/com/tp/modelos/subClasses/TipoDeGastos.java</file>
+            <file>file:/C:/Users/Julio/Desktop/CalcGastosPI/ProjetoSoneCar/src/com/tp/ferramentas/auxiliar/AnoSomaGastos.java</file>
+            <file>file:/C:/Users/Julio/Desktop/CalcGastosPI/ProjetoSoneCar/src/com/tp/GUI/VisualizarRelatorio.java</file>
             <file>file:/C:/Users/Julio/Desktop/CalcGastosPI/ProjetoSoneCar/src/com/tp/persistencia/TipoDeGastosDao.java</file>
-            <file>file:/C:/Users/Julio/Desktop/CalcGastosPI/ProjetoSoneCar/src/com/tp/GUI/MainHub.java</file>
-            <file>file:/C:/Users/Julio/Desktop/CalcGastosPI/ProjetoSoneCar/src/com/tp/GUI/CadModelo.java</file>
-            <file>file:/C:/Users/Julio/Desktop/CalcGastosPI/ProjetoSoneCar/src/com/tp/GUI/CadTipoDeGasto.java</file>
-            <file>file:/C:/Users/Julio/Desktop/CalcGastosPI/ProjetoSoneCar/src/com/tp/persistencia/GastosDao.java</file>
-            <file>file:/C:/Users/Julio/Desktop/CalcGastosPI/ProjetoSoneCar/src/com/tp/GUI/CadGastos.java</file>
+            <file>file:/C:/Users/Julio/Desktop/CalcGastosPI/ProjetoSoneCar/src/com/tp/ferramentas/graficas/SetarGastosNumaTable.java</file>
+            <file>file:/C:/Users/Julio/Desktop/CalcGastosPI/ProjetoSoneCar/src/com/tp/persistencia/ConexaoBanco.java</file>
+            <file>file:/C:/Users/Julio/Desktop/CalcGastosPI/ProjetoSoneCar/src/com/tp/modelos/subClasses/Gastos.java</file>
+            <file>file:/C:/Users/Julio/Desktop/CalcGastosPI/ProjetoSoneCar/src/com/tp/ferramentas/contabil/GastosUtils.java</file>
         </group>
     </open-files>
 </project-private>
