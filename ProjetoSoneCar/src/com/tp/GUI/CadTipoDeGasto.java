@@ -69,7 +69,6 @@ public class CadTipoDeGasto extends javax.swing.JFrame {
         jLabel1.setText("ID:");
 
         jTextFieldID.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTextFieldID.setText("24");
         jTextFieldID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldIDActionPerformed(evt);
@@ -82,7 +81,6 @@ public class CadTipoDeGasto extends javax.swing.JFrame {
         jLabel3.setText("DESCRIÇAO:");
 
         jTextFieldDescricao.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTextFieldDescricao.setText("GASOLINA");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);

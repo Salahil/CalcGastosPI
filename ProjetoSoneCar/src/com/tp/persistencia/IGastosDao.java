@@ -5,6 +5,7 @@
 package com.tp.persistencia;
 
 import com.tp.modelos.subClasses.Gastos;
+import com.tp.modelos.subClasses.TipoDeGastos;
 import java.util.ArrayList;
 
 /**
@@ -16,5 +17,7 @@ public interface IGastosDao {
     ArrayList<Gastos>alterarGastos(Gastos gastos)throws Exception;
     ArrayList<Gastos>excluirGastos(int id)throws Exception;
     ArrayList<Gastos>listarGastos(int id) throws Exception;
-    public Gastos getGasto(int id) throws Exception;
+    ArrayList<TipoDeGastos> listarTiposDeGastos() throws Exception;
+
+    public ArrayList<Gastos> listarGastos();
 }

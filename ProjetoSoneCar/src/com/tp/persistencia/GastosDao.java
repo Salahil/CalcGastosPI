@@ -23,56 +23,38 @@ import java.util.logging.Logger;
  * @author Julio
  */
 public class GastosDao implements IGastosDao {
+    
+   public ArrayList<Gastos> listarGastosPorTipo(String tipoDeGastosDescricao) throws Exception {
+    ArrayList<Gastos> listaGastos = new ArrayList<>();
+
+    String sql = "SELECT * FROM gastos WHERE tipodegastos = ?";
+    try (PreparedStatement preparedStatement = conexao.prepareStatement(sql)) {
+        preparedStatement.setString(1, tipoDeGastosDescricao);
+        ResultSet rs = preparedStatement.executeQuery();
+
+        while (rs.next()) {
+            Gastos gastos = new Gastos();
+            gastos.setId(rs.getInt("id"));
+            gastos.setValor(rs.getFloat("valor"));
+            gastos.setDateDataDeRegistroDeGasto(rs.getDate("data"));
+            gastos.setTipoDeGastos(new TipoDeGastos(rs.getString("tipodegastos")));
+            listaGastos.add(gastos);
+        }
+    } catch (SQLException e) {
+        throw new Exception("Erro ao listar gastos por tipo: " + e.getMessage());
+    }
+
+    return listaGastos;
+}
+
+
+
 
     private Connection conexao = null;
     public GastosDao()throws Exception{
         conexao = ConexaoBanco.getConexao();
     }
-    TipoDeGastosDao tipoDeGastosDao = new TipoDeGastosDao();
-    
-
-    @Override
-    public Gastos getGasto(int id) throws Exception {
-    Connection con = null;
-    PreparedStatement ps = null;
-    ResultSet rs = null;
-    Gastos gastos = null;
-
-    try {
-        con = ConexaoBanco.getConexao();
-        String query = "SELECT * FROM gastos WHERE id = ?";
-        ps = con.prepareStatement(query);
-        ps.setInt(1, id);
-        rs = ps.executeQuery();
-
-        if (rs.next()) {
-            // Ler os valores do ResultSet e criar um objeto Gastos
-            int gastoId = rs.getInt("id");
-            float valor = rs.getFloat("valor");
-            // Recupere outros atributos do gasto aqui
-
-            gastos = new Gastos();
-            gastos.setId(gastoId);
-            gastos.setValor(valor);
-            // Defina outros atributos do gasto aqui
-        }
-    } finally {
-        // Feche as conexões e os recursos
-        if (rs != null) {
-            rs.close();
-        }
-        if (ps != null) {
-            ps.close();
-        }
-        if (con != null) {
-            con.close();
-        }
-    }
-
-    return gastos;
-}
-
-    
+      
     @Override
     public void createGasto(Gastos isGastos) throws Exception {
         try {
@@ -97,18 +79,20 @@ public class GastosDao implements IGastosDao {
 
     @Override
     public ArrayList<Gastos> alterarGastos(Gastos gastos) throws Exception {
-        ArrayList<Gastos>alterarGastos = new ArrayList<Gastos>();
-       String sql = "UPDATE gastos SET descricao = ? WHERE id = ?";
+    String sql = "UPDATE gastos SET valor = ?, data = ?, tipodegastos = ? WHERE id = ?";
     try (PreparedStatement preparedStatement = conexao.prepareStatement(sql)) {
-         preparedStatement.setInt(1, gastos.getId());
-        preparedStatement.setDate(2, (Date) gastos.getDateDataDeRegistroDeGasto());
+        preparedStatement.setFloat(1, gastos.getValor());
+        preparedStatement.setDate(2, new java.sql.Date(gastos.getDateDataDeRegistroDeGasto().getTime()));
+        preparedStatement.setString(3, gastos.getTipoDeGastos().getDescricao());
+        preparedStatement.setInt(4, gastos.getId());
        
         preparedStatement.executeUpdate();
     } catch (SQLException e) {
-        throw new Exception("Erro ao alterar a Gastos: " + e.getMessage());
+        throw new Exception("Erro ao alterar os gastos: " + e.getMessage());
     }
-       return alterarGastos;
+        return null;
     }
+
 
     @Override
     public ArrayList<Gastos> excluirGastos(int id) throws Exception {
@@ -126,24 +110,82 @@ public class GastosDao implements IGastosDao {
 
     @Override
     public ArrayList<Gastos> listarGastos(int id) throws Exception {
-       ArrayList<Gastos>listaDeGastos = new ArrayList<Gastos>();
-        String sql = "Select * From gastos";
-     try{
-       Statement statement = conexao.createStatement();
-       ResultSet rs = statement.executeQuery(sql);
-       while (rs.next()){
-        Gastos isGastos = new Gastos();
-        isGastos.setId(rs.getInt("id"));
-        isGastos.setDateDataDeRegistroDeGasto(rs.getDate("data"));
-        isGastos.setValor(rs.getFloat("valor"));
-        isGastos.setTipoDeGastos(new TipoDeGastos(rs.getString("tipodegastos")));
-        
-        listaDeGastos.add(isGastos);
+    ArrayList<Gastos> listaDeGastos = new ArrayList<>();
+
+    try {
+        String sql = "SELECT * FROM gastos";
+        Statement statement = conexao.createStatement();
+        ResultSet rs = statement.executeQuery(sql);
+
+        while (rs.next()) {
+            Gastos gastos = new Gastos();
+            gastos.setId(rs.getInt("id"));
+            gastos.setValor(rs.getFloat("valor"));
+            gastos.setDateDataDeRegistroDeGasto(rs.getDate("data"));
+            gastos.setTipoDeGastos(new TipoDeGastos(rs.getString("tipodegastos")));
+
+            listaDeGastos.add(gastos);
+        }
+    } catch (SQLException e) {
+        throw new Exception("Erro ao listar os gastos: " + e.getMessage());
     }
-     }catch(SQLException e){
-         e.printStackTrace();
-         System.out.println("isProblem in listaDeGastos()_GastosDao");
-     }
-       return listaDeGastos;
-    }
+
+    return listaDeGastos;
 }
+    @Override
+    public ArrayList<TipoDeGastos> listarTiposDeGastos() throws Exception {
+    ArrayList<TipoDeGastos> listaDeTipos = new ArrayList<>();
+
+    try {
+        String sql = "SELECT * FROM tiposdegastos";
+        PreparedStatement preparedStatement = conexao.prepareStatement(sql);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next()) {
+            TipoDeGastos tipo = new TipoDeGastos();
+            tipo.setId(resultSet.getInt("id"));
+            tipo.setDescricao(resultSet.getString("descricao"));
+
+            listaDeTipos.add(tipo);
+        }
+    } catch (SQLException e) {
+        throw new Exception("Erro ao listar os tipos de gastos: " + e.getMessage());
+    }
+
+    return listaDeTipos;
+}
+
+    @Override
+    public ArrayList<Gastos> listarGastos() {
+    ArrayList<Gastos> listaDeGastos = new ArrayList<>();
+
+    try {
+        String sql = "SELECT * FROM gastos";
+        Statement statement = conexao.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+
+        while (resultSet.next()) {
+            Gastos gastos = new Gastos();
+            gastos.setId(resultSet.getInt("id"));
+            gastos.setValor(resultSet.getFloat("valor"));
+            gastos.setDateDataDeRegistroDeGasto(resultSet.getDate("data"));
+            gastos.setTipoDeGastos(new TipoDeGastos(resultSet.getString("tipodegastos")));
+
+            listaDeGastos.add(gastos);
+        }
+    } catch (SQLException e) {
+        try {
+            throw new Exception("Erro ao listar os gastos: " + e.getMessage());
+        } catch (Exception ex) {
+            Logger.getLogger(GastosDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    return listaDeGastos;
+}
+
+
+}
+
+
+

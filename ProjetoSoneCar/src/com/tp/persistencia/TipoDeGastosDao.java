@@ -24,6 +24,53 @@ import java.util.logging.Logger;
 
 public class TipoDeGastosDao implements ITipoDeGastosDao{
     
+    public ArrayList<TipoDeGastos> listarTiposDeGasto() throws Exception {
+    ArrayList<TipoDeGastos> tiposDeGasto = new ArrayList<>();
+
+    try {
+        String sql = "SELECT * FROM tipodegastos";
+        Statement statement = conexao.createStatement();
+        ResultSet rs = statement.executeQuery(sql);
+
+        while (rs.next()) {
+            int id = rs.getInt("id");
+            String descricao = rs.getString("descricao");
+
+            TipoDeGastos tipoDeGasto = new TipoDeGastos(id, descricao);
+            tiposDeGasto.add(tipoDeGasto);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        throw new Exception("Erro ao listar os tipos de gasto: " + e.getMessage());
+    }
+
+    return tiposDeGasto;
+}
+
+    
+    public int encontrarIdTipoDeGastoPorDescricao(String descricao) {
+    int idTipoDeGasto = -1; // Valor padrão caso a descrição não seja encontrada
+
+    try {
+        ITipoDeGastosDao tipoDeGastosDao = new TipoDeGastosDao();
+        // Obtenha a lista de tipos de gastos do banco de dados
+        ArrayList<TipoDeGastos> tiposDeGasto = tipoDeGastosDao.listaDeTipoDeGasto();
+
+        // Procure o TipoDeGasto com a descrição correspondente
+        for (TipoDeGastos tipoDeGasto : tiposDeGasto) {
+            if (tipoDeGasto.getDescricao().equalsIgnoreCase(descricao)) {
+                idTipoDeGasto = tipoDeGasto.getId();
+                break;
+            }
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+        return idTipoDeGasto;
+    }
+
+    
     
     private Connection conexao = null;
     public TipoDeGastosDao() throws Exception{
@@ -135,5 +182,22 @@ public class TipoDeGastosDao implements ITipoDeGastosDao{
     }
     return false;
     }
+
+    @Override
+    public ArrayList<String> listarDescricoesTipoDeGastos() throws Exception {
+    ArrayList<String> descricoes = new ArrayList<>();
+    String sql = "SELECT descricao FROM tipodegastos";
+    try (Statement statement = conexao.createStatement();
+         ResultSet resultSet = statement.executeQuery(sql)) {
+        while (resultSet.next()) {
+            String descricao = resultSet.getString("descricao");
+            descricoes.add(descricao);
+        }
+    } catch (SQLException e) {
+        throw new Exception("Erro ao listar as descrições dos tipos de gastos: " + e.getMessage());
+    }
+    return descricoes;
+}
+
     
 }

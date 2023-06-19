@@ -43,7 +43,6 @@ public class CadProprietario extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButtonReturn = new javax.swing.JButton();
         UI_1 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jButtonIncluir = new javax.swing.JButton();
@@ -74,17 +73,6 @@ public class CadProprietario extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jButtonReturn.setBackground(new java.awt.Color(254, 173, 0));
-        jButtonReturn.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jButtonReturn.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonReturn.setText("X");
-        jButtonReturn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonReturnActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButtonReturn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1840, 10, 70, -1));
 
         UI_1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         UI_1.setForeground(new java.awt.Color(254, 173, 0));
@@ -219,8 +207,6 @@ public class CadProprietario extends javax.swing.JFrame {
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("EMAIL:");
 
-        jComboBoxCNHCategoria.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-
         jTextFieldCNHNumero.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         jTextFieldTelefone2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -348,7 +334,7 @@ public class CadProprietario extends javax.swing.JFrame {
 //    CategoriaDeCarro categoria = BuscarEnumFromString.fromString(CategoriaDeCarro.class, categoriaSelecionada);
 //
     atualizarGrid(proprietarioBD.listaProprietario());
-    Proprietario p = new Proprietario(cpf, nome, telefone1, telefone2, email1, email2, cnh, tipoSelecionado);
+    Proprietario p = new Proprietario(cpf, nome, telefone1, telefone2, email1, email2, cnh, categoria);
     proprietarioBD.createProprietario(p);
     limparTela();
     
@@ -440,7 +426,6 @@ public class CadProprietario extends javax.swing.JFrame {
     private javax.swing.JButton jButtonBuscar;
     private javax.swing.JButton jButtonExcluir;
     private javax.swing.JButton jButtonIncluir;
-    private javax.swing.JButton jButtonReturn;
     private javax.swing.JComboBox<String> jComboBoxCNHCategoria;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

@@ -11,6 +11,8 @@ import com.tp.persistencia.ITipoDeGastosDao;
 import com.tp.modelos.subClasses.*;
 
 import java.awt.Dimension;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -30,24 +32,30 @@ import javax.swing.table.DefaultTableModel;
  */
 public class CadGastos extends javax.swing.JFrame {
     
-    private IGastosDao gastosBD;
-    private ITipoDeGastosDao tipoDeGastoBD;
-
-    private DefaultTableModel tableModel;
 
 
     /**
      * Creates new form CadGastos
      */
-    public CadGastos() throws Exception {
-       initComponents();
-
-        gastosBD = new GastosDao();
-        tipoDeGastoBD = new TipoDeGastosDao();
-
-        tableModel = (DefaultTableModel) jTableTabelaDeGasto.getModel();
-        atualizarGrid(tipoDeGastoBD.listaDeTipoDeGasto());
+   public CadGastos() throws Exception {
+    initComponents();
+    GastosDao gastosDao = new GastosDao();
+   // ArrayList<Gastos> listaDeGastos = gastosDao.listarGastos();
+   // atualizarGrid(listaDeGastos);
+   try {
+    TipoDeGastosDao tipoDeGastosDao = new TipoDeGastosDao();
+    ArrayList<String> descricoes = tipoDeGastosDao.listarDescricoesTipoDeGastos();
+    for (String descricao : descricoes) {
+        jComboBoxGasto.addItem(descricao);
     }
+} catch (Exception erro) {
+    JOptionPane.showMessageDialog(this, erro.getMessage());
+}
+
+
+}
+
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -107,7 +115,6 @@ public class CadGastos extends javax.swing.JFrame {
         jLabel5.setText("VALOR:");
 
         jComboBoxGasto.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jComboBoxGasto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -296,113 +303,160 @@ public class CadGastos extends javax.swing.JFrame {
     try {
     // Obtenha os valores dos campos da tela
     float valor = Float.parseFloat(jTextFieldValor.getText());
-    java.util.Date data = jDateChooserData.getDate();
-    String tipoGastos = jComboBoxGasto.getSelectedItem().toString();
+    String dataTexto = jTextFieldData.getText(); // Obtenha o texto da TextField da data
+    java.util.Date data = null;
+
+    // Faça a conversão da string para a data
+    SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
+    try {
+        data = formatoData.parse(dataTexto);
+    } catch (ParseException e) {
+        // Trate o erro de conversão da data aqui
+        e.printStackTrace();
+    }
+
+    String tipoGastosDescricao = jComboBoxGasto.getSelectedItem().toString();
 
     // Crie um novo objeto Gastos e defina os valores
     Gastos novoGasto = new Gastos();
     novoGasto.setValor(valor);
     novoGasto.setDateDataDeRegistroDeGasto(data);
+
+    // Crie uma instância da classe TipoDeGastos com base na descrição selecionada
+    TipoDeGastos tipoGastos = new TipoDeGastos();
+    tipoGastos.setDescricao(tipoGastosDescricao);
+
     novoGasto.setTipoDeGastos(tipoGastos);
 
     // Chame o método createGasto da classe GastosDao para salvar o novo gasto
-    GastosDao gastosDao = new GastosDao(); // Crie uma instância da classe GastosDao
+    GastosDao gastosDao = new GastosDao();
     gastosDao.createGasto(novoGasto);
 
     JOptionPane.showMessageDialog(this, "Gasto incluído com sucesso!");
+
+    // Atualize a grid após a inclusão do gasto
+    ArrayList<Gastos> listaDeGastos = gastosDao.listarGastos(0); // Obtenha a lista atualizada de gastos
+    DefaultTableModel model = (DefaultTableModel) jTableTabelaDeGasto.getModel();
+    model.setRowCount(0); // Limpe os dados existentes na grid
+    for (Gastos gasto : listaDeGastos) {
+        // Adicione cada gasto à grid
+        Object[] rowData = {gasto .getId(), gasto.getValor(), gasto.getDateDataDeRegistroDeGasto(), gasto.getTipoDeGastos().getDescricao()};
+        model.addRow(rowData);
+    }
+
     // Outras ações necessárias após a inclusão do gasto...
 
 } catch (Exception erro) {
     JOptionPane.showMessageDialog(this, "Erro ao incluir o gasto: " + erro.getMessage());
 }
 
-
-
     }//GEN-LAST:event_jButtonIncluirActionPerformed
 
     private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
-        try {
-            int id = Integer.parseInt(jTextFieldId.getText());
-            float valor = Float.parseFloat(jTextFieldValor.getText());
-            String tipoDeGasto = jComboBoxGasto.getSelectedItem().toString();
-            LocalDate gastosDate = LocalDate.now();
+                                               
+    try {
+    // Obtenha os valores dos campos da tela
+    int id = Integer.parseInt(jTextFieldId.getText());
+    float valor = Float.parseFloat(jTextFieldValor.getText());
+    String dataTexto = jTextFieldData.getText(); // Obtém o texto da TextField da data
+    String tipoGastosDescricao = jComboBoxGasto.getSelectedItem().toString();
 
-            // Crie um objeto Gastos com os dados inseridos
-            Gastos gastos = new Gastos();
-            gastos.setId(id);
-            gastos.setValor(valor);
-            // Recupere o tipoDeGasto do banco de dados usando tipoDeGastoBD e atribua-o ao objeto gastos
-            // gastos.setTipoDeGasto(tipoDeGastoBD.getTipoDeGasto(tipoDeGasto));
-            Date date = Date.from(gastosDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+    // Crie um novo objeto Gastos e defina os valores
+    Gastos gastos = new Gastos();
+    gastos.setId(id);
+    gastos.setValor(valor);
 
-            // Atualize o objeto gastos no banco de dados usando gastosBD
-            gastosBD.alterarGastos(gastos);
+    // Faça a conversão da string para a data
+    SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
+    try {
+        java.util.Date data = formatoData.parse(dataTexto);
+        gastos.setDateDataDeRegistroDeGasto(data);
+    } catch (ParseException e) {
+        // Trate o erro de conversão da data aqui
+        e.printStackTrace();
+    }
 
-            // Exiba uma mensagem de sucesso
-            JOptionPane.showMessageDialog(this, "Gastos atualizados com sucesso.");
+    // Defina os objetos TipoDeGastos diretamente no JComboBox
+    TipoDeGastos tipoGastos = (TipoDeGastos) jComboBoxGasto.getSelectedItem();
+    gastos.setTipoDeGastos(tipoGastos);
 
-            // Atualize a tabela
-            atualizarGrid(tipoDeGastoBD.listaDeTipoDeGasto());
+    // Chame o método alterarGastos da classe GastosDao para atualizar os gastos
+    GastosDao gastosDao = new GastosDao();
+    gastosDao.alterarGastos(gastos);
 
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Valor inválido. Insira um número válido.");
-        } catch (Exception erro) {
-            JOptionPane.showMessageDialog(this, erro.getMessage());
-        }
+    JOptionPane.showMessageDialog(this, "Gastos alterados com sucesso!");
+    // Outras ações necessárias após a alteração dos gastos...
+
+} catch (Exception erro) {
+    JOptionPane.showMessageDialog(this, "Erro ao alterar os gastos: " + erro.getMessage());
+}
+
+
+
     }//GEN-LAST:event_jButtonAlterarActionPerformed
 
     private void jTextFieldValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldValorActionPerformed
         
     }//GEN-LAST:event_jTextFieldValorActionPerformed
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
-        try {
-            int id = Integer.parseInt(jTextFieldId.getText());
+    
+    try {
+        int id = Integer.parseInt(jTextFieldId.getText());
 
-            // Exclua o objeto gastos do banco de dados usando gastosBD
-            gastosBD.excluirGastos(id);
+        // Chame o método excluirGastos da classe GastosDao para excluir os gastos
+        GastosDao gastosDao = new GastosDao();
+        ArrayList<Gastos> listaDeGastos = gastosDao.excluirGastos(id);
 
-            // Exiba uma mensagem de sucesso
-            JOptionPane.showMessageDialog(this, "Gastos excluídos com sucesso.");
+        // Atualize a lista de gastos após a exclusão
+        // Faça o que for necessário com a lista atualizada...
 
-            // Limpe os campos de entrada
-            jTextFieldId.setText("");
-            jTextFieldValor.setText("");
-            jComboBoxGasto.setSelectedIndex(0);
+        JOptionPane.showMessageDialog(this, "Gastos excluídos com sucesso!");
+        // Outras ações necessárias após a exclusão dos gastos...
 
-            // Atualize a tabela
-            atualizarGrid(tipoDeGastoBD.listaDeTipoDeGasto());
+    } catch (Exception erro) {
+        JOptionPane.showMessageDialog(this, "Erro ao excluir os gastos: " + erro.getMessage());
+    }
 
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "ID inválido. Insira um número válido.");
-        } catch (Exception erro) {
-            JOptionPane.showMessageDialog(this, erro.getMessage());
-        }
+  
     }//GEN-LAST:event_jButtonExcluirActionPerformed
 
     private void jButtonListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonListarActionPerformed
-        
+try {
+    String idText = jTextFieldId.getText();
+
+    // Verifica se o campo de ID está vazio
+    if (idText.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Insira um ID válido.");
+        return;
+    }
+
+    int id = Integer.parseInt(idText); // Obtém o ID do JTextField
+    IGastosDao gastosBD = new GastosDao();
+    ArrayList<Gastos> listaDeGastos = gastosBD.listarGastos();
+    ArrayList<Gastos> listaDeGastosEncontrados = new ArrayList<>();
+
+    // Verifica se o gasto com o ID especificado está na lista
+    for (Gastos gastos : listaDeGastos) {
+        if (gastos.getId() == id) {
+            listaDeGastosEncontrados.add(gastos);
+        }
+    }
+
+    // Verifica se foram encontrados gastos com o ID especificado
+    if (!listaDeGastosEncontrados.isEmpty()) {
+        atualizarGrid(listaDeGastosEncontrados);
+    } else {
+        JOptionPane.showMessageDialog(this, "Gasto não encontrado.");
+    }
+} catch (NumberFormatException e) {
+    JOptionPane.showMessageDialog(this, "ID inválido. Insira um valor numérico.");
+} catch (Exception erro) {
+    JOptionPane.showMessageDialog(this, erro.getMessage());
+}
     }//GEN-LAST:event_jButtonListarActionPerformed
 
     private void jTableTabelaDeGastoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableTabelaDeGastoMouseClicked
-// Obtenha o índice da linha selecionada
-        int rowIndex = jTableTabelaDeGasto.getSelectedRow();
 
-        // Obtenha o valor da célula da coluna de ID
-        int id = (int) jTableTabelaDeGasto.getValueAt(rowIndex, 0);
-
-        // Use o ID para buscar os detalhes do gasto no banco de dados usando gastosBD
-        Gastos gastos = null;
-        try {
-            gastos = gastosBD.getGasto(id);
-        } catch (Exception ex) {
-            Logger.getLogger(CadGastos.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        // Preencha os campos de entrada com os detalhes do gasto
-        jTextFieldId.setText(String.valueOf(gastos.getId()));
-        jTextFieldValor.setText(String.valueOf(gastos.getValor()));
-        //jComboBoxGasto.setSelectedItem(gastos.getTipoDeGasto().getDescricao());
-        //TODO add your handling code here:
     }//GEN-LAST:event_jTableTabelaDeGastoMouseClicked
 
     private void jTextFieldDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDataActionPerformed
@@ -415,17 +469,19 @@ public class CadGastos extends javax.swing.JFrame {
       jTextFieldData.setText("");
   }
     private void atualizarGrid(ArrayList<Gastos> listaDeConsultores) {
-    try {
+  try {
         DefaultTableModel model = (DefaultTableModel) jTableTabelaDeGasto.getModel();
         model.setNumRows(0);
-        for (int pos = 0; pos < listaDeConsultores.size(); pos++) {
-            Gastos gasto = listaDeConsultores.get(pos);
-            String id = String.valueOf(gasto.getId());
+      Iterable<Gastos> listaDeGastos = null;
+
+        for (Gastos gasto : listaDeGastos) {
+            int id = gasto.getId();
             String valor = String.valueOf(gasto.getValor());
             String data = gasto.getDateDataDeRegistroDeGasto().toString();
             TipoDeGastos tipo = gasto.getTipoDeGastos();
-            
-            Object[] dados = { id, valor, data, tipo };
+            String tipoDescricao = tipo.getDescricao();
+
+            Object[] dados = {id, valor, data, tipoDescricao};
             model.addRow(dados);
         }
     } catch (Exception erro) {
