@@ -4,6 +4,8 @@
  */
 package com.tp.GUI;
 
+import com.tp.ferramentas.auxiliar.AnoSomaGastos;
+import com.tp.ferramentas.contabil.GastosUtils;
 import com.tp.ferramentas.contabil.SepararGastosPorDate;
 import com.tp.ferramentas.graficas.SetGastosInGrafico;
 import com.tp.ferramentas.graficas.SetarGastosNumaTable;
@@ -11,9 +13,11 @@ import com.tp.modelos.subClasses.Gastos;
 import com.tp.persistencia.GastosDao;
 import com.tp.persistencia.TipoDeGastosDao;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -49,6 +53,7 @@ public class VisualizarRelatorio extends javax.swing.JFrame {
         jTableRelatorio = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         jTextFieldMesDesejado = new javax.swing.JTextField();
+        jButtonListarAnual = new javax.swing.JButton();
         Background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -133,6 +138,16 @@ public class VisualizarRelatorio extends javax.swing.JFrame {
             }
         });
 
+        jButtonListarAnual.setBackground(new java.awt.Color(254, 173, 0));
+        jButtonListarAnual.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jButtonListarAnual.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonListarAnual.setText("LISTAR ANUAL");
+        jButtonListarAnual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonListarAnualActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -145,48 +160,56 @@ public class VisualizarRelatorio extends javax.swing.JFrame {
                 .addGap(38, 38, 38)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldId, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldMesDesejado, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 377, Short.MAX_VALUE)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonListar, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(114, 114, 114))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldId, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldMesDesejado, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 158, Short.MAX_VALUE)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonListar, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonListarAnual, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(114, 114, 114))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(59, 59, 59)
-                        .addComponent(jTextFieldId, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addGap(59, 59, 59)
+                                .addComponent(jTextFieldId, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addGap(58, 58, 58)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(54, 54, 54)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButtonGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addContainerGap(23, Short.MAX_VALUE)
+                        .addComponent(jButtonGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonListar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonListar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldMesDesejado, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldMesDesejado, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                        .addComponent(jButtonListarAnual, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(63, 63, 63))
         );
@@ -246,6 +269,34 @@ public class VisualizarRelatorio extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldMesDesejadoActionPerformed
 
+    private void jButtonListarAnualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonListarAnualActionPerformed
+        try {
+            TipoDeGastosDao tgastoDao = new TipoDeGastosDao();
+            GastosDao gDao = new GastosDao();
+            ArrayList<Gastos> colgate = gDao.listarGastosPorTipo(jTextFieldDescricao.getText());
+            int tipoGastoID = tgastoDao.encontrarIdTipoDeGastoPorDescricao(jTextFieldDescricao.getText());
+            if (tipoGastoID >= 0) {
+                ArrayList<AnoSomaGastos> somaAnual = GastosUtils.somarGastosPorAno(colgate, tgastoDao.getTipoDeGastosById(tipoGastoID));
+                Stack<AnoSomaGastos> pilhaAnoSomaGastos = new Stack<>();
+                for (AnoSomaGastos anoSomaGastos : somaAnual) {
+                    int ano = anoSomaGastos.getAno();
+                    double soma = anoSomaGastos.getSoma();
+                        
+                    pilhaAnoSomaGastos.push(new AnoSomaGastos(ano, soma));
+                }
+                    
+                SetarGastosNumaTable exibGasto = new SetarGastosNumaTable();
+                exibGasto.exibirGastosEmTableAnual(pilhaAnoSomaGastos, jTableRelatorio);
+            } else {
+                System.out.println("deu ruim");
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(VisualizarRelatorio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
+    }//GEN-LAST:event_jButtonListarAnualActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -286,6 +337,7 @@ public class VisualizarRelatorio extends javax.swing.JFrame {
     private javax.swing.JLabel UI_1;
     private javax.swing.JButton jButtonGrafico;
     private javax.swing.JButton jButtonListar;
+    private javax.swing.JButton jButtonListarAnual;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

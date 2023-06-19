@@ -4,6 +4,7 @@
  */
 package com.tp.ferramentas.graficas;
 
+import com.tp.ferramentas.auxiliar.AnoSomaGastos;
 import com.tp.modelos.subClasses.Gastos;
 
 import javax.swing.JTable;
@@ -29,4 +30,20 @@ public class SetarGastosNumaTable {
             model.addRow(rowData);
         }
     }
+    public void exibirGastosEmTableAnual(Stack<AnoSomaGastos> listaAnoSomaGastos, JTable table) {
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model.setRowCount(0); // Limpa a tabela
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+        for (AnoSomaGastos anoSomaGastos : listaAnoSomaGastos) {
+            int ano = anoSomaGastos.getAno();
+            double soma = anoSomaGastos.getSoma();
+
+            Object[] rowData = {ano, soma};
+            model.addRow(rowData);
+        }
+    }
+
+
 }
