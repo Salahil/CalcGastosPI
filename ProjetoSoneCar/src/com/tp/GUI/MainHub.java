@@ -41,6 +41,7 @@ public class MainHub extends javax.swing.JFrame {
         jButtonCadastrarGastos = new javax.swing.JButton();
         jButtonInserirGastos = new javax.swing.JButton();
         jButtonCadastrarProprietario = new javax.swing.JButton();
+        jButtonInserirGastos1 = new javax.swing.JButton();
         Background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -50,7 +51,7 @@ public class MainHub extends javax.swing.JFrame {
         UI_1.setForeground(new java.awt.Color(254, 173, 0));
         UI_1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         UI_1.setText("MENU PRINCIPAL");
-        getContentPane().add(UI_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1920, 80));
+        getContentPane().add(UI_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1370, 50));
 
         jPanel7.setBackground(new java.awt.Color(40, 40, 40));
 
@@ -97,7 +98,7 @@ public class MainHub extends javax.swing.JFrame {
         jButtonInserirGastos.setBackground(new java.awt.Color(254, 173, 0));
         jButtonInserirGastos.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jButtonInserirGastos.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonInserirGastos.setText("INSERIR GASTOS");
+        jButtonInserirGastos.setText("RELATORIO");
         jButtonInserirGastos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonInserirGastosActionPerformed(evt);
@@ -114,6 +115,16 @@ public class MainHub extends javax.swing.JFrame {
             }
         });
 
+        jButtonInserirGastos1.setBackground(new java.awt.Color(254, 173, 0));
+        jButtonInserirGastos1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jButtonInserirGastos1.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonInserirGastos1.setText("INSERIR GASTOS");
+        jButtonInserirGastos1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonInserirGastos1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -126,33 +137,36 @@ public class MainHub extends javax.swing.JFrame {
                     .addComponent(jButtonCadastrarModelo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonCadastrarMarca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonCadastrarGastos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonInserirGastos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButtonInserirGastos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonInserirGastos1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addContainerGap(28, Short.MAX_VALUE)
                 .addComponent(jButtonCadastrarProprietario, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButtonCadastrarVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButtonCadastrarModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addGap(18, 18, 18)
                 .addComponent(jButtonCadastrarMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addGap(18, 18, 18)
                 .addComponent(jButtonCadastrarGastos, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonInserirGastos1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jButtonInserirGastos, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18))
+                .addContainerGap())
         );
 
-        getContentPane().add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 100, 520, 540));
+        getContentPane().add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 70, 520, 550));
 
         Background.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         Background.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tp/icones/LogoSoneCar3.png"))); // NOI18N
-        getContentPane().add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 1080));
+        Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tp/icones/BG2.png"))); // NOI18N
+        getContentPane().add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 760));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -172,13 +186,23 @@ public class MainHub extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCadastrarProprietarioActionPerformed
 
     private void jButtonInserirGastosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInserirGastosActionPerformed
-
+try {
+            new VisualizarRelatorio().setVisible(true);
+        } catch (Exception ex) {
+            Logger.getLogger(MainHub.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.hide();
        
     // TODO add your handling code here:
     }//GEN-LAST:event_jButtonInserirGastosActionPerformed
 
     private void jButtonCadastrarGastosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarGastosActionPerformed
-             // TODO add your handling code here:
+try {
+            new CadTipoDeGasto().setVisible(true);
+        } catch (Exception ex) {
+            Logger.getLogger(MainHub.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.hide();             // TODO add your handling code here:
     }//GEN-LAST:event_jButtonCadastrarGastosActionPerformed
 
     private void jButtonCadastrarMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarMarcaActionPerformed
@@ -198,6 +222,10 @@ public class MainHub extends javax.swing.JFrame {
         }
         this.hide();        // TODO add your handling code here:
     }//GEN-LAST:event_jButtonCadastrarVeiculoActionPerformed
+
+    private void jButtonInserirGastos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInserirGastos1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonInserirGastos1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -243,6 +271,7 @@ public class MainHub extends javax.swing.JFrame {
     private javax.swing.JButton jButtonCadastrarProprietario;
     private javax.swing.JButton jButtonCadastrarVeiculo;
     private javax.swing.JButton jButtonInserirGastos;
+    private javax.swing.JButton jButtonInserirGastos1;
     private javax.swing.JPanel jPanel7;
     // End of variables declaration//GEN-END:variables
 }

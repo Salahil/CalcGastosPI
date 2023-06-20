@@ -43,6 +43,7 @@ public class CadProprietario extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButtonReturn = new javax.swing.JButton();
         UI_1 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jButtonIncluir = new javax.swing.JButton();
@@ -74,11 +75,22 @@ public class CadProprietario extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jButtonReturn.setBackground(new java.awt.Color(254, 173, 0));
+        jButtonReturn.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jButtonReturn.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonReturn.setText("X");
+        jButtonReturn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonReturnActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonReturn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1290, 0, 70, -1));
+
         UI_1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         UI_1.setForeground(new java.awt.Color(254, 173, 0));
         UI_1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         UI_1.setText("CADASTRO DE PROPRIETARIO");
-        getContentPane().add(UI_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-290, 0, 1920, 80));
+        getContentPane().add(UI_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1360, 60));
 
         jPanel8.setBackground(new java.awt.Color(40, 40, 40));
 
@@ -123,7 +135,7 @@ public class CadProprietario extends javax.swing.JFrame {
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                .addGap(0, 22, Short.MAX_VALUE)
+                .addGap(0, 42, Short.MAX_VALUE)
                 .addComponent(jButtonIncluir)
                 .addGap(30, 30, 30)
                 .addComponent(jButtonAlterar)
@@ -133,7 +145,7 @@ public class CadProprietario extends javax.swing.JFrame {
                 .addComponent(jButtonBuscar))
         );
 
-        getContentPane().add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 150, 320, 260));
+        getContentPane().add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 130, 320, 260));
 
         jTableCadastroDeProprietario.setBackground(new java.awt.Color(40, 40, 40));
         jTableCadastroDeProprietario.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -150,7 +162,7 @@ public class CadProprietario extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTableCadastroDeProprietario);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 450, 1230, 270));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, 1340, 270));
 
         jPanel9.setBackground(new java.awt.Color(40, 40, 40));
 
@@ -301,8 +313,8 @@ public class CadProprietario extends javax.swing.JFrame {
 
         Background.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         Background.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tp/icones/LogoSoneCar3.png"))); // NOI18N
-        getContentPane().add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 1080));
+        Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tp/icones/BG2.png"))); // NOI18N
+        getContentPane().add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 770));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -330,9 +342,6 @@ public class CadProprietario extends javax.swing.JFrame {
     IProprietarioDao proprietarioBD = new ProprietarioDao();
     
    
-    //String categoriaSelecionada = (String) jComboBoxCategoria.getSelectedItem();
-//    CategoriaDeCarro categoria = BuscarEnumFromString.fromString(CategoriaDeCarro.class, categoriaSelecionada);
-//
     atualizarGrid(proprietarioBD.listaProprietario());
     Proprietario p = new Proprietario(cpf, nome, telefone1, telefone2, email1, email2, cnh, categoria);
     proprietarioBD.createProprietario(p);
@@ -346,6 +355,11 @@ public class CadProprietario extends javax.swing.JFrame {
     private void jTextFieldCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCPFActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldCPFActionPerformed
+
+    private void jButtonReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReturnActionPerformed
+        new MainHub().setVisible(true);
+        this.hide();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonReturnActionPerformed
 
     private  void limparTela(){
     jTextFieldCPF.setText("");
@@ -426,6 +440,7 @@ public class CadProprietario extends javax.swing.JFrame {
     private javax.swing.JButton jButtonBuscar;
     private javax.swing.JButton jButtonExcluir;
     private javax.swing.JButton jButtonIncluir;
+    private javax.swing.JButton jButtonReturn;
     private javax.swing.JComboBox<String> jComboBoxCNHCategoria;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

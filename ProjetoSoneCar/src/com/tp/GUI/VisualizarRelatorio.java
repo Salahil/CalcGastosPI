@@ -41,51 +41,43 @@ public class VisualizarRelatorio extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButtonReturn = new javax.swing.JButton();
         UI_1 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
-        jButtonGrafico = new javax.swing.JButton();
-        jButtonListar = new javax.swing.JButton();
         jTextFieldId = new javax.swing.JTextField();
         jTextFieldDescricao = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTableRelatorio = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         jTextFieldMesDesejado = new javax.swing.JTextField();
+        jButtonGrafico = new javax.swing.JButton();
+        jButtonListar = new javax.swing.JButton();
         jButtonListarAnual = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableRelatorio = new javax.swing.JTable();
         Background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jButtonReturn.setBackground(new java.awt.Color(254, 173, 0));
+        jButtonReturn.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jButtonReturn.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonReturn.setText("X");
+        jButtonReturn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonReturnActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonReturn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1290, 0, 70, -1));
+
         UI_1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         UI_1.setForeground(new java.awt.Color(254, 173, 0));
         UI_1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         UI_1.setText("RELATÓRIO");
-        getContentPane().add(UI_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-250, 0, 1920, 80));
+        getContentPane().add(UI_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1360, 60));
 
         jPanel7.setBackground(new java.awt.Color(40, 40, 40));
-
-        jButtonGrafico.setBackground(new java.awt.Color(254, 173, 0));
-        jButtonGrafico.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jButtonGrafico.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonGrafico.setText("GRAFICO");
-        jButtonGrafico.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonGraficoActionPerformed(evt);
-            }
-        });
-
-        jButtonListar.setBackground(new java.awt.Color(254, 173, 0));
-        jButtonListar.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jButtonListar.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonListar.setText("LISTAR");
-        jButtonListar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonListarActionPerformed(evt);
-            }
-        });
 
         jTextFieldId.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jTextFieldId.addActionListener(new java.awt.event.ActionListener() {
@@ -111,21 +103,6 @@ public class VisualizarRelatorio extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("DESCRIÇÃO:");
 
-        jTableRelatorio.setBackground(new java.awt.Color(0, 0, 0));
-        jTableRelatorio.setForeground(new java.awt.Color(255, 255, 255));
-        jTableRelatorio.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Data", "Valor"
-            }
-        ));
-        jScrollPane1.setViewportView(jTableRelatorio);
-
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -138,24 +115,10 @@ public class VisualizarRelatorio extends javax.swing.JFrame {
             }
         });
 
-        jButtonListarAnual.setBackground(new java.awt.Color(254, 173, 0));
-        jButtonListarAnual.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jButtonListarAnual.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonListarAnual.setText("LISTAR ANUAL");
-        jButtonListarAnual.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonListarAnualActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGap(38, 38, 38)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -171,55 +134,82 @@ public class VisualizarRelatorio extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
                         .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 158, Short.MAX_VALUE)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonListar, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonListarAnual, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(114, 114, 114))
+                .addGap(114, 244, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jTextFieldId, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addGap(59, 59, 59)
-                                .addComponent(jTextFieldId, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addGap(58, 58, 58)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addContainerGap(23, Short.MAX_VALUE)
-                        .addComponent(jButtonGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonListar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldMesDesejado, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-                        .addComponent(jButtonListarAnual, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)))
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(63, 63, 63))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldMesDesejado, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 1370, 680));
+        getContentPane().add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 940, 210));
+
+        jButtonGrafico.setBackground(new java.awt.Color(254, 173, 0));
+        jButtonGrafico.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jButtonGrafico.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonGrafico.setText("GRAFICO");
+        jButtonGrafico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGraficoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonGrafico, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 130, 402, 60));
+
+        jButtonListar.setBackground(new java.awt.Color(254, 173, 0));
+        jButtonListar.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jButtonListar.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonListar.setText("LISTAR");
+        jButtonListar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonListarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonListar, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 200, 402, 60));
+
+        jButtonListarAnual.setBackground(new java.awt.Color(254, 173, 0));
+        jButtonListarAnual.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jButtonListarAnual.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonListarAnual.setText("LISTAR ANUAL");
+        jButtonListarAnual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonListarAnualActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonListarAnual, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 270, 402, 60));
+
+        jTableRelatorio.setBackground(new java.awt.Color(0, 0, 0));
+        jTableRelatorio.setForeground(new java.awt.Color(255, 255, 255));
+        jTableRelatorio.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Data", "Valor"
+            }
+        ));
+        jScrollPane1.setViewportView(jTableRelatorio);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, 1340, 364));
 
         Background.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         Background.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tp/icones/LogoSoneCar3.png"))); // NOI18N
-        getContentPane().add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 1080));
+        Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tp/icones/BG2.png"))); // NOI18N
+        getContentPane().add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 770));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -278,11 +268,14 @@ public class VisualizarRelatorio extends javax.swing.JFrame {
             if (tipoGastoID >= 0) {
                 ArrayList<AnoSomaGastos> somaAnual = GastosUtils.somarGastosPorAno(colgate, tgastoDao.getTipoDeGastosById(tipoGastoID));
                 Stack<AnoSomaGastos> pilhaAnoSomaGastos = new Stack<>();
+                System.out.println(somaAnual);
                 for (AnoSomaGastos anoSomaGastos : somaAnual) {
                     int ano = anoSomaGastos.getAno();
                     double soma = anoSomaGastos.getSoma();
                         
                     pilhaAnoSomaGastos.push(new AnoSomaGastos(ano, soma));
+                                System.out.println(pilhaAnoSomaGastos+"\n "+ano+"   "+soma);
+
                 }
                     
                 SetarGastosNumaTable exibGasto = new SetarGastosNumaTable();
@@ -296,6 +289,11 @@ public class VisualizarRelatorio extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_jButtonListarAnualActionPerformed
+
+    private void jButtonReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReturnActionPerformed
+        new MainHub().setVisible(true);
+        this.hide();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonReturnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -338,6 +336,7 @@ public class VisualizarRelatorio extends javax.swing.JFrame {
     private javax.swing.JButton jButtonGrafico;
     private javax.swing.JButton jButtonListar;
     private javax.swing.JButton jButtonListarAnual;
+    private javax.swing.JButton jButtonReturn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

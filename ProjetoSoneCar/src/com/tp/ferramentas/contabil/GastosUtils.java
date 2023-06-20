@@ -22,10 +22,11 @@ public class GastosUtils {
 
         // Percorrer a lista de gastos e somar os valores por ano
         for (Gastos gasto : gastosList) {
+            System.out.println("GastoUtil antes if");
             if (gasto.getTipoDeGastos().equals(tipoDeGasto)) {
                 int ano = gasto.getDateDataDeRegistroDeGasto().getYear(); // Obter o ano do gasto
                 double valor = gasto.getValor();
-
+                System.out.println("GastosUtil"+ ano);
                 // Verificar se o ano já existe no mapa
                 if (somaPorAno.containsKey(ano)) {
                     // Se o ano já existe, somar o valor ao valor existente

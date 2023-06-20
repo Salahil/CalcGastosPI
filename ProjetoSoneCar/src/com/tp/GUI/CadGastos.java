@@ -66,6 +66,7 @@ public class CadGastos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButtonReturn = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jTextFieldValor = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -87,6 +88,17 @@ public class CadGastos extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButtonReturn.setBackground(new java.awt.Color(254, 173, 0));
+        jButtonReturn.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jButtonReturn.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonReturn.setText("X");
+        jButtonReturn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonReturnActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonReturn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1290, 0, 70, -1));
 
         jPanel7.setBackground(new java.awt.Color(40, 40, 40));
 
@@ -190,7 +202,7 @@ public class CadGastos extends javax.swing.JFrame {
         UI_1.setForeground(new java.awt.Color(254, 173, 0));
         UI_1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         UI_1.setText("CADASTRO DE GASTO");
-        getContentPane().add(UI_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1390, 80));
+        getContentPane().add(UI_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1370, 60));
 
         jPanel8.setBackground(new java.awt.Color(40, 40, 40));
 
@@ -288,12 +300,12 @@ public class CadGastos extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableTabelaDeGasto);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 510, 1340, 560));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 510, 1340, 250));
 
         Background.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         Background.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tp/icones/LogoSoneCar3.png"))); // NOI18N
-        getContentPane().add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1390, -1));
+        Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tp/icones/BG2.png"))); // NOI18N
+        getContentPane().add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1370, 770));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -463,6 +475,11 @@ try {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldDataActionPerformed
 
+    private void jButtonReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReturnActionPerformed
+        new MainHub().setVisible(true);
+        this.hide();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonReturnActionPerformed
+
   private  void limparTela(){
       jTextFieldId.setText("");
       jTextFieldValor.setText("");
@@ -524,6 +541,7 @@ try {
     private javax.swing.JButton jButtonExcluir;
     private javax.swing.JButton jButtonIncluir;
     private javax.swing.JButton jButtonListar;
+    private javax.swing.JButton jButtonReturn;
     private javax.swing.JComboBox<String> jComboBoxGasto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;

@@ -80,14 +80,14 @@ String imagePath = "";
                 jButtonReturnActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonReturn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1280, 10, 70, -1));
-        getContentPane().add(jLabelImagem, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 120, 228, 180));
+        getContentPane().add(jButtonReturn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1290, 0, 70, -1));
+        getContentPane().add(jLabelImagem, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 100, 228, 180));
 
         UI_1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         UI_1.setForeground(new java.awt.Color(254, 173, 0));
         UI_1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         UI_1.setText("CADASTRO DE MODELO");
-        getContentPane().add(UI_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-430, 0, 1920, 80));
+        getContentPane().add(UI_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1370, 60));
 
         jPanel7.setBackground(new java.awt.Color(40, 40, 40));
 
@@ -232,7 +232,7 @@ String imagePath = "";
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 100, 210, 270));
+        getContentPane().add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1140, 100, 210, 270));
 
         jTableCadastroDeModelo.setBackground(new java.awt.Color(40, 40, 40));
         jTableCadastroDeModelo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -249,13 +249,13 @@ String imagePath = "";
         ));
         jScrollPane1.setViewportView(jTableCadastroDeModelo);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, 650, 360));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 1340, 370));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("MODELO");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 80, 330, 50));
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 60, 330, 50));
 
         jButtonBuscarModelo.setBackground(new java.awt.Color(254, 173, 0));
         jButtonBuscarModelo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -266,12 +266,12 @@ String imagePath = "";
                 jButtonBuscarModeloActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonBuscarModelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 310, -1, 40));
+        getContentPane().add(jButtonBuscarModelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 290, -1, 40));
 
         Background.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         Background.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tp/icones/LogoSoneCar3.png"))); // NOI18N
-        getContentPane().add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 1080));
+        Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tp/icones/BG2.png"))); // NOI18N
+        getContentPane().add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 770));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

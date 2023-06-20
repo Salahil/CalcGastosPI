@@ -83,7 +83,7 @@ public class CadMarca extends javax.swing.JFrame {
                 jButtonReturnActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonReturn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 10, 70, -1));
+        getContentPane().add(jButtonReturn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1290, 0, 70, -1));
 
         jTableDadosProjeto.setBackground(new java.awt.Color(40, 40, 40));
         jTableDadosProjeto.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -100,7 +100,7 @@ public class CadMarca extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTableDadosProjeto);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 480, 1290, 230));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 480, 1330, 250));
 
         jPanel8.setBackground(new java.awt.Color(40, 40, 40));
 
@@ -155,7 +155,7 @@ public class CadMarca extends javax.swing.JFrame {
                     .addComponent(jButtonExcluir, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonConsultar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(186, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -169,13 +169,13 @@ public class CadMarca extends javax.swing.JFrame {
                 .addComponent(jButtonConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        getContentPane().add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 130, 420, -1));
+        getContentPane().add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 120, 270, -1));
 
         UI_1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         UI_1.setForeground(new java.awt.Color(254, 173, 0));
         UI_1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         UI_1.setText("CADASTRO DE MARCA");
-        getContentPane().add(UI_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-320, 10, 1920, 80));
+        getContentPane().add(UI_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1360, 60));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 3, 48)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
@@ -274,7 +274,7 @@ public class CadMarca extends javax.swing.JFrame {
 
         Background.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         Background.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tp/icones/LogoSoneCar3.png"))); // NOI18N
+        Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tp/icones/BG2.png"))); // NOI18N
         getContentPane().add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
@@ -308,7 +308,7 @@ public class CadMarca extends javax.swing.JFrame {
     private void jButtonBuscarMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarMarcaActionPerformed
  // TODO add your handling code here:
         try{
-        JFileChooser fc = new JFileChooser("src/main/java/com/tp/ferramentas/imagens");
+        JFileChooser fc = new JFileChooser("C:\\Users\\sergy\\OneDrive\\Documentos\\MeusProjetos\\CalcGastosPI\\ProjetoSoneCar\\src\\com.tp.ferramentas.imagens");
         fc.setDialogTitle("Buscar Imagem");
         fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
         IMarcaDao marcaBD = new MarcaDao();

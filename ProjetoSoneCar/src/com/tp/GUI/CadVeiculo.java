@@ -73,7 +73,9 @@ public class CadVeiculo extends javax.swing.JFrame {
             }
 
             // Preencher combobox de Proprietários
+            // Preencher combobox de Modelos
             ArrayList<Proprietario> listaDeCpf = veiculoBD.listarProprietarios();
+            //System.out.println(listaDeCpf);
             for (Proprietario proprietario : listaDeCpf) {
                 jComboBoxProprietario.addItem(proprietario.getCPF());
             }  
@@ -91,8 +93,10 @@ public class CadVeiculo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabelImagem = new javax.swing.JLabel();
+        jButtonReturn = new javax.swing.JButton();
         jButtonBuscarVeiculo = new javax.swing.JButton();
+        jPanel11 = new javax.swing.JPanel();
+        jLabelImagem = new javax.swing.JLabel();
         UI_1 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -114,6 +118,7 @@ public class CadVeiculo extends javax.swing.JFrame {
         jComboBoxTipoDeCombustivel = new javax.swing.JComboBox<>();
         jComboBoxCategoria = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -121,14 +126,23 @@ public class CadVeiculo extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jComboBoxModelo = new javax.swing.JComboBox<>();
         jTextFieldUrl = new javax.swing.JTextField();
-        jButtonReturn = new javax.swing.JButton();
         Background = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jButtonBuscarMarca = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(jLabelImagem, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 170, 240, 160));
+
+        jButtonReturn.setBackground(new java.awt.Color(254, 173, 0));
+        jButtonReturn.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jButtonReturn.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonReturn.setText("X");
+        jButtonReturn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonReturnActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonReturn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1270, 0, 70, -1));
 
         jButtonBuscarVeiculo.setBackground(new java.awt.Color(254, 173, 0));
         jButtonBuscarVeiculo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -139,13 +153,33 @@ public class CadVeiculo extends javax.swing.JFrame {
                 jButtonBuscarVeiculoActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonBuscarVeiculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 360, 120, 40));
+        getContentPane().add(jButtonBuscarVeiculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 470, 120, 40));
+
+        jPanel11.setBackground(new java.awt.Color(40, 40, 40));
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelImagem, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addComponent(jLabelImagem, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        getContentPane().add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 280, 240, 160));
 
         UI_1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         UI_1.setForeground(new java.awt.Color(254, 173, 0));
         UI_1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         UI_1.setText("CADASTRO DE VEICULO");
-        getContentPane().add(UI_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-440, 0, 1920, 80));
+        getContentPane().add(UI_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1340, 60));
 
         jPanel7.setBackground(new java.awt.Color(40, 40, 40));
 
@@ -248,7 +282,7 @@ public class CadVeiculo extends javax.swing.JFrame {
                 .addGap(16, 16, 16))
         );
 
-        getContentPane().add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 120, 210, 350));
+        getContentPane().add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 110, 210, 350));
 
         jTableVeiculo.setBackground(new java.awt.Color(40, 40, 40));
         jTableVeiculo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -356,7 +390,13 @@ public class CadVeiculo extends javax.swing.JFrame {
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel11.setText("VEICULO");
-        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 720, 50));
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 220, 240, 50));
+
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 3, 48)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setText("VEICULO");
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 720, 50));
 
         jPanel10.setBackground(new java.awt.Color(40, 40, 40));
 
@@ -436,21 +476,10 @@ public class CadVeiculo extends javax.swing.JFrame {
 
         getContentPane().add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 180, 420, 130));
 
-        jButtonReturn.setBackground(new java.awt.Color(254, 173, 0));
-        jButtonReturn.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jButtonReturn.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonReturn.setText("X");
-        jButtonReturn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonReturnActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButtonReturn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1840, 10, 70, -1));
-
         Background.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         Background.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tp/icones/LogoSoneCar3.png"))); // NOI18N
-        getContentPane().add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 1080));
+        Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tp/icones/BG2.png"))); // NOI18N
+        getContentPane().add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 0, -1, 770));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 3, 48)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
@@ -608,7 +637,7 @@ public class CadVeiculo extends javax.swing.JFrame {
     private void jButtonBuscarVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarVeiculoActionPerformed
         // TODO add your handling code here:
         try{
-            JFileChooser fc = new JFileChooser(".\\src\\com\\tp\\ferramentas\\imagens");
+            JFileChooser fc = new JFileChooser("C:\\Users\\sergy\\OneDrive\\Documentos\\MeusProjetos\\CalcGastosPI\\ProjetoSoneCar\\src\\com.tp.ferramentas.imagens");
             fc.setDialogTitle("Buscar Imagem");
             fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
             IVeiculoDao veiculoBD = new VeiculoDao();
@@ -754,6 +783,7 @@ int column){
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -763,6 +793,7 @@ int column){
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabelImagem;
     private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
